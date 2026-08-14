@@ -21,6 +21,9 @@ export default function N8nPage() {
       reachable: boolean;
       authorized: boolean;
       detail: string;
+      serverName?: string;
+      tools: string[];
+      toolCount: number;
     };
     automations: Automation[];
     agents: Agent[];
@@ -68,13 +71,13 @@ export default function N8nPage() {
           </div>
           <div className="display mt-2 text-xl font-extrabold">
             {data.mcp.authorized
-              ? "Authorized"
+              ? "Connected"
               : data.mcp.reachable
                 ? "Auth required"
                 : "Unreachable"}
           </div>
           <p className="mt-2 break-all text-xs text-[var(--muted)]">
-            {data.mcp.url}
+            {data.mcp.serverName} · {data.mcp.toolCount} tools
           </p>
           <p className="mt-1 text-xs text-[var(--ink-dim)]">{data.mcp.detail}</p>
         </div>
@@ -104,6 +107,19 @@ export default function N8nPage() {
           </div>
         </div>
       </section>
+
+      {data.mcp.authorized && data.mcp.tools.length > 0 && (
+        <section className="panel rise rounded-2xl p-5">
+          <h2 className="display mb-3 text-lg font-bold">MCP tools Pacman can call</h2>
+          <div className="flex flex-wrap gap-2">
+            {data.mcp.tools.map((tool) => (
+              <span key={tool} className="pill bg-white/5 text-[var(--ink-dim)]">
+                {tool}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="rise flex flex-wrap gap-2">
         {KINDS.map((k) => (

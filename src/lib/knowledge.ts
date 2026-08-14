@@ -305,7 +305,7 @@ Approve → Implementing → Pacman Review → Done.
 Instance: https://feelingyachty.app.n8n.cloud
 MCP: https://feelingyachty.app.n8n.cloud/mcp-server/http
 
-The MCP URL answers, but it requires an Authorization header. Until a bearer token is in the environment, Pacman can list and watch workflows via the n8n API, not call MCP tools.
+MCP is authorized. This is the official n8n MCP Server (workflow SDK + instance tools): search/execute/publish workflows, inspect executions, list credentials, validate and create workflows from code. Token lives in env as N8N_MCP_TOKEN, never in git.
 
 ## Agents that live in n8n
 

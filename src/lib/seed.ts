@@ -346,7 +346,7 @@ export const seedStore: StoreData = {
       agentId: "pacman",
       kind: "onboard",
       title: "Connected Feeling Yachty n8n",
-      body: "MCP URL live. 45 workflows indexed. Sales, Support, Omni, Blogger onboarded with approval gates. MCP tools still need a bearer token.",
+      body: "MCP authorized. Official n8n MCP Server (34 tools). Sales, Support, Omni, Blogger onboarded with approval gates.",
     },
   ],
   knowledge: [],
