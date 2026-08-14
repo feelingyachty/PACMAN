@@ -1,0 +1,45 @@
+name: Weekly platform docs refresh
+
+on:
+  schedule:
+    # Mondays 14:00 UTC = 09:00 America/Bogota
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+jobs:
+  refresh-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Firecrawl CLI
+        run: |
+          mkdir -p "$HOME/.npm-global"
+          npm config set prefix "$HOME/.npm-global"
+          echo "$HOME/.npm-global/bin" >> "$GITHUB_PATH"
+          npm install -g firecrawl-cli
+
+      - name: Refresh WordPress, Elementor, GHL docs
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: |
+          chmod +x scripts/weekly-docs-update.sh
+          scripts/weekly-docs-update.sh
+
+      - name: Commit updates if any
+        run: |
+          git config user.name "pacman-docs-bot"
+          git config user.email "payments@feelingyachty.com"
+          git add docs/wordpress/official docs/elementor/official docs/ghl/official docs/ops/CHANGELOG_UPDATES.md || true
+          if git diff --staged --quiet; then
+            echo "No documentation changes."
+          else
+            git commit -m "chore(docs): Monday WordPress/Elementor/GHL docs refresh"
+            git push
+          fi

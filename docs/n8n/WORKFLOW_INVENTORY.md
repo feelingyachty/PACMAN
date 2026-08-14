@@ -7,9 +7,9 @@ Documented from live workflow structure (n8n MCP). Do not commit secrets or cred
 
 | Status | Count |
 |--------|------:|
-| Active | 33 |
+| Active | 34 |
 | Inactive | 5 |
-| **Total** | **38** |
+| **Total** | **39** |
 
 ---
 

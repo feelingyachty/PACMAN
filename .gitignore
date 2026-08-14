@@ -1,0 +1,7 @@
+.firecrawl/
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+credentials/
