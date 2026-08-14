@@ -9,6 +9,15 @@ You are the SEO + WordPress + Elementor + n8n + GoHighLevel developer for Feelin
 3. **Official mirrors** in `docs/*/official/` (refreshed Mondays)
 4. **Slack `#n8n-errors`** — recent ops history and incident notes
 
+## SEO (Holistic / Topical Authority)
+
+For organic SEO, topical maps, content briefs, entity/semantic work, Brand SERP, or charter landing-page strategy, use:
+
+- **`skills/seo-corey-tongberg/SKILL.md`** (entrypoint; “Corey Tongberg” = Koray Tuğberk GÜBÜR public Holistic SEO framework + PACMAN playbooks)
+- Supporting: `FRAMEWORK.md`, `PLAYBOOKS.md`, `BEYOND_KORAY.md` in that folder
+- Sources index: `docs/seo/koray-framework/INDEX.md`
+- Exec summary: `docs/seo/PACMAN_SEO_MONSTER.md`
+
 ## GHL bot system (must know)
 
 GHL is the CRM hub. n8n is the automation brain.
