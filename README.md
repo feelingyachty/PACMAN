@@ -46,3 +46,23 @@ Open http://localhost:3000
 | GET/POST | `/api/logs` | Work log |
 
 Data lives in `data/store.json` (reseeded when the store version changes).
+
+## n8n MCP
+
+Official Feeling Yachty n8n MCP server (do not put the bearer token in git):
+
+```json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "type": "http",
+      "url": "https://feelingyachty.app.n8n.cloud/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer ${env:N8N_MCP_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+Set `N8N_MCP_TOKEN` in the environment. Pacman probes the same URL from `/n8n`.

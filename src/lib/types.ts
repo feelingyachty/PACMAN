@@ -171,3 +171,4 @@ export const STORE_VERSION = 4;
 
 export const N8N_BASE = "https://feelingyachty.app.n8n.cloud";
 export const N8N_MCP_URL = `${N8N_BASE}/mcp-server/http`;
+export const N8N_MCP_SERVER_NAME = "n8n-mcp";
