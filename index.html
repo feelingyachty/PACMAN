@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pac-Man</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <h1>PAC-MAN</h1>
+      <div class="hud">
+        <span>Score: <b id="score">0</b></span>
+        <span>Lives: <b id="lives">3</b></span>
+      </div>
+      <canvas id="game" width="448" height="496"></canvas>
+      <p id="status" class="status">Use the arrow keys to move. Eat all the dots!</p>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
