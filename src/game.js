@@ -47,10 +47,15 @@ export class Game {
 
     this.pac = this.makeEntity(spawns.pac, "left", 7);
     const colors = ["#ff0000", "#ffb8ff", "#00ffff", "#ffb852"];
+    // Exit columns line up with the vertical corridors above the ghost house
+    // so ghosts can navigate out into the maze before they start chasing.
+    const exitCols = [12, 15];
     this.ghosts = spawns.ghosts.map((s, i) =>
       Object.assign(this.makeEntity(s, "up", 6), {
         color: colors[i % colors.length],
         home: { ...s },
+        state: "exit",
+        exit: { c: exitCols[i % exitCols.length], r: 9 },
       }),
     );
 
@@ -169,6 +174,12 @@ export class Game {
   }
 
   chooseGhostDir(g, frightened) {
+    // Ghosts start trapped in the house; steer them to a fixed exit tile in
+    // the maze above before they begin chasing Pac-Man.
+    if (g.state === "exit") {
+      if (g.r <= 10) g.state = "chase";
+    }
+
     const opts = Object.keys(DIRS).filter((dir) => {
       const d = DIRS[dir];
       const rev = DIRS[g.dir];
@@ -180,19 +191,26 @@ export class Game {
       g.dir = null;
       return;
     }
-    // 25% random wandering, otherwise chase/flee Pac-Man.
-    if (Math.random() < 0.25) {
+
+    const exiting = g.state === "exit";
+    // Random wandering only once a ghost is loose in the maze.
+    if (!exiting && Math.random() < 0.25) {
       g.dir = choices[Math.floor(Math.random() * choices.length)];
       return;
     }
+
+    const target = exiting ? g.exit : this.pac;
+    // While exiting, always seek the exit tile; otherwise chase, or flee when
+    // Pac-Man is powered up.
+    const seekClosest = exiting || !frightened;
     let best = choices[0];
-    let bestScore = frightened ? -Infinity : Infinity;
+    let bestScore = seekClosest ? Infinity : -Infinity;
     for (const dir of choices) {
       const d = DIRS[dir];
       const nc = wrapC(g.c + d.x);
       const nr = g.r + d.y;
-      const dist = Math.hypot(nc - this.pac.c, nr - this.pac.r);
-      if ((frightened && dist > bestScore) || (!frightened && dist < bestScore)) {
+      const dist = Math.hypot(nc - target.c, nr - target.r);
+      if ((seekClosest && dist < bestScore) || (!seekClosest && dist > bestScore)) {
         bestScore = dist;
         best = dir;
       }
