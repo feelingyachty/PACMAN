@@ -291,4 +291,35 @@ Approve → Implementing → Pacman Review → Done.
 - The owner asks
 `,
   },
+  {
+    id: "kb-n8n",
+    title: "Feeling Yachty n8n + MCP",
+    domain: "n8n",
+    summary:
+      "Pacman is connected to feelingyachty.app.n8n.cloud. MCP HTTP endpoint is live and auth-gated. AI workflows are treated as agents.",
+    source: "https://feelingyachty.app.n8n.cloud/mcp-server/http",
+    updatedAt: ts,
+    tags: ["n8n", "mcp", "ghl", "wordpress"],
+    content: `# Feeling Yachty n8n
+
+Instance: https://feelingyachty.app.n8n.cloud
+MCP: https://feelingyachty.app.n8n.cloud/mcp-server/http
+
+The MCP URL answers, but it requires an Authorization header. Until a bearer token is in the environment, Pacman can list and watch workflows via the n8n API, not call MCP tools.
+
+## Agents that live in n8n
+
+- **Sales** — AI Sales Assistant (SMS). Grok + GHL tools + human handover.
+- **Support** — Support Receptionist Bot. Chat qualify / handoff.
+- **Omni** — Omni Inbound AI Router. Missed-call seeds + live-send gate.
+- **Blogger** — WordPress Auto Blogging. Miami + Panama. Production content. Approval required.
+
+## Pacman rules for n8n agents
+
+- Prompt, routing, or publish-mode changes need Approve
+- Blogger posts are production WordPress — Pacman verifies
+- Live SMS send stays behind Omni's Live Send? gate
+- The rest of the instance (Bokun, Woo, GHL chats, docs SMS) is ops automation — watch health, do not "help" unless asked
+`,
+  },
 ];

@@ -61,6 +61,21 @@ export interface Agent {
   stats: AgentStats;
   notes?: string;
   createdAt: string;
+  source?: "pacman" | "n8n";
+  n8nWorkflowId?: string;
+}
+
+export type AutomationKind = "ai-agent" | "ops" | "sync" | "notify" | "content";
+
+export interface Automation {
+  id: string;
+  name: string;
+  active: boolean;
+  archived: boolean;
+  nodeCount: number;
+  kind: AutomationKind;
+  updatedAt: string;
+  editorUrl: string;
 }
 
 export interface ChangeProposal {
@@ -106,7 +121,7 @@ export interface WorkLog {
 export interface KnowledgeDoc {
   id: string;
   title: string;
-  domain: "seo" | "v8r" | "wordpress" | "elementor" | "news" | "ops";
+  domain: "seo" | "v8r" | "wordpress" | "elementor" | "news" | "ops" | "n8n";
   summary: string;
   content: string;
   source?: string;
@@ -149,6 +164,10 @@ export interface StoreData {
   knowledge: KnowledgeDoc[];
   intel: IntelItem[];
   activity: ActivityEvent[];
+  automations: Automation[];
 }
 
-export const STORE_VERSION = 3;
+export const STORE_VERSION = 4;
+
+export const N8N_BASE = "https://feelingyachty.app.n8n.cloud";
+export const N8N_MCP_URL = `${N8N_BASE}/mcp-server/http`;

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useCommand } from "@/components/useCommand";
 import type { KnowledgeDoc } from "@/lib/types";
 
-const DOMAINS = ["all", "seo", "v8r", "wordpress", "elementor", "ops"] as const;
+const DOMAINS = ["all", "seo", "v8r", "wordpress", "elementor", "ops", "n8n"] as const;
 
 function renderMarkdownLite(content: string) {
   return content.split("\n").map((line, i) => {

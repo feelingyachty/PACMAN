@@ -3,6 +3,7 @@ import path from "path";
 import { randomUUID } from "crypto";
 import { seedStore } from "./seed";
 import { knowledgeDocs } from "./knowledge";
+import { n8nAutomations } from "./n8n";
 import { defaultMandate, defaultPlaybook, roleNeedsApproval } from "./playbooks";
 import type {
   ActivityEvent,
@@ -48,7 +49,8 @@ function isCurrentStore(parsed: unknown): parsed is StoreData {
     data.version === STORE_VERSION &&
     Array.isArray(data.agents) &&
     Array.isArray(data.tasks) &&
-    Array.isArray(data.logs)
+    Array.isArray(data.logs) &&
+    Array.isArray(data.automations)
   );
 }
 
@@ -76,6 +78,7 @@ function initialStore(): StoreData {
     ...seedStore,
     version: STORE_VERSION,
     knowledge: knowledgeDocs,
+    automations: n8nAutomations(),
   };
 }
 
