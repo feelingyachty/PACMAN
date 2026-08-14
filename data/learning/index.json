@@ -1,7 +1,25 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T16:00:52.611Z",
+  "updatedAt": "2026-08-14T16:21:18.077Z",
   "entries": [
+    {
+      "id": "learn-pacman-2026-08-10-72f8b059",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T16:21:18.076Z",
+      "title": "feelingyachty.com Koray/Tongberg sitemap audit (1,721 URLs)",
+      "topic": "seo",
+      "url": "https://feelingyachty.com/sitemap_index.xml",
+      "source": "feelingyachty.com live sitemap + page scrapes",
+      "summary": "Audited the live sitemap and money pages. Site is a strong catalog and a weak semantic network: homepage is a Miami H1, Miami hubs cannibalize each other, NAP/review/inclusion facts contradict, Panama money page is the quality template, auto-blog tips are indexed including TEST.",
+      "takeaways": [
+        "Subtraction first: one owner URL per cluster, then 301",
+        "Fix NAP, inclusions, review integers, and listing capacity before new tips",
+        "Panama /panama-yacht-rentals/ is the pattern Miami should copy after the merge"
+      ],
+      "whyItMatters": "Fernando asked Megaman to judge the live site against Cori's framework and deliver a Word audit.",
+      "repoPath": "docs/seo/audits/Feeling-Yachty-SEO-Framework-Audit-2026-08-14.docx"
+    },
     {
       "id": "learn-pacman-2026-08-10-eb854bbc",
       "agentId": "pacman",
