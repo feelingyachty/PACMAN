@@ -1,0 +1,24 @@
+{
+  "generated": "2026-08-14T16:24:46.884774+00:00",
+  "pages": 1721,
+  "issues": 660,
+  "changes": 10,
+  "link_flags": 552,
+  "roles": {
+    "Support": 666,
+    "ES-twin": 860,
+    "Ops-fact-needed": 17,
+    "Prune-noindex": 23,
+    "Needs-rewrite": 33,
+    "Duplicate": 109,
+    "Owner": 4,
+    "Utility-noindex": 5,
+    "Keep-as-is": 4
+  },
+  "priorities": {
+    "P2-Medium": 391,
+    "P1-High": 1284,
+    "P0-Critical": 42,
+    "P3-Low": 4
+  }
+}
