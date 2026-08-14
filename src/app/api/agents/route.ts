@@ -21,9 +21,11 @@ export async function POST(request: Request) {
     role: body.role as AgentRole,
     title: body.title,
     specialty: body.specialty ?? "",
+    mandate: body.mandate,
+    playbook: body.playbook,
     status: (body.status as AgentStatus) ?? "idle",
     avatarColor: body.avatarColor ?? "#5B8C5A",
-    requiresApproval: body.requiresApproval ?? true,
+    requiresApproval: body.requiresApproval,
     knowledgeDomains: body.knowledgeDomains ?? [],
     notes: body.notes,
   });

@@ -1,31 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { IntelItem } from "@/lib/types";
+import { useCommand } from "@/components/useCommand";
 
 export default function IntelPage() {
-  const [items, setItems] = useState<IntelItem[]>([]);
-
-  useEffect(() => {
-    void (async () => {
-      const res = await fetch("/api/store");
-      const store = await res.json();
-      setItems(store.intel);
-    })();
-  }, []);
+  const cmd = useCommand();
+  const items = cmd.store?.intel ?? [];
 
   return (
     <div className="space-y-6">
       <header className="rise">
-        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
-          Always current
+        <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
+          Stay current
         </p>
-        <h1 className="display text-3xl font-extrabold md:text-4xl">
-          Intel feed
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-[var(--ink-soft)]">
-          Latest SEO and developer signals Pacman watches so the fleet stays
-          sharp. Expand with live sources next.
+        <h1 className="display text-3xl font-extrabold md:text-4xl">Intel</h1>
+        <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">
+          SEO and developer signals Pacman watches so the fleet does not work
+          off last year&apos;s assumptions.
         </p>
       </header>
 
@@ -37,7 +27,7 @@ export default function IntelPage() {
             style={{ animationDelay: `${i * 0.05}s` }}
           >
             <div className="flex items-center justify-between gap-2">
-              <span className="pill bg-[var(--sea-soft)] text-[var(--sea)]">
+              <span className="pill bg-[var(--sea-dim)] text-[var(--sea)]">
                 {item.category}
               </span>
               <time className="text-xs text-[var(--muted)]">
@@ -45,7 +35,7 @@ export default function IntelPage() {
               </time>
             </div>
             <h2 className="display mt-3 text-lg font-bold">{item.title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--ink-soft)]">
+            <p className="mt-2 text-sm leading-relaxed text-[var(--ink-dim)]">
               {item.summary}
             </p>
             <p className="mt-3 text-xs font-semibold text-[var(--muted)]">

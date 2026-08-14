@@ -19,6 +19,32 @@ export type AgentRole =
 
 export type AgentStatus = "online" | "busy" | "idle" | "offline";
 
+export type Priority = "low" | "medium" | "high" | "critical";
+
+export type Impact = "low" | "medium" | "high";
+
+export type WorkKind =
+  | "assignment"
+  | "research"
+  | "proposal"
+  | "approval"
+  | "implementation"
+  | "verification"
+  | "note"
+  | "intel"
+  | "onboard";
+
+export interface AgentStats {
+  completed: number;
+  pendingApproval: number;
+  inProgress: number;
+  verifiedByPacman: number;
+  blocked: number;
+  assignedTotal: number;
+  completionRate: number;
+  verificationPassRate: number;
+}
+
 export interface Agent {
   id: string;
   name: string;
@@ -26,25 +52,24 @@ export interface Agent {
   role: AgentRole;
   title: string;
   specialty: string;
+  mandate: string;
+  playbook: string;
   status: AgentStatus;
   avatarColor: string;
   requiresApproval: boolean;
   knowledgeDomains: string[];
-  stats: {
-    completed: number;
-    pendingApproval: number;
-    inProgress: number;
-    verifiedByPacman: number;
-  };
+  stats: AgentStats;
   notes?: string;
+  createdAt: string;
 }
 
 export interface ChangeProposal {
   summary: string;
   targetUrl?: string;
-  impact: "low" | "medium" | "high";
+  impact: Impact;
   details: string;
   proposedActions: string[];
+  evidence?: string[];
 }
 
 export interface Task {
@@ -52,8 +77,9 @@ export interface Task {
   title: string;
   description: string;
   agentId: string;
+  assignedBy: string;
   status: TaskStatus;
-  priority: "low" | "medium" | "high" | "critical";
+  priority: Priority;
   tags: string[];
   createdAt: string;
   updatedAt: string;
@@ -65,6 +91,16 @@ export interface Task {
   approvedAt?: string;
   approvedBy?: string;
   rejectedReason?: string;
+}
+
+export interface WorkLog {
+  id: string;
+  at: string;
+  agentId: string;
+  taskId?: string;
+  kind: WorkKind;
+  title: string;
+  body: string;
 }
 
 export interface KnowledgeDoc {
@@ -98,16 +134,21 @@ export interface ActivityEvent {
     | "rejected"
     | "verified"
     | "agent_added"
-    | "intel";
+    | "intel"
+    | "work_logged";
   message: string;
   taskId?: string;
   agentId?: string;
 }
 
 export interface StoreData {
+  version: number;
   agents: Agent[];
   tasks: Task[];
+  logs: WorkLog[];
   knowledge: KnowledgeDoc[];
   intel: IntelItem[];
   activity: ActivityEvent[];
 }
+
+export const STORE_VERSION = 3;

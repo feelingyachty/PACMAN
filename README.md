@@ -1,49 +1,48 @@
-# PACMAN — MDI Agent Command Center
+# PACMAN — MDI Agent Command
 
-Pacman is the head of the MDI agent fleet. This dashboard is the visual ops board for assigning work, approving change proposals, and verifying implementations.
+Pacman is the head of the MDI agent fleet. This is the command center: Trello-style cards, per-agent progress, one-click approvals, and Pacman verification.
 
-## What it does
+## What Pacman does
 
-- **Kanban board** — Assigned → Working → Needs Approval → Implementing → Pacman Review → Done
-- **One-click approvals** — Agents like **Corey** (semantic SEO / Turberg) submit proposals; you approve before they implement
-- **Verification** — After implementation, Pacman reviews and marks Done or Blocked
-- **Agent roster** — Add specialists (SEO, WordPress, booking, etc.) with optional approval gates
-- **Knowledge database** — Semantic SEO, V8r booking, WordPress, and Elementor ops packs
-- **Intel feed** — SEO + developer signals Pacman tracks
+- Watches every assigned task until it is Done
+- Opens a **progress page** for every new agent (`/agents/{id}`)
+- Turns **approval ON** when that agent can change production
+- Verifies implementations against the approved proposal
+- Keeps Turberg SEO, V8r, WordPress, and Elementor in the database
+- Tracks SEO + developer intel
 
-## Quick start
+## Standing order
+
+When you tell Pacman “this is a new agent”:
+
+1. Roster them
+2. Open their progress page (everything they do + work log)
+3. Wire approval if they can ship production changes
+4. Assign work → they propose if needed → you Approve → they implement → Pacman verifies
+
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open http://localhost:3000
+
+## Seeded fleet
+
+- **Pacman** — manager / verifier
+- **Corey** — Turberg semantic SEO, feeling.com sitemap work, approval gated
 
 ## API
 
 | Method | Path | Purpose |
 |--------|------|---------|
-| GET | `/api/store` | Full dashboard state |
-| POST | `/api/store` | `{ "action": "reset" }` reseeds data |
-| GET/POST | `/api/agents` | List / add agents |
-| GET/POST | `/api/tasks` | List / create tasks |
+| GET | `/api/store` | Full state |
+| POST | `/api/store` | `{ "action": "reset" }` |
+| GET/POST | `/api/agents` | List / onboard |
+| GET/POST | `/api/tasks` | List / assign |
 | PATCH | `/api/tasks/:id` | `approve`, `reject`, `submit_verification`, `verify`, `status` |
+| GET/POST | `/api/logs` | Work log |
 
-Data persists in `data/store.json`.
-
-## Seeded agents
-
-- **Pacman** — manager / verifier
-- **Corey** — semantic SEO specialist (approval required); sample feeling.com proposals on the board
-
-## Standing order (Pacman)
-
-Every time you tell Pacman about a **new agent**:
-
-1. Add them to the roster
-2. Open their dedicated progress page at `/agents/{id}`
-3. Wire **approval gate** if they can change production
-4. Track every task on the board (filter by agent) through Pacman verification
-
-Use **Add agent** on `/agents`, or just tell Pacman in chat — same outcome.
+Data lives in `data/store.json` (reseeded when the store version changes).

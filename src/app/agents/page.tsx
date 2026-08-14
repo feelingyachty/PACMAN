@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
+import { useCommand } from "@/components/useCommand";
 import type { Agent, AgentRole } from "@/lib/types";
 
 const ROLES: AgentRole[] = [
@@ -17,18 +18,9 @@ const ROLES: AgentRole[] = [
 
 export default function AgentsPage() {
   const router = useRouter();
-  const [agents, setAgents] = useState<Agent[]>([]);
+  const cmd = useCommand();
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
-
-  async function load() {
-    const res = await fetch("/api/agents");
-    setAgents(await res.json());
-  }
-
-  useEffect(() => {
-    void load();
-  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -50,13 +42,11 @@ export default function AgentsPage() {
           .map((s) => s.trim())
           .filter(Boolean),
         notes: fd.get("notes"),
-        status: "idle",
       }),
     });
     const agent = (await res.json()) as Agent;
     setSaving(false);
     setOpen(false);
-    // Pacman standing order: land on the new agent's progress page immediately.
     router.push(`/agents/${agent.id}`);
   }
 
@@ -64,37 +54,35 @@ export default function AgentsPage() {
     <div className="space-y-6">
       <header className="rise flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
             Roster
           </p>
-          <h1 className="display text-3xl font-extrabold md:text-4xl">
-            Agents
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm text-[var(--ink-soft)]">
-            Tell Pacman about a new agent and they get a progress page
-            automatically. Approval gates when their work can change production.
+          <h1 className="display text-3xl font-extrabold md:text-4xl">Agents</h1>
+          <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">
+            Tell Pacman a new agent exists. They get a progress page, a work
+            log, and an approval gate if they can change production.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="rounded-xl bg-[var(--ink)] px-4 py-2.5 text-sm font-bold text-[var(--brand)]"
+          className="rounded-xl bg-[var(--brand)] px-4 py-2.5 text-sm font-bold text-[#14160f]"
         >
-          Add agent
+          New agent
         </button>
       </header>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {agents.map((agent, i) => (
+        {(cmd.store?.agents ?? []).map((agent, i) => (
           <Link
             key={agent.id}
             href={`/agents/${agent.id}`}
-            className="panel rise block rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md"
+            className="panel rise block rounded-2xl p-5 transition hover:-translate-y-0.5"
             style={{ animationDelay: `${i * 0.05}s` }}
           >
             <div className="flex items-start gap-3">
               <span
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-lg font-extrabold text-[var(--ink)]"
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-full text-lg font-extrabold text-[#14160f]"
                 style={{ background: agent.avatarColor }}
               >
                 {agent.name.slice(0, 1)}
@@ -102,22 +90,22 @@ export default function AgentsPage() {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h2 className="display text-xl font-bold">{agent.name}</h2>
-                  <span className="pill bg-black/5 text-[var(--muted)]">
+                  <span className="pill bg-white/5 text-[var(--muted)]">
                     {agent.status}
                   </span>
                   {agent.requiresApproval && (
-                    <span className="pill bg-[#f8e6dc] text-[var(--alert)]">
+                    <span className="pill bg-[#3a1c12] text-[var(--alert)]">
                       approval gate
                     </span>
                   )}
                 </div>
-                <p className="mt-0.5 text-sm font-semibold text-[var(--ink-soft)]">
+                <p className="mt-0.5 text-sm font-semibold text-[var(--ink-dim)]">
                   {agent.title}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
                   {agent.specialty}
                 </p>
-                <p className="mt-3 text-xs font-bold text-[var(--sea)]">
+                <p className="mt-3 text-xs font-bold text-[var(--brand)]">
                   Open progress →
                 </p>
               </div>
@@ -127,7 +115,7 @@ export default function AgentsPage() {
                 ["Done", agent.stats.completed],
                 ["Active", agent.stats.inProgress],
                 ["Waiting", agent.stats.pendingApproval],
-                ["Verified", agent.stats.verifiedByPacman],
+                ["Rate", `${agent.stats.completionRate}%`],
               ].map(([label, value]) => (
                 <div key={String(label)}>
                   <div className="display text-xl font-extrabold">{value}</div>
@@ -143,7 +131,7 @@ export default function AgentsPage() {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 grid place-items-center bg-black/35 p-4"
+          className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4"
           onClick={() => setOpen(false)}
         >
           <form
@@ -151,33 +139,14 @@ export default function AgentsPage() {
             onClick={(e) => e.stopPropagation()}
             className="panel rise w-full max-w-lg space-y-3 rounded-3xl p-6"
           >
-            <h2 className="display text-2xl font-extrabold">Add agent</h2>
+            <h2 className="display text-2xl font-extrabold">Onboard agent</h2>
             <p className="text-xs text-[var(--muted)]">
-              Pacman will create their progress page and wire approvals if
-              checked.
+              Pacman will open their progress page and log the onboard.
             </p>
-            <input
-              name="name"
-              required
-              placeholder="Name (e.g. Corey)"
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
-            />
-            <input
-              name="codename"
-              placeholder="Codename"
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
-            />
-            <input
-              name="title"
-              required
-              placeholder="Title"
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
-            />
-            <select
-              name="role"
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
-              defaultValue="seo"
-            >
+            <input name="name" required placeholder="Name" className="field" />
+            <input name="codename" placeholder="Codename" className="field" />
+            <input name="title" required placeholder="Title" className="field" />
+            <select name="role" className="field" defaultValue="seo">
               {ROLES.map((r) => (
                 <option key={r} value={r}>
                   {r}
@@ -188,45 +157,32 @@ export default function AgentsPage() {
               name="specialty"
               placeholder="Specialty"
               rows={2}
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
+              className="field"
             />
             <input
               name="knowledgeDomains"
               placeholder="Knowledge domains (comma-separated)"
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
+              className="field"
             />
             <input
               name="avatarColor"
               type="color"
               defaultValue="#2F6FED"
-              className="h-10 w-full rounded-xl border border-[var(--line)] bg-white"
+              className="field h-10"
             />
-            <textarea
-              name="notes"
-              placeholder="Notes"
-              rows={2}
-              className="w-full rounded-xl border border-[var(--line)] bg-white px-3 py-2"
-            />
+            <textarea name="notes" placeholder="Notes" rows={2} className="field" />
             <label className="flex items-center gap-2 text-sm font-semibold">
-              <input
-                name="requiresApproval"
-                type="checkbox"
-                defaultChecked
-              />
-              Requires approval before implementing changes
+              <input name="requiresApproval" type="checkbox" defaultChecked />
+              Approval gate — they cannot ship production changes without Approve
             </label>
             <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-2 text-sm font-bold"
-              >
+              <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 text-sm font-bold">
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="rounded-xl bg-[var(--ink)] px-4 py-2 text-sm font-bold text-[var(--brand)] disabled:opacity-50"
+                className="rounded-xl bg-[var(--brand)] px-4 py-2 text-sm font-bold text-[#14160f] disabled:opacity-50"
               >
                 {saving ? "Onboarding…" : "Onboard with Pacman"}
               </button>

@@ -1,72 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import type { ActivityEvent, Agent, StoreData, Task } from "@/lib/types";
-import { COLUMNS } from "@/lib/columns";
-import { TaskCard } from "@/components/TaskCard";
+import { useCommand } from "@/components/useCommand";
+import { KanbanBoard } from "@/components/KanbanBoard";
 import { TaskDetailModal } from "@/components/TaskDetailModal";
+import { AssignModal } from "@/components/AssignModal";
 
 export default function AgentProgressPage() {
   const params = useParams<{ id: string }>();
   const agentId = params.id;
+  const cmd = useCommand();
+  const [assignOpen, setAssignOpen] = useState(false);
 
-  const [store, setStore] = useState<StoreData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [selected, setSelected] = useState<Task | null>(null);
-  const [busyId, setBusyId] = useState<string | null>(null);
-
-  const reload = useCallback(async () => {
-    const res = await fetch("/api/store", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load");
-    const data = (await res.json()) as StoreData;
-    setStore(data);
-    if (selected) {
-      setSelected(data.tasks.find((t) => t.id === selected.id) ?? null);
-    }
-  }, [selected]);
-
-  useEffect(() => {
-    void reload().catch((e) =>
-      setError(e instanceof Error ? e.message : "Load failed"),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [agentId]);
-
-  const agent: Agent | undefined = store?.agents.find((a) => a.id === agentId);
-
+  const agent = cmd.store?.agents.find((a) => a.id === agentId);
   const tasks = useMemo(
-    () => store?.tasks.filter((t) => t.agentId === agentId) ?? [],
-    [store, agentId],
+    () => cmd.store?.tasks.filter((t) => t.agentId === agentId) ?? [],
+    [cmd.store, agentId],
+  );
+  const logs = useMemo(
+    () => cmd.store?.logs.filter((l) => l.agentId === agentId || (l.taskId && tasks.some((t) => t.id === l.taskId))) ?? [],
+    [cmd.store, agentId, tasks],
   );
 
-  const activity: ActivityEvent[] = useMemo(
-    () => store?.activity.filter((e) => e.agentId === agentId) ?? [],
-    [store, agentId],
-  );
-
-  async function runAction(taskId: string, body: Record<string, unknown>) {
-    setBusyId(taskId);
-    try {
-      const res = await fetch(`/api/tasks/${taskId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Action failed");
-      }
-      await reload();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Action failed");
-    } finally {
-      setBusyId(null);
-    }
-  }
-
-  if (!store) {
+  if (!cmd.store) {
     return (
       <div className="panel rise rounded-2xl p-10 text-center text-[var(--muted)]">
         Loading agent progress…
@@ -78,10 +36,7 @@ export default function AgentProgressPage() {
     return (
       <div className="panel rise rounded-2xl p-10 text-center">
         <p className="display text-xl font-bold">Agent not found</p>
-        <Link
-          href="/agents"
-          className="mt-3 inline-block text-sm font-semibold text-[var(--sea)] underline"
-        >
+        <Link href="/agents" className="mt-3 inline-block text-sm font-semibold text-[var(--brand)] underline">
           Back to roster
         </Link>
       </div>
@@ -98,64 +53,63 @@ export default function AgentProgressPage() {
         <span className="font-bold">{agent.name}</span>
         <Link
           href={`/?agent=${agent.id}`}
-          className="ml-auto rounded-full bg-black/5 px-3 py-1 text-xs font-bold"
+          className="ml-auto text-xs font-bold text-[var(--brand)] underline"
         >
-          Filter main board
+          Filter command board
         </Link>
       </div>
 
-      <header className="rise overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--ink)] p-6 text-[var(--paper)] md:p-8">
+      <header className="rise overflow-hidden rounded-3xl border border-[var(--line)] bg-[#0c0d09] p-6 md:p-8">
         <div className="flex flex-wrap items-start gap-4">
           <span
-            className="grid h-14 w-14 place-items-center rounded-full text-xl font-extrabold text-[var(--ink)]"
+            className="grid h-14 w-14 place-items-center rounded-full text-xl font-extrabold text-[#14160f]"
             style={{ background: agent.avatarColor }}
           >
             {agent.name.slice(0, 1)}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[rgba(243,240,230,0.55)]">
-              Pacman progress lane · {agent.status}
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
+              Progress lane · {agent.status}
             </p>
-            <h1 className="display text-3xl font-extrabold md:text-4xl">
-              {agent.name}
-            </h1>
-            <p className="mt-1 text-sm font-semibold text-[var(--brand)]">
-              {agent.title}
-            </p>
-            <p className="mt-2 max-w-2xl text-sm text-[rgba(243,240,230,0.75)]">
-              {agent.specialty}
-            </p>
+            <h1 className="display text-3xl font-extrabold md:text-4xl">{agent.name}</h1>
+            <p className="mt-1 text-sm font-semibold text-[var(--brand)]">{agent.title}</p>
+            <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">{agent.mandate}</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {agent.requiresApproval ? (
-                <span className="pill bg-[var(--brand)] text-[var(--ink)]">
-                  Approval gate ON
-                </span>
-              ) : (
-                <span className="pill bg-white/10 text-[var(--paper)]">
-                  No approval gate
-                </span>
-              )}
+              <span
+                className={`pill ${
+                  agent.requiresApproval
+                    ? "bg-[var(--brand)] text-[#14160f]"
+                    : "bg-white/10"
+                }`}
+              >
+                {agent.requiresApproval ? "Approval gate ON" : "No approval gate"}
+              </span>
               {agent.knowledgeDomains.map((d) => (
-                <span key={d} className="pill bg-white/10 text-[var(--paper)]">
+                <span key={d} className="pill bg-white/10">
                   {d}
                 </span>
               ))}
             </div>
           </div>
+          <button
+            type="button"
+            onClick={() => setAssignOpen(true)}
+            className="rounded-xl bg-[var(--brand)] px-4 py-2 text-sm font-bold text-[#14160f]"
+          >
+            Assign work
+          </button>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
           {[
             ["Done", agent.stats.completed],
             ["Active", agent.stats.inProgress],
             ["Needs you", agent.stats.pendingApproval],
             ["Verified", agent.stats.verifiedByPacman],
+            ["Complete", `${agent.stats.completionRate}%`],
           ].map(([label, value]) => (
-            <div
-              key={String(label)}
-              className="rounded-2xl bg-white/5 px-3 py-3"
-            >
+            <div key={String(label)} className="rounded-2xl bg-white/5 px-3 py-3">
               <div className="display text-2xl font-extrabold">{value}</div>
-              <div className="text-[10px] font-semibold uppercase tracking-wide text-[rgba(243,240,230,0.55)]">
+              <div className="text-[10px] font-semibold uppercase tracking-wide text-[var(--muted)]">
                 {label}
               </div>
             </div>
@@ -163,129 +117,85 @@ export default function AgentProgressPage() {
         </div>
       </header>
 
-      {error && (
-        <div className="rounded-xl border border-[var(--alert)]/30 bg-[#f8e6dc] px-4 py-3 text-sm text-[var(--alert)]">
-          {error}
+      {cmd.error && (
+        <div className="rounded-xl bg-[#3a1c12] px-4 py-3 text-sm text-[var(--alert)]">
+          {cmd.error}
         </div>
       )}
 
-      <section className="board-scroll rise overflow-x-auto pb-2">
-        <div className="mb-3 flex items-end justify-between gap-3">
-          <div>
-            <h2 className="display text-xl font-bold">
-              Everything {agent.name} is doing
-            </h2>
-            <p className="text-sm text-[var(--muted)]">
-              Full pipeline for this agent only
-            </p>
-          </div>
-          <span className="pill bg-black/5">{tasks.length} tasks</span>
+      <section className="rise">
+        <div className="mb-3">
+          <h2 className="display text-xl font-bold">Everything {agent.name} is doing</h2>
+          <p className="text-sm text-[var(--muted)]">Their board only</p>
         </div>
-        <div className="flex min-w-max gap-3">
-          {COLUMNS.map((col) => {
-            const colTasks = tasks.filter((t) => t.status === col.id);
-            return (
-              <div
-                key={col.id}
-                className={`flex w-[280px] flex-col rounded-2xl border border-[var(--line)] bg-[rgba(255,252,245,0.55)] p-3 ${
-                  col.id === "needs_approval" && colTasks.length
-                    ? "ring-2 ring-[var(--brand)]"
-                    : ""
-                }`}
-              >
-                <div className="mb-3 flex items-start justify-between px-1">
-                  <h3 className="display text-sm font-bold">{col.label}</h3>
-                  <span className="pill bg-black/5">{colTasks.length}</span>
-                </div>
-                <div className="flex flex-col gap-2.5">
-                  {colTasks.map((task) => (
-                    <TaskCard
-                      key={task.id}
-                      task={task}
-                      agent={agent}
-                      busy={busyId === task.id}
-                      onOpen={() => setSelected(task)}
-                      onApprove={() =>
-                        runAction(task.id, { action: "approve" })
-                      }
-                      onReject={() =>
-                        runAction(task.id, {
-                          action: "reject",
-                          reason: "Needs revision",
-                        })
-                      }
-                    />
-                  ))}
-                  {colTasks.length === 0 && (
-                    <div className="rounded-xl border border-dashed border-[var(--line)] px-3 py-6 text-center text-xs text-[var(--muted)]">
-                      —
-                    </div>
+        <KanbanBoard
+          tasks={tasks}
+          agentsById={cmd.agentsById}
+          busyId={cmd.busyId}
+          onOpen={cmd.setSelected}
+          onApprove={cmd.approve}
+          onReject={cmd.reject}
+        />
+      </section>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <section className="panel rise rounded-2xl p-5">
+          <h2 className="display mb-3 text-lg font-bold">Work log</h2>
+          {logs.length === 0 ? (
+            <p className="text-sm text-[var(--muted)]">Nothing logged yet.</p>
+          ) : (
+            <ul className="space-y-3">
+              {logs.map((log) => (
+                <li key={log.id} className="border-b border-[var(--line)] pb-3 last:border-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-semibold">{log.title}</span>
+                    <span className="pill bg-white/5">{log.kind}</span>
+                  </div>
+                  {log.body && (
+                    <p className="mt-1 whitespace-pre-line text-sm text-[var(--ink-dim)]">
+                      {log.body}
+                    </p>
                   )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="panel rise rounded-2xl p-5">
-        <h2 className="display mb-3 text-lg font-bold">Activity log</h2>
-        {activity.length === 0 ? (
-          <p className="text-sm text-[var(--muted)]">No activity yet.</p>
-        ) : (
-          <ul className="space-y-2">
-            {activity.map((event) => (
-              <li
-                key={event.id}
-                className="flex items-start justify-between gap-4 border-b border-[var(--line)] py-2 text-sm last:border-0"
-              >
-                <span className="text-[var(--ink-soft)]">{event.message}</span>
-                <time className="shrink-0 text-xs text-[var(--muted)]">
-                  {new Date(event.at).toLocaleString()}
-                </time>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      {agent.notes && (
-        <section className="panel rise rounded-2xl p-5 text-sm text-[var(--ink-soft)]">
-          <h2 className="display mb-2 text-lg font-bold text-[var(--ink)]">
-            Pacman notes
-          </h2>
-          {agent.notes}
+                  <time className="mt-1 block text-xs text-[var(--muted)]">
+                    {new Date(log.at).toLocaleString()}
+                  </time>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
+
+        <section className="panel rise rounded-2xl p-5">
+          <h2 className="display mb-3 text-lg font-bold">Playbook</h2>
+          <pre className="whitespace-pre-wrap text-sm leading-relaxed text-[var(--ink-dim)]">
+            {agent.playbook}
+          </pre>
+          {agent.notes && (
+            <p className="mt-4 text-sm text-[var(--muted)]">{agent.notes}</p>
+          )}
+        </section>
+      </div>
+
+      {cmd.selected && (
+        <TaskDetailModal
+          task={cmd.selected}
+          agent={agent}
+          logs={cmd.store.logs}
+          busy={cmd.busyId === cmd.selected.id}
+          onClose={() => cmd.setSelected(null)}
+          onApprove={() => cmd.approve(cmd.selected!.id)}
+          onReject={() => cmd.reject(cmd.selected!.id)}
+          onSubmitVerification={() => cmd.submitVerification(cmd.selected!.id)}
+          onVerify={(ok) => cmd.verify(cmd.selected!.id, ok)}
+        />
       )}
 
-      {selected && (
-        <TaskDetailModal
-          task={selected}
-          agent={agent}
-          busy={busyId === selected.id}
-          onClose={() => setSelected(null)}
-          onApprove={() => runAction(selected.id, { action: "approve" })}
-          onReject={() =>
-            runAction(selected.id, {
-              action: "reject",
-              reason: "Needs revision",
-            })
-          }
-          onSubmitVerification={() =>
-            runAction(selected.id, {
-              action: "submit_verification",
-              implementationNotes: "Agent marked implementation complete.",
-            })
-          }
-          onVerify={(ok) =>
-            runAction(selected.id, {
-              action: "verify",
-              ok,
-              verificationNotes: ok
-                ? "Pacman verified live change matches proposal."
-                : "Verification failed — send back for rework.",
-            })
-          }
+      {assignOpen && (
+        <AssignModal
+          agents={cmd.store.agents}
+          defaultAgentId={agent.id}
+          onClose={() => setAssignOpen(false)}
+          onCreated={() => void cmd.reload()}
         />
       )}
     </div>

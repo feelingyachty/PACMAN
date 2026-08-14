@@ -16,9 +16,9 @@ const body = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "PACMAN — Agent Command Center",
+  title: "PACMAN — MDI Agent Command",
   description:
-    "Monitor MDI AI agents, approve change proposals, and verify implementations.",
+    "Pacman watches every MDI agent: assignments, work logs, approvals, and verification.",
 };
 
 export default function RootLayout({

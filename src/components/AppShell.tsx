@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV = [
-  { href: "/", label: "Board" },
+  { href: "/", label: "Command" },
   { href: "/approvals", label: "Approvals" },
   { href: "/agents", label: "Agents" },
-  { href: "/knowledge", label: "Knowledge" },
+  { href: "/knowledge", label: "Database" },
   { href: "/intel", label: "Intel" },
 ];
 
@@ -16,21 +16,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[rgba(243,240,230,0.82)] backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3 md:px-6">
+      <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[rgba(7,8,6,0.82)] backdrop-blur-md">
+        <div className="mx-auto flex max-w-[1680px] items-center justify-between gap-4 px-4 py-3 md:px-6">
           <Link href="/" className="group flex items-center gap-3">
-            <span className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--brand)] shadow-[0_8px_20px_rgba(245,197,24,0.45)] transition-transform group-hover:scale-105">
-              <span className="display text-lg font-extrabold text-[var(--ink)]">
-                P
-              </span>
-              <span className="absolute -right-0.5 top-1 h-2.5 w-2.5 rounded-full bg-[var(--ink)]" />
+            <span className="relative grid h-10 w-10 place-items-center rounded-full bg-[var(--brand)] shadow-[0_0_24px_rgba(245,197,24,0.45)] transition-transform group-hover:scale-105">
+              <span className="display text-lg font-extrabold text-[#14160f]">P</span>
+              <span className="absolute -right-0.5 top-1 h-2.5 w-2.5 rounded-full bg-[#14160f]" />
             </span>
             <div>
-              <div className="display text-xl font-extrabold leading-none tracking-tight">
+              <div className="display text-xl font-extrabold leading-none text-[var(--brand)]">
                 PACMAN
               </div>
-              <div className="text-xs font-medium text-[var(--muted)]">
-                MDI Agent Command Center
+              <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--muted)]">
+                MDI command
               </div>
             </div>
           </Link>
@@ -47,8 +45,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   href={item.href}
                   className={`rounded-full px-3 py-1.5 text-sm font-semibold transition-colors ${
                     active
-                      ? "bg-[var(--ink)] text-[var(--brand)]"
-                      : "text-[var(--ink-soft)] hover:bg-black/5"
+                      ? "bg-[var(--brand)] text-[#14160f]"
+                      : "text-[var(--ink-dim)] hover:bg-white/5"
                   }`}
                 >
                   {item.label}
@@ -58,7 +56,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
       </header>
-      <main className="mx-auto max-w-[1600px] px-4 py-6 md:px-6 md:py-8">
+      <main className="mx-auto max-w-[1680px] px-4 py-6 md:px-6 md:py-8">
         {children}
       </main>
     </div>

@@ -5,238 +5,290 @@ const ts = new Date().toISOString();
 export const knowledgeDocs: KnowledgeDoc[] = [
   {
     id: "kb-seo-turberg",
-    title: "Semantic SEO Framework (Turberg / Koray Tuğberk Gübür)",
+    title: "Turberg Semantic SEO — Pacman Mastery Pack",
     domain: "seo",
     summary:
-      "Pacman’s mastery pack for Corey’s semantic SEO work — topical maps, entities, attributes, query networks, and SERP-driven coverage.",
-    source: "Internal mastery pack — Koray Tuğberk Gübür semantic SEO methodology",
+      "Koray Tuğberk Gübür semantic SEO as Pacman uses it to brief Corey, judge proposals, and verify live changes.",
+    source: "Internal mastery pack — Koray Tuğberk Gübür / Topical Authority methodology",
     updatedAt: ts,
-    tags: ["turberg", "semantic-seo", "topical-map", "entities", "corey"],
-    content: `# Semantic SEO Framework (Turberg)
+    tags: ["turberg", "koray", "semantic-seo", "topical-map", "corey"],
+    content: `# Turberg Semantic SEO — Pacman Mastery Pack
 
-Corey operates under this framework. Pacman uses it to review proposals and verify implementations.
+Pacman learned this framework from the start and uses it as the scoring rubric for Corey.
 
-## Core principles
-1. **Topics > keywords** — Rank for meaning by covering a topic’s entities and attributes, not by repeating a head term.
-2. **Topical maps** — Hierarchical graph: source context → central entities → attributes → predicates → facts.
-3. **Query networks** — Group queries by shared search intent and entity need; assign one dominant URL per cluster to avoid cannibalization.
-4. **SERP reality** — Extract entities/attributes from ranking documents before writing. Match quality bar, then exceed with unique evidence.
-5. **Historical data** — Prefer durable definitions and consistent entity naming across the site graph.
+This is not keyword SEO. It is **meaning, coverage, and retrieval cost**.
 
-## Pacman review checklist (approve?)
-- [ ] Proposal cites sitemap URLs + affected clusters
-- [ ] No cannibalization of existing money pages
-- [ ] Entity/attribute coverage gaps are specific (not vague “add more content”)
-- [ ] Internal links from supporting docs → money pages are defined
-- [ ] Schema/FAQ only when it matches visible content
-- [ ] Impact rated honestly (low/medium/high)
+## Vocabulary Pacman and Corey share
 
-## Verification checklist (after Corey implements)
-- [ ] Live titles/H1s/meta match approved copy
-- [ ] New URLs indexable (no accidental noindex/canonical loops)
-- [ ] Internal links resolve 200
-- [ ] No duplicate H1 / thin stubs shipped
-- [ ] Structured data validates if proposed
+- **Source context** — the real-world domain the site claims expertise in (e.g. yacht charter / destination experience).
+- **Central entity** — the thing a URL is about. One URL, one central entity.
+- **Attributes** — properties of that entity (location, vessel type, duration, guest count, season).
+- **Predicates / facts** — true statements connecting entities (a destination *has* a marina; a charter *includes* a skipper).
+- **Query network** — queries that share the same entity need and intent. One dominant URL per network.
+- **Topical map** — hierarchy from source context → entities → attributes → facts → supporting URLs.
+- **Historical data** — stable definitions and consistent names. Do not rename an entity every brief.
+- **Cost of retrieval** — how hard it is for a search engine (or a guest) to get a complete answer from this URL and its neighbors.
+- **Information fluency** — the page reads like someone who lives in the domain, not someone stuffing terms.
 
-## feeling.com operating mode
-1. Ingest sitemap
-2. Map URLs → entities
-3. Diff vs competitor SERP entity coverage
-4. Submit change proposal for owner approval
-5. On approve → implement
-6. Pacman verifies live result
+## How Corey is supposed to work feeling.com
+
+1. Ingest **sitemap.xml**
+2. Map every indexable URL → central entity
+3. Extract entities/attributes from **ranking documents**, not from a keyword tool alone
+4. Diff: what attributes and related entities do winners cover that we do not?
+5. Propose the **smallest** set of pages/edits that close the gap without cannibalizing money URLs
+6. Submit for **owner Approve**
+7. Implement only the approved list
+8. Pacman verifies live
+
+## Proposal rules (Approve?)
+
+Pacman rejects vague briefs. A Corey proposal must include:
+
+- Sitemap or URL list touched
+- Central entity per URL
+- Why this does **not** cannibalize an existing money page
+- Attribute gaps named specifically
+- Internal links from support → money
+- Schema only if the same facts are visible on the page
+- Honest impact (low / medium / high)
+
+## Verification rules (after implement)
+
+- Titles, H1, meta match the approved copy
+- One H1 per view
+- New URLs are indexable (no accidental noindex, no canonical loops)
+- Internal links 200
+- No thin stubs shipped “to fill the map”
+- Structured data validates **and** matches visible text
+
+## What Pacman does not let through
+
+- Keyword-stuffed titles
+- New URLs that steal the same intent as an existing money page
+- FAQ schema with answers that are not on the page
+- “Add more content” with no entity list
+- Slug changes on converting URLs without an explicit owner decision
 `,
   },
   {
     id: "kb-v8r",
-    title: "V8r Booking & Listings Operations",
+    title: "V8r Booking & Listings — Pacman Ops Pack",
     domain: "v8r",
     summary:
-      "Operational knowledge for Pacman when creating or editing V8r booking listings — fields, calendars, media, SEO-facing copy, and change control.",
+      "How Pacman creates and edits V8r booking listings: fields, calendars, media, pricing, policies, and verification.",
     source: "Internal V8r booking operations pack",
     updatedAt: ts,
-    tags: ["v8r", "booking", "listings", "calendars"],
+    tags: ["v8r", "booking", "listings", "calendars", "pricing"],
     content: `# V8r Booking & Listings — Pacman Ops Pack
 
-Pacman owns listing and booking changes. Agents may draft proposals; Pacman implements or verifies.
+Pacman owns production changes to V8r listings and booking. Other agents may draft. Pacman implements or verifies.
 
 ## Listing anatomy
-- **Identity**: title, property type, short pitch, long description
-- **Location**: address/geo, neighborhood narrative, map pin accuracy
-- **Capacity**: guests, beds, bedrooms, bathrooms
-- **Amenities**: structured amenity flags (wifi, parking, kitchen, etc.)
-- **Media**: hero + gallery; alt text for SEO/accessibility
-- **Pricing**: base rate, weekend/seasonal rules, min stay, fees, deposits
-- **Calendar**: blocked dates, external iCal sync, booking window
-- **Policies**: cancellation, house rules, check-in/out
-- **Booking flow**: instant book vs request, extras/add-ons
+
+Every listing Pacman touches is checked against this skeleton:
+
+- **Identity** — title, property/vessel type, short pitch, long description
+- **Location** — address or marina, neighborhood copy, map pin
+- **Capacity** — guests, cabins, berths, bathrooms
+- **Amenities** — structured flags only if they are true (wifi, A/C, skipper, water toys, parking)
+- **Media** — hero first, then gallery; alt text on every image
+- **Pricing** — base rate, weekend/season rules, minimum stay, fees, deposits
+- **Calendar** — blocked dates, external iCal, booking window, turnaround
+- **Policies** — cancellation, house/vessel rules, check-in and check-out
+- **Booking path** — instant book vs request, extras, quote preview
 
 ## Change control
-1. Draft proposal with before/after field list
-2. Owner approval required for price, policy, or public copy changes
-3. Pacman applies change in V8r
-4. Verify: public listing page, calendar, price quote path
+
+1. Snapshot current fields (before)
+2. Write a field-level after list
+3. Owner Approve required for **price, policy, or public copy**
+4. Pacman applies the change in V8r
+5. Verify public listing, calendar, and a sample quote
 
 ## Verification checklist
-- [ ] Public title/description match approved copy
-- [ ] Amenities reflect reality (no false claims)
-- [ ] Calendar blocks correct; no double-book risk
-- [ ] Price quote matches intended rules for sample dates
-- [ ] Gallery order: hero first, no broken images
-- [ ] Booking CTA reachable on mobile
 
-## SEO notes for listings
-- Titles: entity + differentiating attribute (location / vessel / experience)
-- Descriptions: factual attribute coverage; avoid keyword stuffing
-- Unique copy per listing; no boilerplate duplication across fleet
+- Public title and description match the approved copy
+- Amenities are real — no marketing fiction
+- Calendar blocks are correct; no double-book window
+- Sample dates produce the intended price
+- Hero image loads; gallery has no broken slots
+- Booking CTA works on a phone-width viewport
+- Each listing has unique copy — no fleet-wide boilerplate
+
+## SEO on listings
+
+Pacman writes listing titles as **entity + one differentiator** (location, vessel, experience). Descriptions cover attributes as facts. No stuffing. No duplicate paragraphs across the fleet.
 `,
   },
   {
     id: "kb-wordpress",
-    title: "WordPress Expert Operations Pack",
+    title: "WordPress — Pacman Expert Pack",
     domain: "wordpress",
     summary:
-      "Full WordPress ops knowledge for Pacman — posts/pages, themes, plugins, SEO plugins, permalinks, users, media, performance, and safety.",
+      "WordPress as Pacman operates it: objects, settings, roles, permalinks, SEO plugins, safety, and publish discipline.",
     source: "Internal WordPress mastery pack",
     updatedAt: ts,
-    tags: ["wordpress", "cms", "yoast", "permalinks"],
+    tags: ["wordpress", "cms", "permalinks", "roles", "seo-plugin"],
     content: `# WordPress — Pacman Expert Pack
 
-## Mental model
-WordPress = content database + theme presentation + plugins for capabilities.
+WordPress is a content database plus a theme plus plugins. Pacman never treats the editor as the whole system.
 
-## Core objects
-- **Posts** vs **Pages** — posts are chronological; pages are structural
-- **CPTs** — custom post types for listings, testimonials, etc.
-- **Taxonomies** — categories/tags or custom
-- **Media library** — attachments with alt/title/caption
-- **Menus & widgets** — navigation + side regions
-- **Users & roles** — Administrator, Editor, Author, Contributor, Subscriber
+## Objects
 
-## Settings Pacman always checks
-- Settings → Permalinks: post name (SEO-friendly)
-- Reading: homepage display
-- Discussion: comment policy
-- Media: image sizes
-- Privacy / visibility for staging
+- **Posts** — dated, changeable, usually in a feed
+- **Pages** — structural, in the IA
+- **Custom post types** — listings, testimonials, destinations when the theme/plugin defines them
+- **Taxonomies** — categories, tags, or custom
+- **Media** — attachments with alt, title, caption
+- **Menus / widgets** — navigation and side regions
+- **Users** — Administrator, Editor, Author, Contributor, Subscriber
+
+## Settings Pacman always opens
+
+- Settings → Permalinks → Post name
+- Settings → Reading → homepage
+- Settings → Discussion — comments policy
+- Settings → Media — image sizes
+- Visibility / indexing on staging vs production
+- Users → only the roles needed
+
+## SEO plugin layer (Yoast, Rank Math, and equivalents)
+
+- Focus keyphrase is an **entity hint**, not a stuffing target
+- Title and meta must match the approved proposal
+- Canonical must point at the URL we intend to rank
+- Breadcrumbs follow the IA
+- XML sitemap on; thin utility URLs out
+- Noindex thank-you, cart, and account screens
 
 ## Safe change workflow
-1. Staging or draft first
-2. Proposal → owner approve
-3. Implement
-4. Clear caches (plugin + CDN)
-5. Verify front-end + mobile
 
-## SEO plugin layer (Yoast / Rank Math patterns)
-- Focus keyphrase as *entity hint*, not stuffing target
-- Title / meta description match approved proposal
-- Canonical correct
-- Breadcrumbs consistent with IA
-- XML sitemap enabled; exclude thin/utility URLs
+1. Draft or staging first
+2. Proposal → owner Approve if it is public
+3. Publish
+4. Clear page cache, object cache, and CDN
+5. Pacman verifies the front-end, the template, and a phone-width pass
 
-## Performance & safety
-- Prefer caching + image optimization plugins carefully (conflict risk)
-- Never edit theme core; child theme or Elementor/theme builder
-- Keep WP, theme, plugins updated; review changelogs before prod
-- Backups before structural plugin changes
+## Safety
+
+- Child theme or a builder — never edit parent theme core
+- Backup before plugin or PHP changes
+- Update WordPress, theme, and plugins with a changelog read
+- One optimization plugin stack — do not stack three caches
 `,
   },
   {
     id: "kb-elementor",
-    title: "Elementor Complete Settings & Builder Pack",
+    title: "Elementor — Settings, Builder, Verification",
     domain: "elementor",
     summary:
-      "Elementor builder mastery — containers, widgets, site settings, theme builder, responsive controls, and verification steps.",
+      "Elementor the way Pacman verifies it: containers, site settings, theme builder, responsive controls, widgets, and failure modes.",
     source: "Internal Elementor mastery pack",
     updatedAt: ts,
-    tags: ["elementor", "wordpress", "page-builder", "containers"],
+    tags: ["elementor", "containers", "theme-builder", "site-settings"],
     content: `# Elementor — Pacman Expert Pack
 
 ## Architecture
-- **Containers (Flexbox/Grid)** — modern layout primitive (prefer over legacy Sections/Columns)
-- **Widgets** — Heading, Text Editor, Image, Button, Forms, HTML, etc.
-- **Site Settings** — global colors, fonts, theme style
-- **Theme Builder** — header/footer/single/archive templates
-- **Responsive** — desktop / tablet / mobile per-control visibility & sizing
 
-## Site Settings to know cold
-- Global colors & fonts (design tokens)
-- Theme Style: body, H1–H6, button, form fields
+- **Containers (Flexbox / Grid)** — the layout primitive. Prefer these.
+- **Legacy sections / columns** — do not introduce on new work.
+- **Widgets** — Heading, Text, Image, Button, Form, HTML, Loop, etc.
+- **Site Settings** — global colors, fonts, theme style, layout width, breakpoints, lightbox
+- **Theme Builder** — header, footer, single, archive, 404
+- **Responsive** — desktop / tablet / mobile per control, plus hide/show
+
+## Site Settings Pacman knows cold
+
+- Global colors and fonts (tokens, not one-off hex on every widget)
+- Theme Style: body, H1–H6, buttons, form fields
 - Layout: content width, gaps
-- Lightbox, breakpoints
-- Custom CSS ( sparingly; prefer global styles )
+- Breakpoints
+- Custom CSS only when a global style cannot do it
 
-## Editing workflow
-1. Open with Elementor → structure with Containers
-2. Set padding/margin on containers, not random widgets
-3. Use global classes / site settings for consistency
-4. Mobile pass mandatory before submit for verification
-5. Update → clear cache → Pacman verifies
+## Edit discipline
 
-## Common widgets & gotchas
-- **Heading**: one H1 per page view
-- **Button**: link target + UTM only if approved
-- **Image**: compress; set alt text
-- **Forms**: confirm submissions + integrations after publish
-- **HTML/shortcode**: escape conflicts with optimizers
+1. Structure with containers
+2. Padding and margin on containers first
+3. Use globals
+4. Mobile pass before any proposal is called done
+5. Update → cache clear → Pacman verifies
+
+## Widget failure modes
+
+- Heading: more than one H1 on the view
+- Button: wrong destination or unapproved UTM
+- Image: no alt, huge uncompressed file
+- Form: submissions not landing after publish
+- HTML: optimizer strips or breaks it
 
 ## Verification checklist
-- [ ] Structure uses containers (no accidental nested legacy sections)
-- [ ] Typography matches globals
-- [ ] No overlapping elements on tablet/mobile
-- [ ] CTAs link to approved destinations
-- [ ] No layout shift from unloaded fonts/images
-- [ ] Theme Builder templates not overridden unintentionally
+
+- Containers, not accidental nested legacy sections
+- Typography from globals
+- No overlap on tablet or mobile
+- CTAs go where the proposal said
+- Theme Builder template was not silently overridden
+- No layout shift from fonts or hero images
 `,
   },
   {
     id: "kb-ops-pacman",
-    title: "PACMAN Agent Operating System",
+    title: "PACMAN Operating System",
     domain: "ops",
     summary:
-      "How Pacman runs the MDI agent fleet — assignment, approval, implementation, verification, and escalation.",
+      "Standing orders: new-agent intake, approval doctrine, verification, and when Pacman helps.",
     source: "Internal ops doctrine",
     updatedAt: ts,
-    tags: ["pacman", "ops", "approval", "verification"],
+    tags: ["pacman", "ops", "approval", "onboarding"],
     content: `# PACMAN Operating System
 
-## Role
-Pacman is the head of all MDI agents. Pacman:
-- Monitors every assigned task to completion
-- Enforces approval gates for agents that require them (e.g. Corey)
-- Verifies implementations against proposals
-- Stays current on SEO + developer news
-- Helps only when intervention improves outcomes
+Pacman is the head of every MDI agent.
 
-## Standing order — new agent intake (ALWAYS)
-Whenever the owner tells Pacman “this is a new agent”:
-1. **Roster** — Add them to Agents with role, specialty, and notes
-2. **Progress page** — Open \`/agents/{id}\` so the owner can see everything that agent does
-3. **Board filter** — Their cards appear on the main board; filter by their name
-4. **Approval policy** — If their work can change production (SEO, WP, V8r, copy, pricing): turn **approval gate ON**
-5. **Onboarding task** — Seed a first “assignment pending” card so the lane is never empty
-6. **Verify** — After any approved implement, Pacman reviews before Done
+Pacman:
 
-Do this every time. No exceptions. New agent = new progress visibility + approval rules if needed.
+- Watches every assigned task until it is Done or honestly Blocked
+- Builds a **progress page** for every new agent
+- Turns **approval ON** when that agent can change production
+- Verifies implementations against the approved proposal
+- Stays current on SEO and developer news
+- Helps only when helping changes the outcome
 
-## Board columns
-1. **Assigned** — queued
-2. **Working** — agent executing research/draft
-3. **Needs Approval** — proposal ready; owner one-click approve/reject
-4. **Implementing** — approved; agent making the change
-5. **Verifying** — Pacman checks correctness
-6. **Done** — verified complete
-7. **Blocked / Rejected** — needs rework or cancelled
+## Standing order — new agent (ALWAYS)
+
+When the owner says “this is a new agent”:
+
+1. Roster them (name, role, specialty, mandate)
+2. Open \`/agents/{id}\` so the owner can see **everything they do**
+3. Approval gate ON for SEO, WordPress, V8r/booking, and production code
+4. Seed a first assignment card so the lane is never empty
+5. Log the onboard event
+6. From then on: assign → they work → they propose if needed → owner Approves → they implement → Pacman verifies
+
+No exceptions. New agent = new visibility + the right approval rules.
+
+## Board
+
+1. Assigned
+2. Working
+3. Needs Approval
+4. Implementing
+5. Pacman Review
+6. Done
+7. Blocked / Rejected
 
 ## Approval doctrine
-If an agent’s \`requiresApproval === true\`, no production change ships without owner Approve.
-After Approve → Implementing → Verifying (Pacman) → Done.
 
-## Escalation
-Pacman jumps in when:
-- Agent stuck > SLA
+If \`requiresApproval\` is true, nothing public ships without Approve.
+
+Approve → Implementing → Pacman Review → Done.
+
+## When Pacman steps in
+
+- Agent stuck past the point of usefulness
 - Verification fails twice
-- Cross-domain conflict (SEO vs booking vs WP)
+- Two domains collide (SEO vs booking vs WordPress)
+- The owner asks
 `,
   },
 ];

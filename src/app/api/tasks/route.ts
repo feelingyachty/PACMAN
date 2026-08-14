@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { createTask, listTasks } from "@/lib/store";
-import type { TaskStatus } from "@/lib/types";
+import { createTask } from "@/lib/store";
+import { getStore } from "@/lib/store";
+import type { Priority, TaskStatus } from "@/lib/types";
 
 export async function GET() {
-  return NextResponse.json(await listTasks());
+  return NextResponse.json((await getStore()).tasks);
 }
 
 export async function POST(request: Request) {
@@ -19,9 +20,15 @@ export async function POST(request: Request) {
     title: body.title,
     description: body.description ?? "",
     agentId: body.agentId,
+    assignedBy: body.assignedBy ?? "owner",
     status: (body.status as TaskStatus) ?? "assigned",
-    priority: body.priority ?? "medium",
-    tags: body.tags ?? [],
+    priority: (body.priority as Priority) ?? "medium",
+    tags: Array.isArray(body.tags)
+      ? body.tags
+      : String(body.tags || "")
+          .split(",")
+          .map((s: string) => s.trim())
+          .filter(Boolean),
     proposal: body.proposal,
   });
 
