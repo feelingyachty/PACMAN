@@ -14,15 +14,21 @@ import type {
 const DATA_DIR = path.join(process.cwd(), "data");
 const STORE_PATH = path.join(DATA_DIR, "store.json");
 
+function mergeKnowledge(existing: StoreData["knowledge"] = []) {
+  const byId = new Map(existing.map((doc) => [doc.id, doc]));
+  for (const doc of knowledgeDocs) {
+    byId.set(doc.id, doc);
+  }
+  return Array.from(byId.values());
+}
+
 async function ensureStore(): Promise<StoreData> {
   await fs.mkdir(DATA_DIR, { recursive: true });
   try {
     const raw = await fs.readFile(STORE_PATH, "utf8");
     const parsed = JSON.parse(raw) as StoreData;
-    if (!parsed.knowledge?.length) {
-      parsed.knowledge = knowledgeDocs;
-      await fs.writeFile(STORE_PATH, JSON.stringify(parsed, null, 2));
-    }
+    parsed.knowledge = mergeKnowledge(parsed.knowledge);
+    await fs.writeFile(STORE_PATH, JSON.stringify(parsed, null, 2));
     return parsed;
   } catch {
     const initial: StoreData = {
@@ -81,13 +87,18 @@ export async function listAgents(): Promise<Agent[]> {
   return (await getStore()).agents;
 }
 
+export async function getAgent(id: string): Promise<Agent | null> {
+  return (await getStore()).agents.find((a) => a.id === id) ?? null;
+}
+
+/** Pacman standing order: every new agent gets roster entry + progress lane + approval policy. */
 export async function addAgent(
   input: Omit<Agent, "id" | "stats"> & { id?: string },
 ): Promise<Agent> {
   const data = await ensureStore();
   const agent: Agent = {
     ...input,
-    id: input.id ?? randomUUID(),
+    id: input.id ?? slugId(input.name),
     stats: {
       completed: 0,
       pendingApproval: 0,
@@ -95,14 +106,49 @@ export async function addAgent(
       verifiedByPacman: 0,
     },
   };
+
+  if (data.agents.some((a) => a.id === agent.id)) {
+    agent.id = `${agent.id}-${randomUUID().slice(0, 8)}`;
+  }
+
   data.agents.push(agent);
+
+  const now = new Date().toISOString();
+  const onboardTask: Task = {
+    id: randomUUID(),
+    title: `${agent.name}: first assignment pending`,
+    description: agent.requiresApproval
+      ? `Pacman opened a progress lane for ${agent.name}. All production changes require owner approval before implement; Pacman verifies after.`
+      : `Pacman opened a progress lane for ${agent.name}. Track every task here; Pacman verifies outcomes.`,
+    agentId: agent.id,
+    status: "assigned",
+    priority: "medium",
+    tags: ["onboarding", agent.role],
+    createdAt: now,
+    updatedAt: now,
+  };
+  data.tasks.unshift(onboardTask);
+
   pushActivity(data, {
     type: "agent_added",
-    message: `Agent ${agent.name} joined the roster`,
+    message: `Pacman onboarded ${agent.name} — progress page live${
+      agent.requiresApproval ? " · approval gate ON" : ""
+    }`,
     agentId: agent.id,
+    taskId: onboardTask.id,
   });
+
+  recalcAgentStats(data);
   await writeStore(data);
   return agent;
+}
+
+function slugId(name: string): string {
+  const base = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return base || randomUUID();
 }
 
 export async function listTasks(): Promise<Task[]> {

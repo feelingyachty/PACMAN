@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import type { Agent, AgentRole } from "@/lib/types";
 
@@ -14,6 +16,7 @@ const ROLES: AgentRole[] = [
 ];
 
 export default function AgentsPage() {
+  const router = useRouter();
   const [agents, setAgents] = useState<Agent[]>([]);
   const [open, setOpen] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -31,7 +34,7 @@ export default function AgentsPage() {
     e.preventDefault();
     setSaving(true);
     const fd = new FormData(e.currentTarget);
-    await fetch("/api/agents", {
+    const res = await fetch("/api/agents", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -50,9 +53,11 @@ export default function AgentsPage() {
         status: "idle",
       }),
     });
+    const agent = (await res.json()) as Agent;
     setSaving(false);
     setOpen(false);
-    await load();
+    // Pacman standing order: land on the new agent's progress page immediately.
+    router.push(`/agents/${agent.id}`);
   }
 
   return (
@@ -66,8 +71,8 @@ export default function AgentsPage() {
             Agents
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-[var(--ink-soft)]">
-            Pacman manages the fleet. Agents marked for approval cannot ship
-            production changes until you click Approve.
+            Tell Pacman about a new agent and they get a progress page
+            automatically. Approval gates when their work can change production.
           </p>
         </div>
         <button
@@ -81,9 +86,10 @@ export default function AgentsPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {agents.map((agent, i) => (
-          <article
+          <Link
             key={agent.id}
-            className="panel rise rounded-2xl p-5"
+            href={`/agents/${agent.id}`}
+            className="panel rise block rounded-2xl p-5 transition hover:-translate-y-0.5 hover:shadow-md"
             style={{ animationDelay: `${i * 0.05}s` }}
           >
             <div className="flex items-start gap-3">
@@ -111,6 +117,9 @@ export default function AgentsPage() {
                 <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
                   {agent.specialty}
                 </p>
+                <p className="mt-3 text-xs font-bold text-[var(--sea)]">
+                  Open progress →
+                </p>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-4 gap-2 border-t border-[var(--line)] pt-4 text-center">
@@ -128,12 +137,7 @@ export default function AgentsPage() {
                 </div>
               ))}
             </div>
-            {agent.notes && (
-              <p className="mt-3 text-xs leading-relaxed text-[var(--muted)]">
-                {agent.notes}
-              </p>
-            )}
-          </article>
+          </Link>
         ))}
       </div>
 
@@ -148,6 +152,10 @@ export default function AgentsPage() {
             className="panel rise w-full max-w-lg space-y-3 rounded-3xl p-6"
           >
             <h2 className="display text-2xl font-extrabold">Add agent</h2>
+            <p className="text-xs text-[var(--muted)]">
+              Pacman will create their progress page and wire approvals if
+              checked.
+            </p>
             <input
               name="name"
               required
@@ -220,7 +228,7 @@ export default function AgentsPage() {
                 disabled={saving}
                 className="rounded-xl bg-[var(--ink)] px-4 py-2 text-sm font-bold text-[var(--brand)] disabled:opacity-50"
               >
-                {saving ? "Saving…" : "Add to roster"}
+                {saving ? "Onboarding…" : "Onboard with Pacman"}
               </button>
             </div>
           </form>

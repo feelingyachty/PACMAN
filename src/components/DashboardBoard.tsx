@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Agent, StoreData, Task } from "@/lib/types";
 import { COLUMNS } from "@/lib/columns";
 import { TaskCard } from "@/components/TaskCard";
@@ -13,10 +15,20 @@ async function fetchStore(): Promise<StoreData> {
 }
 
 export function DashboardBoard() {
+  const searchParams = useSearchParams();
+  const agentParam = searchParams.get("agent");
+
   const [store, setStore] = useState<StoreData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Task | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [agentFilter, setAgentFilter] = useState<string | "all">(
+    agentParam ?? "all",
+  );
+
+  useEffect(() => {
+    if (agentParam) setAgentFilter(agentParam);
+  }, [agentParam]);
 
   const reload = useCallback(async () => {
     try {
@@ -43,10 +55,18 @@ export function DashboardBoard() {
     return map;
   }, [store]);
 
-  const pendingCount =
-    store?.tasks.filter((t) => t.status === "needs_approval").length ?? 0;
-  const verifyingCount =
-    store?.tasks.filter((t) => t.status === "verifying").length ?? 0;
+  const visibleTasks = useMemo(() => {
+    if (!store) return [];
+    if (agentFilter === "all") return store.tasks;
+    return store.tasks.filter((t) => t.agentId === agentFilter);
+  }, [store, agentFilter]);
+
+  const pendingCount = visibleTasks.filter(
+    (t) => t.status === "needs_approval",
+  ).length;
+  const verifyingCount = visibleTasks.filter(
+    (t) => t.status === "verifying",
+  ).length;
 
   async function runAction(
     taskId: string,
@@ -79,6 +99,9 @@ export function DashboardBoard() {
     );
   }
 
+  const filterAgent =
+    agentFilter === "all" ? null : agentsById.get(agentFilter);
+
   return (
     <div className="space-y-6">
       <section className="rise grid gap-4 md:grid-cols-[1.4fr_1fr]">
@@ -98,8 +121,8 @@ export function DashboardBoard() {
             PACMAN
           </h1>
           <p className="relative mt-3 max-w-lg text-sm leading-relaxed text-[rgba(243,240,230,0.78)] md:text-base">
-            Every MDI agent task, approval, and verification — one board. Corey
-            proposes; you approve; Pacman verifies.
+            New agent? Pacman opens their progress lane, wires approvals if
+            needed, and tracks everything they do to Done.
           </p>
         </div>
 
@@ -142,6 +165,49 @@ export function DashboardBoard() {
         </div>
       </section>
 
+      <section className="rise flex flex-wrap items-center gap-2">
+        <span className="text-xs font-bold uppercase tracking-wider text-[var(--muted)]">
+          Watch
+        </span>
+        <button
+          type="button"
+          onClick={() => setAgentFilter("all")}
+          className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
+            agentFilter === "all"
+              ? "bg-[var(--ink)] text-[var(--brand)]"
+              : "bg-black/5 text-[var(--ink-soft)]"
+          }`}
+        >
+          All agents
+        </button>
+        {store.agents.map((agent) => (
+          <button
+            key={agent.id}
+            type="button"
+            onClick={() => setAgentFilter(agent.id)}
+            className={`rounded-full px-3 py-1.5 text-sm font-semibold ${
+              agentFilter === agent.id
+                ? "bg-[var(--ink)] text-[var(--brand)]"
+                : "bg-black/5 text-[var(--ink-soft)]"
+            }`}
+          >
+            <span
+              className="mr-1.5 inline-block h-2 w-2 rounded-full"
+              style={{ background: agent.avatarColor }}
+            />
+            {agent.name}
+          </button>
+        ))}
+        {filterAgent && (
+          <Link
+            href={`/agents/${filterAgent.id}`}
+            className="ml-auto text-xs font-bold text-[var(--sea)] underline"
+          >
+            Open {filterAgent.name} progress page →
+          </Link>
+        )}
+      </section>
+
       {error && (
         <div className="rounded-xl border border-[var(--alert)]/30 bg-[#f8e6dc] px-4 py-3 text-sm text-[var(--alert)]">
           {error}
@@ -151,7 +217,7 @@ export function DashboardBoard() {
       <section className="board-scroll rise overflow-x-auto pb-2">
         <div className="flex min-w-max gap-3">
           {COLUMNS.map((col) => {
-            const tasks = store.tasks.filter((t) => t.status === col.id);
+            const tasks = visibleTasks.filter((t) => t.status === col.id);
             const hot = col.id === "needs_approval" && tasks.length > 0;
             return (
               <div
@@ -203,17 +269,22 @@ export function DashboardBoard() {
       <section className="panel rise rounded-2xl p-5">
         <h2 className="display mb-3 text-lg font-bold">Live activity</h2>
         <ul className="space-y-2">
-          {store.activity.slice(0, 8).map((event) => (
-            <li
-              key={event.id}
-              className="flex items-start justify-between gap-4 border-b border-[var(--line)] py-2 text-sm last:border-0"
-            >
-              <span className="text-[var(--ink-soft)]">{event.message}</span>
-              <time className="shrink-0 text-xs text-[var(--muted)]">
-                {new Date(event.at).toLocaleString()}
-              </time>
-            </li>
-          ))}
+          {store.activity
+            .filter(
+              (e) => agentFilter === "all" || e.agentId === agentFilter,
+            )
+            .slice(0, 8)
+            .map((event) => (
+              <li
+                key={event.id}
+                className="flex items-start justify-between gap-4 border-b border-[var(--line)] py-2 text-sm last:border-0"
+              >
+                <span className="text-[var(--ink-soft)]">{event.message}</span>
+                <time className="shrink-0 text-xs text-[var(--muted)]">
+                  {new Date(event.at).toLocaleString()}
+                </time>
+              </li>
+            ))}
         </ul>
       </section>
 

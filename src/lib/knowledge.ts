@@ -208,6 +208,17 @@ Pacman is the head of all MDI agents. Pacman:
 - Stays current on SEO + developer news
 - Helps only when intervention improves outcomes
 
+## Standing order — new agent intake (ALWAYS)
+Whenever the owner tells Pacman “this is a new agent”:
+1. **Roster** — Add them to Agents with role, specialty, and notes
+2. **Progress page** — Open \`/agents/{id}\` so the owner can see everything that agent does
+3. **Board filter** — Their cards appear on the main board; filter by their name
+4. **Approval policy** — If their work can change production (SEO, WP, V8r, copy, pricing): turn **approval gate ON**
+5. **Onboarding task** — Seed a first “assignment pending” card so the lane is never empty
+6. **Verify** — After any approved implement, Pacman reviews before Done
+
+Do this every time. No exceptions. New agent = new progress visibility + approval rules if needed.
+
 ## Board columns
 1. **Assigned** — queued
 2. **Working** — agent executing research/draft

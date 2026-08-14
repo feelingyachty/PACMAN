@@ -36,3 +36,14 @@ Data persists in `data/store.json`.
 
 - **Pacman** — manager / verifier
 - **Corey** — semantic SEO specialist (approval required); sample feeling.com proposals on the board
+
+## Standing order (Pacman)
+
+Every time you tell Pacman about a **new agent**:
+
+1. Add them to the roster
+2. Open their dedicated progress page at `/agents/{id}`
+3. Wire **approval gate** if they can change production
+4. Track every task on the board (filter by agent) through Pacman verification
+
+Use **Add agent** on `/agents`, or just tell Pacman in chat — same outcome.
