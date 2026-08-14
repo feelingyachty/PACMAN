@@ -22,6 +22,7 @@ export class Game {
     this.ctx = canvas.getContext("2d");
     this.hud = hud;
     this.reset(true);
+    this.gameStarted = false;
     this.bindInput();
   }
 
@@ -76,12 +77,16 @@ export class Game {
     };
     this.keyHandler = (e) => {
       const dir = map[e.key];
+      if (dir && !this.gameStarted) {
+        this.gameStarted = true;
+      }
       if (dir) {
         this.pac.nextDir = dir;
         e.preventDefault();
       }
       if ((this.gameOver || this.won) && (e.key === "Enter" || e.key === " ")) {
         this.reset(true);
+        this.gameStarted = false;
       }
     };
     window.addEventListener("keydown", this.keyHandler);
@@ -133,6 +138,7 @@ export class Game {
 
   update(dt) {
     if (this.gameOver || this.won) return;
+    if (!this.gameStarted) return;
     this.mouth = (this.mouth + dt * 10) % (Math.PI * 2);
 
     this.advance(this.pac, dt, (e) => {
