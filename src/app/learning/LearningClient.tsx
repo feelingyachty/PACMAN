@@ -115,8 +115,8 @@ export default function LearningClient() {
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
 
-  const roster = cmd.store?.agents ?? [];
   const people = useMemo(() => {
+    const roster = cmd.store?.agents ?? [];
     const byId = new Map<string, Agent>();
     for (const a of roster) byId.set(a.id, a);
     const extraIds = payload?.agentIds ?? [];
@@ -150,7 +150,7 @@ export default function LearningClient() {
       }
     }
     return list;
-  }, [roster, payload?.agentIds]);
+  }, [cmd.store?.agents, payload?.agentIds]);
 
   const selectedWeek = weekOf ?? payload?.currentWeekOf ?? "";
 
