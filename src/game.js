@@ -94,6 +94,7 @@ export class Game {
 
   canGo(entity, dir) {
     const d = DIRS[dir];
+    if (!d) return false;
     return !this.isWall(entity.c + d.x, entity.r + d.y);
   }
 
