@@ -92,7 +92,6 @@ export class Game {
       if ((this.gameOver || this.won) && (e.key === "Enter" || e.key === " ")) {
         this.reset(true);
         this.gameStarted = false;
-        this.updateHud();
       }
     };
     window.addEventListener("keydown", this.keyHandler);
