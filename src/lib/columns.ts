@@ -29,6 +29,16 @@ export const COLUMNS = [
     label: "Done",
     hint: "Verified complete",
   },
+  {
+    id: "blocked",
+    label: "Blocked",
+    hint: "Failed verify / stuck",
+  },
+  {
+    id: "rejected",
+    label: "Rejected",
+    hint: "Sent back",
+  },
 ] as const;
 
 export type ColumnId = (typeof COLUMNS)[number]["id"];

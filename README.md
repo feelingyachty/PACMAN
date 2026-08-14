@@ -29,10 +29,16 @@ npm run dev
 
 Open http://localhost:3000
 
+## Command board
+
+Assigned → Working → Needs Approval → Implementing → Pacman Review → Done. Blocked and Rejected sit to the side. Assign work with an optional production proposal. One-click Approve. Pacman verifies live against the proposal.
+
 ## Seeded fleet
 
 - **Pacman** — manager / verifier
 - **Corey** — Turberg semantic SEO, feeling.com sitemap work, approval gated
+
+Other agents are added only when you introduce them. n8n is connected as infrastructure (`/n8n`), not as unfinished roster members.
 
 ## API
 

@@ -8,6 +8,7 @@ export function KanbanBoard({
   tasks,
   agentsById,
   busyId,
+  hideEmptyParked = false,
   onOpen,
   onApprove,
   onReject,
@@ -15,14 +16,22 @@ export function KanbanBoard({
   tasks: Task[];
   agentsById: Map<string, Agent>;
   busyId: string | null;
+  hideEmptyParked?: boolean;
   onOpen: (task: Task) => void;
   onApprove: (id: string) => void;
   onReject: (id: string) => void;
 }) {
+  const columns = hideEmptyParked
+    ? COLUMNS.filter((col) => {
+        if (col.id !== "blocked" && col.id !== "rejected") return true;
+        return tasks.some((t) => t.status === col.id);
+      })
+    : COLUMNS;
+
   return (
     <div className="board-scroll overflow-x-auto pb-2">
       <div className="flex min-w-max gap-3">
-        {COLUMNS.map((col) => {
+        {columns.map((col) => {
           const colTasks = tasks.filter((t) => t.status === col.id);
           const hot = col.id === "needs_approval" && colTasks.length > 0;
           return (

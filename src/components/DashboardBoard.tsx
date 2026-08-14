@@ -7,15 +7,29 @@ import { useCommand } from "@/components/useCommand";
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { TaskDetailModal } from "@/components/TaskDetailModal";
 import { AssignModal } from "@/components/AssignModal";
+import { CommandWidgets } from "@/components/CommandWidgets";
+import type { Priority } from "@/lib/types";
+
+const PRIORITIES: Array<Priority | "all"> = [
+  "all",
+  "critical",
+  "high",
+  "medium",
+  "low",
+];
 
 export function DashboardBoard() {
   const searchParams = useSearchParams();
   const agentParam = searchParams.get("agent");
+  const laneParam = searchParams.get("lane");
   const cmd = useCommand();
   const [agentFilter, setAgentFilter] = useState<string | "all">(
     agentParam ?? "all",
   );
+  const [priority, setPriority] = useState<Priority | "all">("all");
   const [assignOpen, setAssignOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [showParked, setShowParked] = useState(false);
 
   useEffect(() => {
     if (agentParam) setAgentFilter(agentParam);
@@ -23,9 +37,27 @@ export function DashboardBoard() {
 
   const visibleTasks = useMemo(() => {
     if (!cmd.store) return [];
-    if (agentFilter === "all") return cmd.store.tasks;
-    return cmd.store.tasks.filter((t) => t.agentId === agentFilter);
-  }, [cmd.store, agentFilter]);
+    const byAgent =
+      agentFilter === "all"
+        ? cmd.store.tasks
+        : cmd.store.tasks.filter((t) => t.agentId === agentFilter);
+    const byPriority =
+      priority === "all"
+        ? byAgent
+        : byAgent.filter((t) => t.priority === priority);
+    const q = query.trim().toLowerCase();
+    const searched = q
+      ? byPriority.filter((t) =>
+          `${t.title} ${t.description} ${t.tags.join(" ")} ${t.proposal?.summary ?? ""}`
+            .toLowerCase()
+            .includes(q),
+        )
+      : byPriority;
+    if (laneParam) {
+      return searched.filter((t) => t.status === laneParam);
+    }
+    return searched;
+  }, [cmd.store, agentFilter, query, priority, laneParam]);
 
   if (!cmd.store) {
     return (
@@ -39,6 +71,9 @@ export function DashboardBoard() {
   const verifying = visibleTasks.filter((t) => t.status === "verifying").length;
   const filterAgent =
     agentFilter === "all" ? null : cmd.agentsById.get(agentFilter);
+  const activity = cmd.store.activity.filter(
+    (e) => agentFilter === "all" || e.agentId === agentFilter,
+  );
 
   return (
     <div className="space-y-6">
@@ -59,8 +94,8 @@ export function DashboardBoard() {
             PACMAN
           </h1>
           <p className="relative mt-3 max-w-lg text-sm leading-relaxed text-[var(--ink-dim)] md:text-base">
-            Every MDI agent. Every assignment. Approve when they want to change
-            production. Pacman verifies they actually did it.
+            Pacman + Corey today. New agents land here when you introduce them.
+            Approve production changes. Pacman verifies they actually shipped.
           </p>
           <div className="relative mt-5 flex flex-wrap gap-2">
             <button
@@ -75,6 +110,12 @@ export function DashboardBoard() {
               className="rounded-xl border border-[var(--line)] px-4 py-2 text-sm font-bold"
             >
               Approval inbox ({pending})
+            </Link>
+            <Link
+              href="/n8n"
+              className="rounded-xl border border-[var(--line)] px-4 py-2 text-sm font-bold"
+            >
+              n8n
             </Link>
           </div>
         </div>
@@ -99,6 +140,13 @@ export function DashboardBoard() {
           ))}
         </div>
       </section>
+
+      <CommandWidgets
+        agents={cmd.store.agents}
+        tasks={cmd.store.tasks}
+        intel={cmd.store.intel}
+        onOpenTask={cmd.setSelected}
+      />
 
       <section className="rise flex flex-wrap items-center gap-2">
         <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
@@ -133,10 +181,35 @@ export function DashboardBoard() {
             {agent.name}
           </button>
         ))}
+        <select
+          value={priority}
+          onChange={(e) => setPriority(e.target.value as Priority | "all")}
+          className="field max-w-[140px]"
+        >
+          {PRIORITIES.map((p) => (
+            <option key={p} value={p}>
+              {p === "all" ? "All priority" : p}
+            </option>
+          ))}
+        </select>
+        <label className="flex items-center gap-2 text-xs font-semibold text-[var(--ink-dim)]">
+          <input
+            type="checkbox"
+            checked={showParked}
+            onChange={(e) => setShowParked(e.target.checked)}
+          />
+          Show empty parked lanes
+        </label>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search cards"
+          className="field ml-auto max-w-xs"
+        />
         {filterAgent && (
           <Link
             href={`/agents/${filterAgent.id}`}
-            className="ml-auto text-xs font-bold text-[var(--brand)] underline"
+            className="text-xs font-bold text-[var(--brand)] underline"
           >
             {filterAgent.name} progress →
           </Link>
@@ -149,22 +222,34 @@ export function DashboardBoard() {
         </div>
       )}
 
-      <KanbanBoard
-        tasks={visibleTasks}
-        agentsById={cmd.agentsById}
-        busyId={cmd.busyId}
-        onOpen={cmd.setSelected}
-        onApprove={cmd.approve}
-        onReject={cmd.reject}
-      />
+      {visibleTasks.length === 0 ? (
+        <div className="panel rise rounded-2xl p-10 text-center">
+          <p className="display text-xl font-bold">No cards match</p>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Clear search or assign the next piece of work.
+          </p>
+        </div>
+      ) : (
+        <KanbanBoard
+          tasks={visibleTasks}
+          agentsById={cmd.agentsById}
+          busyId={cmd.busyId}
+          hideEmptyParked={!showParked}
+          onOpen={cmd.setSelected}
+          onApprove={cmd.approve}
+          onReject={(id) => cmd.reject(id)}
+        />
+      )}
 
       <section className="panel rise rounded-2xl p-5">
         <h2 className="display mb-3 text-lg font-bold">Live activity</h2>
-        <ul className="space-y-2">
-          {cmd.store.activity
-            .filter((e) => agentFilter === "all" || e.agentId === agentFilter)
-            .slice(0, 8)
-            .map((event) => (
+        {activity.length === 0 ? (
+          <p className="text-sm text-[var(--muted)]">
+            No activity yet. Assign work and it will show up here.
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {activity.slice(0, 8).map((event) => (
               <li
                 key={event.id}
                 className="flex items-start justify-between gap-4 border-b border-[var(--line)] py-2 text-sm last:border-0"
@@ -175,7 +260,8 @@ export function DashboardBoard() {
                 </time>
               </li>
             ))}
-        </ul>
+          </ul>
+        )}
       </section>
 
       {cmd.selected && (
@@ -186,9 +272,16 @@ export function DashboardBoard() {
           busy={cmd.busyId === cmd.selected.id}
           onClose={() => cmd.setSelected(null)}
           onApprove={() => cmd.approve(cmd.selected!.id)}
-          onReject={() => cmd.reject(cmd.selected!.id)}
-          onSubmitVerification={() => cmd.submitVerification(cmd.selected!.id)}
-          onVerify={(ok) => cmd.verify(cmd.selected!.id, ok)}
+          onReject={(reason) => cmd.reject(cmd.selected!.id, reason)}
+          onSubmitVerification={(notes) =>
+            cmd.submitVerification(cmd.selected!.id, notes)
+          }
+          onVerify={(ok, notes) => cmd.verify(cmd.selected!.id, ok, notes)}
+          onMove={(status) => cmd.move(cmd.selected!.id, status)}
+          onRemove={() => void cmd.remove(cmd.selected!.id)}
+          onAddNote={(title, body) =>
+            void cmd.addNote(cmd.selected!, title, body)
+          }
         />
       )}
 

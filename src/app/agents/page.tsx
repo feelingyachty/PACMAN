@@ -59,8 +59,9 @@ export default function AgentsPage() {
           </p>
           <h1 className="display text-3xl font-extrabold md:text-4xl">Agents</h1>
           <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">
-            Tell Pacman a new agent exists. They get a progress page, a work
-            log, and an approval gate if they can change production.
+            Pacman and Corey are live. Add an agent when they are ready — they
+            get a progress page, a work log, and an approval gate if they can
+            change production.
           </p>
         </div>
         <button

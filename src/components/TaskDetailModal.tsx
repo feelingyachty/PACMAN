@@ -1,6 +1,8 @@
 "use client";
 
-import type { Agent, Task, WorkLog } from "@/lib/types";
+import { useState } from "react";
+import type { Agent, Task, TaskStatus, WorkLog } from "@/lib/types";
+import { COLUMNS } from "@/lib/columns";
 
 export function TaskDetailModal({
   task,
@@ -12,6 +14,9 @@ export function TaskDetailModal({
   onReject,
   onSubmitVerification,
   onVerify,
+  onMove,
+  onRemove,
+  onAddNote,
 }: {
   task: Task;
   agent?: Agent;
@@ -19,11 +24,19 @@ export function TaskDetailModal({
   busy?: boolean;
   onClose: () => void;
   onApprove: () => void;
-  onReject: () => void;
-  onSubmitVerification: () => void;
-  onVerify: (ok: boolean) => void;
+  onReject: (reason: string) => void;
+  onSubmitVerification: (notes: string) => void;
+  onVerify: (ok: boolean, notes: string) => void;
+  onMove?: (status: TaskStatus) => void;
+  onRemove?: () => void;
+  onAddNote?: (title: string, body: string) => void;
 }) {
   const related = logs.filter((l) => l.taskId === task.id);
+  const [rejectReason, setRejectReason] = useState(task.rejectedReason ?? "");
+  const [implNotes, setImplNotes] = useState(task.implementationNotes ?? "");
+  const [verifyNotes, setVerifyNotes] = useState(task.verificationNotes ?? "");
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteBody, setNoteBody] = useState("");
 
   return (
     <div
@@ -134,6 +147,37 @@ export function TaskDetailModal({
           </div>
         )}
 
+        {onAddNote && (
+          <div className="mt-5 space-y-2 rounded-2xl border border-[var(--line)] bg-black/15 p-3">
+            <h3 className="display text-sm font-bold">Add work note</h3>
+            <input
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+              placeholder="Note title"
+              className="field"
+            />
+            <textarea
+              value={noteBody}
+              onChange={(e) => setNoteBody(e.target.value)}
+              rows={2}
+              placeholder="What happened"
+              className="field"
+            />
+            <button
+              type="button"
+              disabled={busy || !noteTitle.trim()}
+              onClick={() => {
+                onAddNote(noteTitle.trim(), noteBody.trim());
+                setNoteTitle("");
+                setNoteBody("");
+              }}
+              className="rounded-xl border border-[var(--line)] px-3 py-2 text-xs font-bold disabled:opacity-50"
+            >
+              Log note
+            </button>
+          </div>
+        )}
+
         <div className="mt-6 flex flex-wrap gap-2">
           {task.status === "needs_approval" && (
             <>
@@ -145,45 +189,133 @@ export function TaskDetailModal({
               >
                 Approve — let them implement
               </button>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={onReject}
-                className="rounded-xl border border-[var(--line)] px-4 py-2.5 text-sm font-bold disabled:opacity-50"
-              >
-                Reject
-              </button>
+              <div className="flex min-w-[220px] flex-1 gap-2">
+                <input
+                  value={rejectReason}
+                  onChange={(e) => setRejectReason(e.target.value)}
+                  placeholder="Reject reason"
+                  className="field"
+                />
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() =>
+                    onReject(rejectReason.trim() || "Needs revision")
+                  }
+                  className="rounded-xl border border-[var(--line)] px-4 py-2.5 text-sm font-bold disabled:opacity-50"
+                >
+                  Reject
+                </button>
+              </div>
             </>
           )}
           {task.status === "implementing" && (
+            <div className="flex w-full flex-col gap-2">
+              <textarea
+                value={implNotes}
+                onChange={(e) => setImplNotes(e.target.value)}
+                rows={2}
+                placeholder="What shipped, and where"
+                className="field"
+              />
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() =>
+                  onSubmitVerification(
+                    implNotes.trim() || "Agent marked implementation complete.",
+                  )
+                }
+                className="rounded-xl bg-[var(--brand)] px-4 py-2.5 text-sm font-bold text-[#14160f] disabled:opacity-50"
+              >
+                Mark implemented → Pacman review
+              </button>
+            </div>
+          )}
+          {task.status === "verifying" && (
+            <div className="flex w-full flex-col gap-2">
+              <textarea
+                value={verifyNotes}
+                onChange={(e) => setVerifyNotes(e.target.value)}
+                rows={2}
+                placeholder="Live vs proposal — what Pacman checked"
+                className="field"
+              />
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() =>
+                    onVerify(
+                      true,
+                      verifyNotes.trim() ||
+                        "Pacman verified live change matches proposal.",
+                    )
+                  }
+                  className="rounded-xl bg-[var(--good)] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+                >
+                  Pacman: Verify OK
+                </button>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() =>
+                    onVerify(
+                      false,
+                      verifyNotes.trim() ||
+                        "Verification failed — send back for rework.",
+                    )
+                  }
+                  className="rounded-xl bg-[var(--alert)] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
+                >
+                  Pacman: Block
+                </button>
+              </div>
+            </div>
+          )}
+          {task.status === "assigned" && onMove && (
             <button
               type="button"
               disabled={busy}
-              onClick={onSubmitVerification}
-              className="rounded-xl bg-[var(--brand)] px-4 py-2.5 text-sm font-bold text-[#14160f] disabled:opacity-50"
+              onClick={() => onMove("working")}
+              className="rounded-xl bg-[var(--ink)] px-4 py-2.5 text-sm font-bold text-[var(--brand)] disabled:opacity-50"
             >
-              Mark implemented → Pacman review
+              Start work
             </button>
           )}
-          {task.status === "verifying" && (
-            <>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => onVerify(true)}
-                className="rounded-xl bg-[var(--good)] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
-              >
-                Pacman: Verify OK
-              </button>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => onVerify(false)}
-                className="rounded-xl bg-[var(--alert)] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50"
-              >
-                Pacman: Block
-              </button>
-            </>
+          {task.status === "working" && onMove && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => onMove("needs_approval")}
+              className="rounded-xl bg-[var(--brand)] px-4 py-2.5 text-sm font-bold text-[#14160f] disabled:opacity-50"
+            >
+              Submit for approval
+            </button>
+          )}
+          {onMove && (
+            <select
+              className="field max-w-[220px]"
+              value={task.status}
+              disabled={busy}
+              onChange={(e) => onMove(e.target.value as TaskStatus)}
+            >
+              {COLUMNS.map((col) => (
+                <option key={col.id} value={col.id}>
+                  Move to {col.label}
+                </option>
+              ))}
+            </select>
+          )}
+          {onRemove && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={onRemove}
+              className="rounded-xl border border-[var(--alert)]/40 px-4 py-2.5 text-sm font-bold text-[var(--alert)] disabled:opacity-50"
+            >
+              Remove
+            </button>
           )}
         </div>
       </div>

@@ -481,6 +481,21 @@ export async function verifyTask(
   return task;
 }
 
+export async function deleteTask(taskId: string): Promise<boolean> {
+  const data = await ensureStore();
+  const task = data.tasks.find((t) => t.id === taskId);
+  if (!task) return false;
+  data.tasks = data.tasks.filter((t) => t.id !== taskId);
+  pushActivity(data, {
+    type: "status_changed",
+    message: `Removed task: ${task.title}`,
+    agentId: task.agentId,
+  });
+  recalcAgentStats(data);
+  await writeStore(data);
+  return true;
+}
+
 export async function resetStore(): Promise<StoreData> {
   const initial = initialStore();
   await writeStore(initial);

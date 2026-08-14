@@ -15,6 +15,7 @@ const KINDS: Array<AutomationKind | "all"> = [
 
 export default function N8nPage() {
   const [kind, setKind] = useState<(typeof KINDS)[number]>("all");
+  const [query, setQuery] = useState("");
   const [data, setData] = useState<{
     mcp: {
       url: string;
@@ -38,8 +39,11 @@ export default function N8nPage() {
 
   const rows = useMemo(() => {
     const list = data?.automations ?? [];
-    return kind === "all" ? list : list.filter((a) => a.kind === kind);
-  }, [data, kind]);
+    const byKind = kind === "all" ? list : list.filter((a) => a.kind === kind);
+    const q = query.trim().toLowerCase();
+    if (!q) return byKind;
+    return byKind.filter((a) => a.name.toLowerCase().includes(q));
+  }, [data, kind, query]);
 
   if (!data) {
     return (
@@ -59,8 +63,8 @@ export default function N8nPage() {
         </p>
         <h1 className="display text-3xl font-extrabold md:text-4xl">n8n fleet</h1>
         <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">
-          Pacman indexed the instance behind your MCP URL. AI workflows are
-          agents with progress pages. Everything else is watched as automation.
+          Infrastructure only. Pacman watches this instance. Workflows become
+          agents on the command board only when you introduce them.
         </p>
       </header>
 
@@ -95,15 +99,21 @@ export default function N8nPage() {
             n8n agents
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
-            {data.agents.map((agent) => (
-              <Link
-                key={agent.id}
-                href={`/agents/${agent.id}`}
-                className="rounded-full bg-[var(--brand)] px-3 py-1 text-sm font-bold text-[#14160f]"
-              >
-                {agent.name}
-              </Link>
-            ))}
+            {data.agents.length === 0 ? (
+              <p className="text-sm text-[var(--muted)]">
+                None on the roster yet. Introduce an agent when it is ready.
+              </p>
+            ) : (
+              data.agents.map((agent) => (
+                <Link
+                  key={agent.id}
+                  href={`/agents/${agent.id}`}
+                  className="rounded-full bg-[var(--brand)] px-3 py-1 text-sm font-bold text-[#14160f]"
+                >
+                  {agent.name}
+                </Link>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -121,7 +131,7 @@ export default function N8nPage() {
         </section>
       )}
 
-      <div className="rise flex flex-wrap gap-2">
+      <div className="rise flex flex-wrap items-center gap-2">
         {KINDS.map((k) => (
           <button
             key={k}
@@ -136,6 +146,12 @@ export default function N8nPage() {
             {k}
           </button>
         ))}
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search workflows"
+          className="field ml-auto max-w-xs"
+        />
       </div>
 
       <div className="panel rise overflow-hidden rounded-2xl">
@@ -149,6 +165,13 @@ export default function N8nPage() {
             </tr>
           </thead>
           <tbody>
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={4} className="px-4 py-8 text-center text-[var(--muted)]">
+                  No workflows match.
+                </td>
+              </tr>
+            )}
             {rows.map((row) => (
               <tr key={row.id} className="border-t border-[var(--line)]">
                 <td className="px-4 py-3">

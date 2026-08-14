@@ -105,6 +105,14 @@ export default function KnowledgePage() {
         />
       </div>
 
+      {filtered.length === 0 ? (
+        <div className="panel rise rounded-2xl p-10 text-center">
+          <p className="display text-xl font-bold">No packs match</p>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Try another domain or clear the search.
+          </p>
+        </div>
+      ) : (
       <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
         <aside className="panel rise space-y-2 rounded-2xl p-3">
           {filtered.map((doc) => (
@@ -137,6 +145,7 @@ export default function KnowledgePage() {
           </article>
         )}
       </div>
+      )}
     </div>
   );
 }

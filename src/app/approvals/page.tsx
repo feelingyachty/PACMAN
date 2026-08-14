@@ -104,9 +104,16 @@ export default function ApprovalsPage() {
           busy={cmd.busyId === cmd.selected.id}
           onClose={() => cmd.setSelected(null)}
           onApprove={() => cmd.approve(cmd.selected!.id)}
-          onReject={() => cmd.reject(cmd.selected!.id)}
-          onSubmitVerification={() => cmd.submitVerification(cmd.selected!.id)}
-          onVerify={(ok) => cmd.verify(cmd.selected!.id, ok)}
+          onReject={(reason) => cmd.reject(cmd.selected!.id, reason)}
+          onSubmitVerification={(notes) =>
+            cmd.submitVerification(cmd.selected!.id, notes)
+          }
+          onVerify={(ok, notes) => cmd.verify(cmd.selected!.id, ok, notes)}
+          onMove={(status) => cmd.move(cmd.selected!.id, status)}
+          onRemove={() => void cmd.remove(cmd.selected!.id)}
+          onAddNote={(title, body) =>
+            void cmd.addNote(cmd.selected!, title, body)
+          }
         />
       )}
     </div>

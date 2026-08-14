@@ -307,19 +307,15 @@ MCP: https://feelingyachty.app.n8n.cloud/mcp-server/http
 
 MCP is authorized. This is the official n8n MCP Server (workflow SDK + instance tools): search/execute/publish workflows, inspect executions, list credentials, validate and create workflows from code. Token lives in env as N8N_MCP_TOKEN, never in git.
 
-## Agents that live in n8n
+## Roster rule
 
-- **Sales** — AI Sales Assistant (SMS). Grok + GHL tools + human handover.
-- **Support** — Support Receptionist Bot. Chat qualify / handoff.
-- **Omni** — Omni Inbound AI Router. Missed-call seeds + live-send gate.
-- **Blogger** — WordPress Auto Blogging. Miami + Panama. Production content. Approval required.
+n8n is infrastructure. Pacman watches the instance. Agents are added to the command roster only when the owner says a new agent is ready.
 
-## Pacman rules for n8n agents
+## Pacman rules for n8n
 
-- Prompt, routing, or publish-mode changes need Approve
-- Blogger posts are production WordPress — Pacman verifies
-- Live SMS send stays behind Omni's Live Send? gate
-- The rest of the instance (Bokun, Woo, GHL chats, docs SMS) is ops automation — watch health, do not "help" unless asked
+- Watch health on /n8n
+- Do not treat unfinished workflows as agents
+- When an n8n agent is introduced: progress page + approval gate if it can change production
 `,
   },
 ];

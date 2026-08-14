@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { fetchStore, patchTask } from "@/lib/client";
-import type { Agent, StoreData, Task } from "@/lib/types";
+import { createLog, deleteTask, fetchStore, patchTask } from "@/lib/client";
+import type { Agent, StoreData, Task, TaskStatus } from "@/lib/types";
 
 export function useCommand() {
   const [store, setStore] = useState<StoreData | null>(null);
@@ -55,20 +55,54 @@ export function useCommand() {
     reload,
     runAction,
     approve: (id: string) => runAction(id, { action: "approve" }),
-    reject: (id: string) =>
-      runAction(id, { action: "reject", reason: "Needs revision" }),
-    submitVerification: (id: string) =>
+    reject: (id: string, reason = "Needs revision") =>
+      runAction(id, { action: "reject", reason }),
+    submitVerification: (id: string, implementationNotes?: string) =>
       runAction(id, {
         action: "submit_verification",
-        implementationNotes: "Agent marked implementation complete.",
+        implementationNotes:
+          implementationNotes || "Agent marked implementation complete.",
       }),
-    verify: (id: string, ok: boolean) =>
+    verify: (id: string, ok: boolean, verificationNotes?: string) =>
       runAction(id, {
         action: "verify",
         ok,
-        verificationNotes: ok
-          ? "Pacman verified live change matches proposal."
-          : "Verification failed — send back for rework.",
+        verificationNotes:
+          verificationNotes ||
+          (ok
+            ? "Pacman verified live change matches proposal."
+            : "Verification failed — send back for rework."),
       }),
+    move: (id: string, status: TaskStatus) =>
+      runAction(id, { action: "status", status }),
+    addNote: async (task: Task, title: string, body: string) => {
+      setBusyId(task.id);
+      try {
+        await createLog({
+          agentId: task.agentId,
+          taskId: task.id,
+          kind: "note",
+          title,
+          body,
+        });
+        await reload();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Note failed");
+      } finally {
+        setBusyId(null);
+      }
+    },
+    remove: async (id: string) => {
+      setBusyId(id);
+      try {
+        await deleteTask(id);
+        setSelected(null);
+        await reload();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Remove failed");
+      } finally {
+        setBusyId(null);
+      }
+    },
   };
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   approveTask,
+  deleteTask,
   rejectTask,
   submitForVerification,
   updateTaskStatus,
@@ -70,4 +71,11 @@ export async function PATCH(request: Request, ctx: Ctx) {
   }
 
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
+}
+
+export async function DELETE(_request: Request, ctx: Ctx) {
+  const { id } = await ctx.params;
+  const ok = await deleteTask(id);
+  if (!ok) return NextResponse.json({ error: "Task not found" }, { status: 404 });
+  return NextResponse.json({ ok: true });
 }
