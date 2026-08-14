@@ -29,6 +29,10 @@ npm run dev
 
 Open http://localhost:3000
 
+## Fleet source of truth
+
+Yacht facts come from the authorized Google Sheet **Feeling Yachty Main** tab only (`BookMyBoat_Yacht_Listings_Fahad`). Other tabs are ignored. Browse the loaded inventory at `/fleet`.
+
 ## Command board
 
 Assigned → Working → Needs Approval → Implementing → Pacman Review → Done. Blocked and Rejected sit to the side. Assign work with an optional production proposal. One-click Approve. Pacman verifies live against the proposal.
@@ -50,6 +54,7 @@ Other agents are added only when you introduce them. n8n is connected as infrast
 | GET/POST | `/api/tasks` | List / assign |
 | PATCH | `/api/tasks/:id` | `approve`, `reject`, `submit_verification`, `verify`, `status` |
 | GET/POST | `/api/logs` | Work log |
+| GET | `/api/yachts` | Feeling Yachty Main inventory |
 
 Data lives in `data/store.json` (reseeded when the store version changes).
 

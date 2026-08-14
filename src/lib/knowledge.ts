@@ -119,6 +119,10 @@ Every listing Pacman touches is checked against this skeleton:
 ## SEO on listings
 
 Pacman writes listing titles as **entity + one differentiator** (location, vessel, experience). Descriptions cover attributes as facts. No stuffing. No duplicate paragraphs across the fleet.
+
+## Source of truth
+
+Yacht facts come from the Google Sheet **Feeling Yachty Main** tab only. Ignore Yacht Listings, By Owner, Live Data, and Change Log. Verify public copy, price, captain, length, capacity, and owner against that tab before calling a listing change Done.
 `,
   },
   {
@@ -316,6 +320,62 @@ n8n is infrastructure. Pacman watches the instance. Agents are added to the comm
 - Watch health on /n8n
 - Do not treat unfinished workflows as agents
 - When an n8n agent is introduced: progress page + approval gate if it can change production
+`,
+  },
+  {
+    id: "kb-fleet-sheet",
+    title: "Feeling Yachty Main — Fleet Source of Truth",
+    domain: "v8r",
+    summary:
+      "Authorized Google Sheet tab that holds every Feeling Yachty yacht. Pacman uses this tab only.",
+    source:
+      "https://docs.google.com/spreadsheets/d/1uPsIFe8tPVtZe_AyiX7cIqYojWBTfj9K3HOpLM2fyKc/edit?gid=1083096086#gid=1083096086",
+    updatedAt: ts,
+    tags: ["fleet", "yachts", "bookmyboat", "feeling-yachty-main"],
+    content: `# Feeling Yachty Main — Fleet Source of Truth
+
+Sheet: BookMyBoat_Yacht_Listings_Fahad
+File ID: 1uPsIFe8tPVtZe_AyiX7cIqYojWBTfj9K3HOpLM2fyKc
+Tab: **Feeling Yachty Main** (gid 1083096086)
+Owner: payments@feelingyachty.com
+
+## Rule
+
+Use **only** Feeling Yachty Main. Ignore Yacht Listings, By Owner, Live Data, and Change Log.
+
+This tab is the inventory Pacman checks before approving or verifying listing, V8r, booking, or public-copy changes.
+
+## Columns Pacman treats as facts
+
+- ID, Name, Brand, Model, Type, Year
+- Capacity (guests), Length (ft), Price/Hour ($)
+- Location, Captain Included, Rating, Status
+- Latitude, Longitude, Owner, Photo Count, Description, last_synced
+- Image 1… are media, not identity
+
+## Snapshot Pacman loaded
+
+- 179 yachts, all Status = Publicado
+- Types: Yacht 125, Megayacht 24, Pink Yacht 12, Speed Boat 8, Catamaran 7, plus Wake Boat / Ponton / Sport Boats
+- 157 captained, 22 without captain
+- Price/hour $110–$3925, average about $600
+- Years 1995–2026
+- Biggest owners: Miami Yacht Connect (23), Boat Miami Now (21), Alejandro (13)
+
+## Verification flags on this snapshot
+
+- 45 listings share the generic “unforgettable day on the water” description
+- 37 descriptions are thin
+- Bonus Round geocodes to Davao — treat location as suspect until corrected
+- ZEUS geocodes to Ohio — treat location as suspect until corrected
+- Capacity is 13 on most yachts — do not invent a different guest count without the sheet
+
+## How Pacman uses it
+
+- Fleet page: /fleet
+- API: /api/yachts
+- Corey proposals that name a boat must match Name + ID on this tab
+- Price, captain, length, and owner changes need owner Approve, then Pacman verifies against this tab
 `,
   },
 ];

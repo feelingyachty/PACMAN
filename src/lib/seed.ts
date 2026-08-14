@@ -31,7 +31,7 @@ export const seedStore: StoreData = {
       status: "online",
       avatarColor: "#F5C518",
       requiresApproval: false,
-      knowledgeDomains: ["semantic-seo", "wordpress", "elementor", "v8r", "ops"],
+      knowledgeDomains: ["semantic-seo", "wordpress", "elementor", "v8r", "ops", "fleet"],
       stats: emptyStats,
       notes:
         "Manager of all MDI agents. Does not do the agents' jobs for them. Verifies every implementation. Helps only when it changes the outcome.",
@@ -177,6 +177,19 @@ export const seedStore: StoreData = {
       implementationNotes: "Updated SEO plugin meta description in WordPress.",
     },
     {
+      id: "task-fleet-sheet",
+      title: "Know Feeling Yachty Main as fleet source of truth",
+      description:
+        "Authorized Google Sheet tab Feeling Yachty Main holds all yacht facts. Ignore the other tabs. Use it to verify listing, V8r, and booking changes.",
+      agentId: "pacman",
+      assignedBy: "owner",
+      status: "working",
+      priority: "high",
+      tags: ["fleet", "sheet", "v8r"],
+      createdAt: hoursAgo(0.1),
+      updatedAt: hoursAgo(0.1),
+    },
+    {
       id: "task-n8n-connect",
       title: "Keep n8n MCP connected as infrastructure",
       description:
@@ -236,6 +249,15 @@ export const seedStore: StoreData = {
       body: "SEO + developer + WordPress + V8r signals updated on the Intel board.",
     },
     {
+      id: "log-7",
+      at: hoursAgo(0.1),
+      agentId: "pacman",
+      taskId: "task-fleet-sheet",
+      kind: "research",
+      title: "Loaded Feeling Yachty Main",
+      body: "179 published yachts from Feeling Yachty Main only. Other BookMyBoat tabs ignored. Fleet page live at /fleet.",
+    },
+    {
       id: "log-6",
       at: hoursAgo(0.2),
       agentId: "pacman",
@@ -275,6 +297,16 @@ export const seedStore: StoreData = {
       relevance: "WordPress implementation checklist",
     },
     {
+      id: "intel-5",
+      category: "booking",
+      title: "Feeling Yachty Main is the yacht inventory Pacman trusts",
+      summary:
+        "179 published listings live on the Feeling Yachty Main tab. Other tabs in BookMyBoat_Yacht_Listings_Fahad are ignored. Price, captain, length, owner, and name must match that tab.",
+      publishedAt: hoursAgo(0.1),
+      url: "https://docs.google.com/spreadsheets/d/1uPsIFe8tPVtZe_AyiX7cIqYojWBTfj9K3HOpLM2fyKc/edit?gid=1083096086#gid=1083096086",
+      relevance: "Verify every listing or V8r change against this tab",
+    },
+    {
       id: "intel-4",
       category: "booking",
       title: "Incomplete V8r listings leak conversion",
@@ -307,6 +339,15 @@ export const seedStore: StoreData = {
       type: "intel",
       message: "Pacman refreshed SEO + developer intel",
       agentId: "pacman",
+    },
+    {
+      id: "act-5",
+      at: hoursAgo(0.1),
+      type: "intel",
+      message:
+        "Pacman loaded Feeling Yachty Main — 179 yachts. Other sheet tabs ignored.",
+      agentId: "pacman",
+      taskId: "task-fleet-sheet",
     },
     {
       id: "act-4",

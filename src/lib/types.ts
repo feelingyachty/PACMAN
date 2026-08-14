@@ -167,7 +167,7 @@ export interface StoreData {
   automations: Automation[];
 }
 
-export const STORE_VERSION = 5;
+export const STORE_VERSION = 6;
 
 export const N8N_BASE = "https://feelingyachty.app.n8n.cloud";
 export const N8N_MCP_URL = `${N8N_BASE}/mcp-server/http`;

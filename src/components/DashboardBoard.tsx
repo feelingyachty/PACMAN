@@ -112,6 +112,12 @@ export function DashboardBoard() {
               Approval inbox ({pending})
             </Link>
             <Link
+              href="/fleet"
+              className="rounded-xl border border-[var(--line)] px-4 py-2 text-sm font-bold"
+            >
+              Fleet
+            </Link>
+            <Link
               href="/n8n"
               className="rounded-xl border border-[var(--line)] px-4 py-2 text-sm font-bold"
             >

@@ -68,6 +68,13 @@ export default function SettingsPage() {
             · token from N8N_MCP_TOKEN
           </li>
           <li>
+            Fleet —{" "}
+            <Link href="/fleet" className="font-semibold text-[var(--brand)] underline">
+              Feeling Yachty Main
+            </Link>{" "}
+            · other BookMyBoat tabs ignored
+          </li>
+          <li>
             Knowledge —{" "}
             <Link href="/knowledge" className="font-semibold text-[var(--brand)] underline">
               Turberg, V8r, WordPress, Elementor

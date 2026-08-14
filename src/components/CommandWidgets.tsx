@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Agent, IntelItem, Task } from "@/lib/types";
+import { yachtSource } from "@/lib/yachts";
 
 export function CommandWidgets({
   agents,
@@ -113,7 +114,10 @@ export function CommandWidgets({
             : "Probing n8n…"}
         </p>
         <p className="mt-2 text-xs text-[var(--muted)]">
-          {agents.map((a) => a.name).join(" · ")} on the roster
+          {agents.map((a) => a.name).join(" · ")} on the roster ·{" "}
+          <Link href="/fleet" className="font-bold text-[var(--brand)]">
+            {yachtSource.count} yachts
+          </Link>
         </p>
         {n8n?.detail && (
           <p className="mt-1 line-clamp-2 text-xs text-[var(--ink-dim)]">
