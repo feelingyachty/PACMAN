@@ -68,3 +68,14 @@
 ## Metrics policy
 
 Case-study percentages and traffic figures appear in these sources (e.g. GetWordly, Interingilizce, Encazip, topical-map project list). Agents may **cite them as from the source article**. Do **not** treat them as Feeling Yachty projections or invent similar stats.
+
+## Methods / Python SEO utilities (supporting)
+
+Downloaded into `methods/` for NLP-adjacent execution support (TF-IDF, topic modeling, knowledge graphs, PAA scraping, information extraction). Use as supporting technique refs — not substitutes for topical maps.
+
+- `holisticseo.digital-python-seo-information-extraction.md`
+- `holisticseo.digital-python-seo-knowledge-graph.md`
+- `holisticseo.digital-python-seo-scrape-paa-questions.md`
+- `holisticseo.digital-python-seo-tf-idf-analyse.md`
+- `holisticseo.digital-python-seo-topic-modeling.md`
+

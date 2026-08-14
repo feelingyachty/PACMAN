@@ -35,3 +35,10 @@ These URLs are scraped into `docs/*/official/` every Monday.
 
 - n8n: https://feelingyachty.app.n8n.cloud
 - Slack: `#n8n-errors`, `#viator-cancellation-modifications-updates`
+
+## Holistic SEO / Koray (Corey Tongberg) corpus
+
+Primary: https://www.holisticseo.digital/seo-research-study/
+Topical Authority: https://www.holisticseo.digital/theoretical-seo/topical-authority/
+Course (paywalled — not mirrored): https://www.topicalauthority.digital/
+Skill: skills/seo-corey-tongberg/

@@ -38,6 +38,7 @@ Documented from live workflow structure (n8n MCP). Do not commit secrets or cred
 | `Mmj0jlpswUuXA4GG` | Bokun Booking Change/Cancel to Slack | Yes | Bokun change webhook → normalize (`activityBookings`) → E.164 phone → upsert GHL (Viator/Bokun fields + urgent tag) → Slack `#viator-cancellation-modifications-updates` | **Core** — Viator cancel/update path |
 | `RUqfXaObxUUup2Ys` | GHL Website Order to Google Chat | Yes | GHL website-order webhook → Miami/Panama billing Chat (or unmatched no-op) | **High** |
 | `TkLWlpBVSa287X5E` | Bokun New Booking to GHL | Yes | Bokun new-booking webhook → normalize + E.164 → upsert contact → create booking record → link contact | **Core** — Viator/Bokun intake |
+| `XjPh1Q5NKeUG3lcq` | Monday Docs Refresh Reminder | Yes | Every Monday 09:00 America/Bogota → Slack `#n8n-errors` reminder to refresh WordPress/Elementor/GHL docs in PACMAN | Ops — PACMAN knowledge-base cadence |
 | `Vh90KZMaefUxL2sY` | GHL Original Charter to Google Chat | Yes | GHL webhook → Chat for organic/original charter events | **High** |
 | `WboCfAlfDwHDaYHA` | TEMP AI Stress Test GHL Helper | No | Temporary helper webhook: upsert / tag / get GHL contact for AI stress tests | Test-only |
 | `aSaECkefyG2FbW3S` | GHL Panama WooCommerce Order to Google Chat | Yes | GHL Panama Woo order webhook → billing Chat | **High** |
