@@ -50,6 +50,15 @@
 | File | Purpose | Primary concepts |
 |------|---------|------------------|
 | `external/oncrawl-topical-authority.md` | OnCrawl executive summary of Topical Authority method | Actionable checklist: map-first, link count, anchors, contextual vectors, historical data; Interingilizce/GetWordly results summary |
+| `external/majestic.com-seo-in-2022-koray-tugberk-gubur.md` | Majestic 2022 interview/advice | Semantic SEO mindset shift |
+
+## Methods / Python SEO utilities
+
+Supporting technique refs in `methods/` (TF-IDF, topic modeling, knowledge graphs, PAA scrape, information extraction). Use to support map/brief execution — not as a substitute for topical maps.
+
+Additional theoretical: `sliding-window-technique-and-algorithm`, `stemming` under `theoretical/`.
+
+Extra white paper path: lexical semantics 5-site case study under `white-papers/` (marketing URL slug).
 
 ---
 
