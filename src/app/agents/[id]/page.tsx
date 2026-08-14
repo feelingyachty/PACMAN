@@ -57,6 +57,12 @@ export default function AgentProgressPage() {
         >
           Filter command board
         </Link>
+        <Link
+          href={`/learning?agent=${agent.id}`}
+          className="text-xs font-bold text-[var(--sea)] underline"
+        >
+          Learning log
+        </Link>
       </div>
 
       <header className="rise overflow-hidden rounded-3xl border border-[var(--line)] bg-[#0c0d09] p-6 md:p-8">

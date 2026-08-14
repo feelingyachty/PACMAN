@@ -100,6 +100,25 @@ export function DashboardBoard() {
         </div>
       </section>
 
+      <section className="rise panel flex flex-wrap items-center justify-between gap-4 rounded-2xl p-5">
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
+            Continuous study
+          </p>
+          <h2 className="display mt-1 text-xl font-extrabold">Learning log</h2>
+          <p className="mt-1 max-w-xl text-sm text-[var(--ink-dim)]">
+            See what Pacman, Corey, and every future employee read this week —
+            plus history saved in the repo so you can study the same material.
+          </p>
+        </div>
+        <Link
+          href="/learning"
+          className="rounded-xl bg-[var(--brand)] px-4 py-2.5 text-sm font-bold text-[#14160f]"
+        >
+          Open Learning
+        </Link>
+      </section>
+
       <section className="rise flex flex-wrap items-center gap-2">
         <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--muted)]">
           Watch

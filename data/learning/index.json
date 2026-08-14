@@ -1,0 +1,234 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-14T15:55:00.000Z",
+  "entries": [
+    {
+      "id": "learn-pacman-2026w33-koray-topical",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:40:00.000Z",
+      "title": "Importance of Topical Authority for SEO (Koray / Holistic SEO)",
+      "topic": "seo",
+      "url": "https://www.holisticseo.digital/theoretical-seo/topical-authority/",
+      "source": "holisticseo.digital",
+      "summary": "Topical authority is a ranking state built from connected entity/attribute coverage under a clear source context \u2014 not a blog calendar.",
+      "takeaways": [
+        "Cover information gaps (EAV facts), not just keyword gaps",
+        "Build supporting nodes before expecting head-term money pages to stick",
+        "Historical consistency compounds after initial ranking"
+      ],
+      "whyItMatters": "Core doctrine for Feeling Yachty charter SEO and Corey\u2019s approval-gated proposals.",
+      "repoPath": "docs/seo/koray-framework/theoretical/holisticseo.digital-theoretical-seo-topical-authority.md"
+    },
+    {
+      "id": "learn-pacman-2026w33-topical-map",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:41:00.000Z",
+      "title": "How to Expand a Topical Map for Higher Topical Authority",
+      "topic": "seo",
+      "url": "https://www.holisticseo.digital/seo-research-study/topical-map/",
+      "source": "holisticseo.digital",
+      "summary": "Expand maps with contextual bridges so outer topics still reinforce the charter core instead of diluting it.",
+      "takeaways": [
+        "Define source context first (FY = private yacht charter / experiences)",
+        "Reject outer nodes without a strong bridge to core",
+        "Brand identity EAV is part of the map, not an afterthought"
+      ],
+      "whyItMatters": "Prevents n8n auto-blogging from flooding WordPress with off-map posts.",
+      "repoPath": "docs/seo/koray-framework/white-papers/holisticseo.digital-seo-research-study-topical-map.md"
+    },
+    {
+      "id": "learn-pacman-2026w33-eav",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:42:00.000Z",
+      "title": "Entity\u2013Attribute\u2013Value model for semantic content systems",
+      "topic": "seo",
+      "url": "https://www.holisticseo.digital/seo-research-study/entity-attribute-value/",
+      "source": "holisticseo.digital",
+      "summary": "Pages should be configured as entity + attributes + values so engines can match query needs with less retrieval cost.",
+      "takeaways": [
+        "Briefs need EAV tables, not just outlines",
+        "Algorithmic authorship works when attributes are explicit",
+        "Never invent fleet/pricing values \u2014 leave gaps marked"
+      ],
+      "whyItMatters": "Sets the quality bar for every Feeling Yachty money-page brief.",
+      "repoPath": "docs/seo/koray-framework/white-papers/holisticseo.digital-seo-research-study-entity-attribute-value.md"
+    },
+    {
+      "id": "learn-pacman-2026w33-sel-2026",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:45:00.000Z",
+      "title": "SEO in 2026: What will stay the same (Search Engine Land)",
+      "topic": "seo",
+      "url": "https://searchengineland.com/seo-2026-stay-same-467688",
+      "source": "Search Engine Land",
+      "summary": "Trust, crawlable structured information, and meeting real user needs remain the durable SEO foundations even as AI surfaces change.",
+      "takeaways": [
+        "Semantics + topical authority still compound for local/experience queries",
+        "Thin AI posts without entity coverage will keep failing",
+        "Stay current weekly \u2014 do not freeze on last year\u2019s playbook"
+      ],
+      "whyItMatters": "Confirms Pacman\u2019s standing order: continuous SEO study + enforce map-first publishing."
+    },
+    {
+      "id": "learn-pacman-2026w33-dev-2026",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:46:00.000Z",
+      "title": "Key web development trends for 2026 (AI-assisted workflows, modern frameworks)",
+      "topic": "dev",
+      "url": "https://blog.logrocket.com/8-trends-web-dev-2026/",
+      "source": "LogRocket / industry roundups",
+      "summary": "2026 web work is shifting toward AI-assisted implementation, faster build tooling, and clearer ownership of agentic workflows \u2014 which matches PACMAN\u2019s verify-then-ship model.",
+      "takeaways": [
+        "AI accelerates coding; human/Pacman verification still owns production risk",
+        "Prefer durable frameworks (Next.js App Router) with simple data files for ops dashboards",
+        "Keep learning logs in-repo so Fernando can audit agent study habits"
+      ],
+      "whyItMatters": "Keeps Pacman\u2019s developer judgment current while managing MDI agents."
+    },
+    {
+      "id": "learn-pacman-2026w33-wp-rest",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:35:00.000Z",
+      "title": "WordPress REST API authentication & handbook mirrors",
+      "topic": "wordpress",
+      "url": "https://developer.wordpress.org/rest-api/using-the-rest-api/authentication/",
+      "source": "developer.wordpress.org",
+      "summary": "Application Passwords remain the practical auth path for agent-driven WP writes; Elementor pages still sit on WP post meta.",
+      "takeaways": [
+        "Invalid app passwords silently kill n8n \u2192 WP push workflows",
+        "Prefer REST for posts/media; verify Elementor JSON carefully",
+        "Monday docs refresh keeps handbook mirrors current"
+      ],
+      "whyItMatters": "Directly related to FY WP Push Test failures and auto-blogging reliability.",
+      "repoPath": "docs/wordpress/official/developer.wordpress.org-rest-api-using-the-rest-api-authentication.md"
+    },
+    {
+      "id": "learn-pacman-2026w33-ghl-system",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:36:00.000Z",
+      "title": "Feeling Yachty GHL/n8n system overview (live inventory)",
+      "topic": "ghl",
+      "url": "https://feelingyachty.app.n8n.cloud",
+      "source": "PACMAN docs + n8n Cloud",
+      "summary": "GHL is CRM hub; n8n owns bots (AI Sales, Omni Router, Support, Mom Bot, Viator) and booking intake (Bokun/Woo/WP).",
+      "takeaways": [
+        "Phones into GHL must be E.164",
+        "Viator real payloads use activityBookings",
+        "WordPress\u2192GHL Sync has been silent \u2014 treat as ops risk"
+      ],
+      "whyItMatters": "Pacman cannot verify SEO/dev work without knowing the booking + CRM stack.",
+      "repoPath": "docs/ghl/SYSTEM_OVERVIEW.md"
+    },
+    {
+      "id": "learn-corey-2026w33-topical",
+      "agentId": "corey",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:40:00.000Z",
+      "title": "Koray Topical Authority + Topical Map research (skill pack training)",
+      "topic": "seo",
+      "url": "https://www.holisticseo.digital/theoretical-seo/topical-authority/",
+      "source": "holisticseo.digital via PACMAN skill",
+      "summary": "Corey re-trained on public Holistic SEO materials operationalized in skills/seo-corey-tongberg for Feeling Yachty Miami/Panama charter.",
+      "takeaways": [
+        "Map before content",
+        "One owner URL per query cluster (anti-cannibalization)",
+        "Multi-query SERP intent clustering before briefs"
+      ],
+      "whyItMatters": "Raises the bar on every feeling.com proposal that needs owner Approve.",
+      "repoPath": "skills/seo-corey-tongberg/SKILL.md"
+    },
+    {
+      "id": "learn-corey-2026w33-entity",
+      "agentId": "corey",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:41:30.000Z",
+      "title": "Entity SEO + Entity Identity Management case studies",
+      "topic": "seo",
+      "url": "https://www.holisticseo.digital/seo-research-study/entity-seo/",
+      "source": "holisticseo.digital",
+      "summary": "Entity-oriented coverage and brand identity corroboration drive durable rankings beyond classic keyword targeting.",
+      "takeaways": [
+        "Extract attributes from ranking documents, not invent them",
+        "Brand SERP / identity consensus protects Feeling Yachty queries",
+        "Supporting hubs should feed money URLs, not replace them"
+      ],
+      "whyItMatters": "Shapes the sitemap gap audit currently waiting for approval.",
+      "repoPath": "docs/seo/koray-framework/white-papers/holisticseo.digital-seo-research-study-entity-seo.md"
+    },
+    {
+      "id": "learn-corey-2026w33-semantic-2026",
+      "agentId": "corey",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:47:00.000Z",
+      "title": "Semantic SEO for 2026 \u2014 entities, intent, and topic systems",
+      "topic": "seo",
+      "url": "https://www.reddit.com/r/SEMrush/comments/1q6gwnr/semantic_seo_for_2026_a_practical_guide_to/",
+      "source": "Industry discussion / 2026 guides",
+      "summary": "2026 consensus continues to favor entity + intent systems over isolated keywords \u2014 aligned with Turberg/Koray practice.",
+      "takeaways": [
+        "Query networks > keyword lists",
+        "Intent clusters determine content format (FAQ, itinerary, comparison)",
+        "Stay weekly-current; Google surfaces keep shifting"
+      ],
+      "whyItMatters": "Keeps Corey\u2019s proposals modern without chasing every shiny tactic."
+    },
+    {
+      "id": "learn-corey-2026w33-oncrawl",
+      "agentId": "corey",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T15:42:30.000Z",
+      "title": "OnCrawl: Importance of Topical Authority (Koray case summary)",
+      "topic": "seo",
+      "url": "https://www.oncrawl.com/technical-seo/importance-topical-authority-semantic-seo/",
+      "source": "OnCrawl",
+      "summary": "Practical checklist from Koray\u2019s OnCrawl write-up: map-first, internal links, contextual vectors, historical data.",
+      "takeaways": [
+        "Internal links are part of the topical graph, not decoration",
+        "Publish cadence is a ranking input",
+        "Cite source metrics only \u2014 never invent FY traffic claims"
+      ],
+      "whyItMatters": "Executable checklist for Pacman verification of Corey\u2019s implementations.",
+      "repoPath": "docs/seo/koray-framework/external/oncrawl-topical-authority.md"
+    },
+    {
+      "id": "learn-pacman-2026w32-dashboard",
+      "agentId": "pacman",
+      "weekOf": "2026-08-03",
+      "readAt": "2026-08-07T18:00:00.000Z",
+      "title": "PACMAN command-center architecture (Next.js App Router + JSON store)",
+      "topic": "dev",
+      "source": "PACMAN repo",
+      "summary": "Fleet board, approvals, and per-agent progress pages as the ops UI for MDI agents.",
+      "takeaways": [
+        "Approval gate before production writes",
+        "Pacman verification is mandatory after implement",
+        "Keep durable history in-repo, not only in chat"
+      ],
+      "whyItMatters": "Foundation for the Learning tab and Fernando visibility.",
+      "repoPath": "src/app/page.tsx"
+    },
+    {
+      "id": "learn-pacman-2026w32-n8n-errors",
+      "agentId": "pacman",
+      "weekOf": "2026-08-03",
+      "readAt": "2026-08-08T16:00:00.000Z",
+      "title": "Slack #n8n-errors as live ops feed for GHL/booking failures",
+      "topic": "ops",
+      "source": "Slack",
+      "summary": "Phone E.164 failures and activityBookings shape bugs blocked Bokun\u2192GHL \u2014 ops learning feeds product fixes.",
+      "takeaways": [
+        "Treat Slack incident notes as training data",
+        "Document fixes in PACMAN /n8n docs",
+        "Learning tab should capture ops postmortems too"
+      ],
+      "whyItMatters": "Pacman verifies agents against real stack failure modes."
+    }
+  ]
+}
