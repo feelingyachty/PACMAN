@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #1a1c16;
+  --ink-soft: #3d4133;
+  --muted: #6b715c;
+  --paper: #f3f0e6;
+  --paper-2: #ebe6d6;
+  --line: rgba(26, 28, 22, 0.1);
+  --brand: #f5c518;
+  --brand-deep: #c49200;
+  --sea: #1f6f6a;
+  --sea-soft: #d7ebe8;
+  --alert: #c45c26;
+  --good: #2f6b3a;
+  --card: rgba(255, 252, 245, 0.92);
+  --shadow: 0 18px 40px rgba(26, 28, 22, 0.08);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-sea: var(--sea);
+  --color-sea-soft: var(--sea-soft);
+  --color-alert: var(--alert);
+  --color-good: var(--good);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 8% -10%, rgba(245, 197, 24, 0.28), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(31, 111, 106, 0.12), transparent 50%),
+    linear-gradient(180deg, #f7f4eb 0%, var(--paper) 40%, #e8e2d0 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(26, 28, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 28, 22, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.display {
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(245, 197, 24, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
+  }
+}
+
+.rise {
+  animation: rise-in 0.55s ease both;
+}
+
+.approve-pulse {
+  animation: pulse-ring 1.8s ease infinite;
+}
+
+.board-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(26, 28, 22, 0.25) transparent;
+}
+
+.board-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.board-scroll::-webkit-scrollbar-thumb {
+  background: rgba(26, 28, 22, 0.2);
+  border-radius: 999px;
+}
+
+.prose-kb h1,
+.prose-kb h2,
+.prose-kb h3 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.02em;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.prose-kb p,
+.prose-kb li {
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.prose-kb ul {
+  padding-left: 1.2rem;
+}
+
+.prose-kb code {
+  font-size: 0.9em;
+  background: var(--paper-2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
