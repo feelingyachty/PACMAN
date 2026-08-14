@@ -1,51 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useCommand } from "@/components/useCommand";
+import { MarkdownLite } from "@/components/MarkdownLite";
 import type { KnowledgeDoc } from "@/lib/types";
 
-const DOMAINS = ["all", "seo", "v8r", "wordpress", "elementor", "ops"] as const;
-
-function renderMarkdownLite(content: string) {
-  return content.split("\n").map((line, i) => {
-    if (line.startsWith("# "))
-      return (
-        <h1 key={i} className="display text-2xl font-extrabold">
-          {line.slice(2)}
-        </h1>
-      );
-    if (line.startsWith("## "))
-      return (
-        <h2 key={i} className="display text-xl font-bold text-[var(--brand)]">
-          {line.slice(3)}
-        </h2>
-      );
-    if (line.startsWith("- [ ] "))
-      return (
-        <li key={i} className="ml-4 list-disc">
-          {line.slice(6)}
-        </li>
-      );
-    if (line.startsWith("- "))
-      return (
-        <li key={i} className="ml-4 list-disc">
-          {line.slice(2)}
-        </li>
-      );
-    if (/^\d+\.\s/.test(line))
-      return (
-        <li key={i} className="ml-4 list-decimal">
-          {line.replace(/^\d+\.\s/, "")}
-        </li>
-      );
-    if (!line.trim()) return <div key={i} className="h-2" />;
-    return (
-      <p key={i} className="text-sm leading-relaxed text-[var(--ink-dim)]">
-        {line}
-      </p>
-    );
-  });
-}
+const DOMAINS = ["all", "seo", "v8r", "wordpress", "elementor", "ghl", "ops"] as const;
 
 export default function KnowledgePage() {
   const cmd = useCommand();
@@ -74,9 +35,15 @@ export default function KnowledgePage() {
         </p>
         <h1 className="display text-3xl font-extrabold md:text-4xl">Knowledge</h1>
         <p className="mt-2 max-w-2xl text-sm text-[var(--ink-dim)]">
-          Turberg semantic SEO, V8r booking, WordPress, Elementor — the packs
-          Pacman uses to verify work.
+          Koray / Tongberg semantic SEO, V8r booking, WordPress, Elementor, GHL —
+          the packs Pacman uses to verify work. Weekly study lives on Learning.
         </p>
+        <Link
+          href="/learning"
+          className="mt-3 inline-block text-sm font-bold text-[var(--brand)] underline"
+        >
+          Open Learning →
+        </Link>
       </header>
 
       <div className="rise flex flex-wrap items-center gap-2">
@@ -133,7 +100,9 @@ export default function KnowledgePage() {
               {active.title}
             </h2>
             <p className="mt-2 text-sm text-[var(--ink-dim)]">{active.summary}</p>
-            <div className="mt-6 space-y-1">{renderMarkdownLite(active.content)}</div>
+            <div className="mt-6">
+              <MarkdownLite content={active.content} />
+            </div>
           </article>
         )}
       </div>

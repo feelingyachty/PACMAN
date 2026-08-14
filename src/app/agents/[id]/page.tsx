@@ -1,24 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { useCommand } from "@/components/useCommand";
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { TaskDetailModal } from "@/components/TaskDetailModal";
 import { AssignModal } from "@/components/AssignModal";
+import type { LearningPayload } from "@/lib/learning-types";
 
 export default function AgentProgressPage() {
   const params = useParams<{ id: string }>();
   const agentId = params.id;
   const cmd = useCommand();
   const [assignOpen, setAssignOpen] = useState(false);
+  const [weekReads, setWeekReads] = useState<number | null>(null);
 
   const agent = cmd.store?.agents.find((a) => a.id === agentId);
   const tasks = useMemo(
     () => cmd.store?.tasks.filter((t) => t.agentId === agentId) ?? [],
     [cmd.store, agentId],
   );
+  useEffect(() => {
+    let cancelled = false;
+    void fetch(`/api/learning?meta=1&agentId=${encodeURIComponent(agentId)}`, {
+      cache: "no-store",
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: LearningPayload | null) => {
+        if (cancelled || !data) return;
+        setWeekReads(data.stats.byAgent[agentId] ?? 0);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [agentId]);
+
   const logs = useMemo(
     () => cmd.store?.logs.filter((l) => l.agentId === agentId || (l.taskId && tasks.some((t) => t.id === l.taskId))) ?? [],
     [cmd.store, agentId, tasks],
@@ -105,13 +123,14 @@ export default function AgentProgressPage() {
             Assign work
           </button>
         </div>
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-6">
           {[
             ["Done", agent.stats.completed],
             ["Active", agent.stats.inProgress],
             ["Needs you", agent.stats.pendingApproval],
             ["Verified", agent.stats.verifiedByPacman],
             ["Complete", `${agent.stats.completionRate}%`],
+            ["Reads", weekReads ?? "—"],
           ].map(([label, value]) => (
             <div key={String(label)} className="rounded-2xl bg-white/5 px-3 py-3">
               <div className="display text-2xl font-extrabold">{value}</div>

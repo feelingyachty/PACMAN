@@ -1,7 +1,23 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-14T15:55:00.000Z",
+  "updatedAt": "2026-08-14T16:00:52.611Z",
   "entries": [
+    {
+      "id": "learn-pacman-2026-08-10-eb854bbc",
+      "agentId": "pacman",
+      "weekOf": "2026-08-10",
+      "readAt": "2026-08-14T16:00:52.610Z",
+      "title": "PACMAN 4.6 quality pass — Learning API, live counts, Monday stubs",
+      "topic": "product",
+      "summary": "Reviewed the Learning tab, SEO skill, and Monday docs cadence. Hardened POST /api/learning, added a Log a read form, live command-board counts, Intel source links, shared markdown rendering, and Monday week stubs so study is actually captured.",
+      "takeaways": [
+        "Log a read from /learning or scripts/log-learning.sh — chat notes do not count",
+        "GET /api/learning?meta=1 is the light payload for command and agent pages",
+        "Monday docs refresh now stubs data/learning/digests for every employee"
+      ],
+      "whyItMatters": "Fernando upgraded the model to review prior work. Logging the pass keeps the archive honest and shows the new write path works.",
+      "repoPath": "src/lib/learning.ts"
+    },
     {
       "id": "learn-pacman-2026w33-koray-topical",
       "agentId": "pacman",
@@ -11,13 +27,13 @@
       "topic": "seo",
       "url": "https://www.holisticseo.digital/theoretical-seo/topical-authority/",
       "source": "holisticseo.digital",
-      "summary": "Topical authority is a ranking state built from connected entity/attribute coverage under a clear source context \u2014 not a blog calendar.",
+      "summary": "Topical authority is a ranking state built from connected entity/attribute coverage under a clear source context — not a blog calendar.",
       "takeaways": [
         "Cover information gaps (EAV facts), not just keyword gaps",
         "Build supporting nodes before expecting head-term money pages to stick",
         "Historical consistency compounds after initial ranking"
       ],
-      "whyItMatters": "Core doctrine for Feeling Yachty charter SEO and Corey\u2019s approval-gated proposals.",
+      "whyItMatters": "Core doctrine for Feeling Yachty charter SEO and Corey’s approval-gated proposals.",
       "repoPath": "docs/seo/koray-framework/theoretical/holisticseo.digital-theoretical-seo-topical-authority.md"
     },
     {
@@ -43,7 +59,7 @@
       "agentId": "pacman",
       "weekOf": "2026-08-10",
       "readAt": "2026-08-14T15:42:00.000Z",
-      "title": "Entity\u2013Attribute\u2013Value model for semantic content systems",
+      "title": "Entity–Attribute–Value model for semantic content systems",
       "topic": "seo",
       "url": "https://www.holisticseo.digital/seo-research-study/entity-attribute-value/",
       "source": "holisticseo.digital",
@@ -51,7 +67,7 @@
       "takeaways": [
         "Briefs need EAV tables, not just outlines",
         "Algorithmic authorship works when attributes are explicit",
-        "Never invent fleet/pricing values \u2014 leave gaps marked"
+        "Never invent fleet/pricing values — leave gaps marked"
       ],
       "whyItMatters": "Sets the quality bar for every Feeling Yachty money-page brief.",
       "repoPath": "docs/seo/koray-framework/white-papers/holisticseo.digital-seo-research-study-entity-attribute-value.md"
@@ -69,9 +85,9 @@
       "takeaways": [
         "Semantics + topical authority still compound for local/experience queries",
         "Thin AI posts without entity coverage will keep failing",
-        "Stay current weekly \u2014 do not freeze on last year\u2019s playbook"
+        "Stay current weekly — do not freeze on last year’s playbook"
       ],
-      "whyItMatters": "Confirms Pacman\u2019s standing order: continuous SEO study + enforce map-first publishing."
+      "whyItMatters": "Confirms Pacman’s standing order: continuous SEO study + enforce map-first publishing."
     },
     {
       "id": "learn-pacman-2026w33-dev-2026",
@@ -82,13 +98,13 @@
       "topic": "dev",
       "url": "https://blog.logrocket.com/8-trends-web-dev-2026/",
       "source": "LogRocket / industry roundups",
-      "summary": "2026 web work is shifting toward AI-assisted implementation, faster build tooling, and clearer ownership of agentic workflows \u2014 which matches PACMAN\u2019s verify-then-ship model.",
+      "summary": "2026 web work is shifting toward AI-assisted implementation, faster build tooling, and clearer ownership of agentic workflows — which matches PACMAN’s verify-then-ship model.",
       "takeaways": [
         "AI accelerates coding; human/Pacman verification still owns production risk",
         "Prefer durable frameworks (Next.js App Router) with simple data files for ops dashboards",
         "Keep learning logs in-repo so Fernando can audit agent study habits"
       ],
-      "whyItMatters": "Keeps Pacman\u2019s developer judgment current while managing MDI agents."
+      "whyItMatters": "Keeps Pacman’s developer judgment current while managing MDI agents."
     },
     {
       "id": "learn-pacman-2026w33-wp-rest",
@@ -101,7 +117,7 @@
       "source": "developer.wordpress.org",
       "summary": "Application Passwords remain the practical auth path for agent-driven WP writes; Elementor pages still sit on WP post meta.",
       "takeaways": [
-        "Invalid app passwords silently kill n8n \u2192 WP push workflows",
+        "Invalid app passwords silently kill n8n → WP push workflows",
         "Prefer REST for posts/media; verify Elementor JSON carefully",
         "Monday docs refresh keeps handbook mirrors current"
       ],
@@ -121,7 +137,7 @@
       "takeaways": [
         "Phones into GHL must be E.164",
         "Viator real payloads use activityBookings",
-        "WordPress\u2192GHL Sync has been silent \u2014 treat as ops risk"
+        "WordPress→GHL Sync has been silent — treat as ops risk"
       ],
       "whyItMatters": "Pacman cannot verify SEO/dev work without knowing the booking + CRM stack.",
       "repoPath": "docs/ghl/SYSTEM_OVERVIEW.md"
@@ -167,17 +183,17 @@
       "agentId": "corey",
       "weekOf": "2026-08-10",
       "readAt": "2026-08-14T15:47:00.000Z",
-      "title": "Semantic SEO for 2026 \u2014 entities, intent, and topic systems",
+      "title": "Semantic SEO for 2026 — entities, intent, and topic systems",
       "topic": "seo",
       "url": "https://www.reddit.com/r/SEMrush/comments/1q6gwnr/semantic_seo_for_2026_a_practical_guide_to/",
       "source": "Industry discussion / 2026 guides",
-      "summary": "2026 consensus continues to favor entity + intent systems over isolated keywords \u2014 aligned with Turberg/Koray practice.",
+      "summary": "2026 consensus continues to favor entity + intent systems over isolated keywords — aligned with Turberg/Koray practice.",
       "takeaways": [
         "Query networks > keyword lists",
         "Intent clusters determine content format (FAQ, itinerary, comparison)",
         "Stay weekly-current; Google surfaces keep shifting"
       ],
-      "whyItMatters": "Keeps Corey\u2019s proposals modern without chasing every shiny tactic."
+      "whyItMatters": "Keeps Corey’s proposals modern without chasing every shiny tactic."
     },
     {
       "id": "learn-corey-2026w33-oncrawl",
@@ -188,13 +204,13 @@
       "topic": "seo",
       "url": "https://www.oncrawl.com/technical-seo/importance-topical-authority-semantic-seo/",
       "source": "OnCrawl",
-      "summary": "Practical checklist from Koray\u2019s OnCrawl write-up: map-first, internal links, contextual vectors, historical data.",
+      "summary": "Practical checklist from Koray’s OnCrawl write-up: map-first, internal links, contextual vectors, historical data.",
       "takeaways": [
         "Internal links are part of the topical graph, not decoration",
         "Publish cadence is a ranking input",
-        "Cite source metrics only \u2014 never invent FY traffic claims"
+        "Cite source metrics only — never invent FY traffic claims"
       ],
-      "whyItMatters": "Executable checklist for Pacman verification of Corey\u2019s implementations.",
+      "whyItMatters": "Executable checklist for Pacman verification of Corey’s implementations.",
       "repoPath": "docs/seo/koray-framework/external/oncrawl-topical-authority.md"
     },
     {
@@ -222,7 +238,7 @@
       "title": "Slack #n8n-errors as live ops feed for GHL/booking failures",
       "topic": "ops",
       "source": "Slack",
-      "summary": "Phone E.164 failures and activityBookings shape bugs blocked Bokun\u2192GHL \u2014 ops learning feeds product fixes.",
+      "summary": "Phone E.164 failures and activityBookings shape bugs blocked Bokun→GHL — ops learning feeds product fixes.",
       "takeaways": [
         "Treat Slack incident notes as training data",
         "Document fixes in PACMAN /n8n docs",

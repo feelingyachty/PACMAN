@@ -30,6 +30,7 @@ export function defaultPlaybook(role: AgentRole): string {
         "5. Wait for owner Approve",
         "6. Implement exactly what was approved",
         "7. Hand to Pacman for live verification",
+        "8. Log the sources you studied to /learning",
       ].join("\n");
     case "wordpress":
       return [
@@ -60,6 +61,7 @@ export function defaultPlaybook(role: AgentRole): string {
         "2. Collect sources",
         "3. Brief Pacman + owner",
         "4. Convert findings into gated tasks if action is needed",
+        "5. Log sources + takeaways on /learning",
       ].join("\n");
     case "manager":
       return [
@@ -67,7 +69,8 @@ export function defaultPlaybook(role: AgentRole): string {
         "2. Enforce approval gates",
         "3. Verify implementations against proposals",
         "4. Stay current on SEO + developer intel",
-        "5. Intervene only when it helps",
+        "5. Log every study session to /learning (data/learning/)",
+        "6. Intervene only when it helps",
       ].join("\n");
     default:
       return [

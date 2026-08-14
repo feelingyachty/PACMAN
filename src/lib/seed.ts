@@ -231,6 +231,7 @@ export const seedStore: StoreData = {
       title: "Entity-complete supporting pages still outrank thin keyword posts",
       summary:
         "Coverage of attributes and related entities beats repeating a head term. Matches Turberg topical-map practice Corey uses on feeling.com.",
+      url: "https://www.holisticseo.digital/theoretical-seo/topical-authority/",
       publishedAt: hoursAgo(20),
       relevance: "Use on every Corey proposal review",
     },
@@ -240,6 +241,7 @@ export const seedStore: StoreData = {
       title: "Server mutations + revalidate remain the stable approval pattern",
       summary:
         "Keep Approve/Verify as server writes. Client boards should refetch, not invent state.",
+      url: "https://nextjs.org/docs/app/building-your-application/caching",
       publishedAt: hoursAgo(12),
       relevance: "PACMAN command-center architecture",
     },
@@ -249,6 +251,7 @@ export const seedStore: StoreData = {
       title: "Elementor containers are the layout primitive — sections are legacy",
       summary:
         "New work uses Flexbox/Grid containers. Nested classic sections are a verification fail.",
+      url: "https://elementor.com/help/elementor-flexbox-container/",
       publishedAt: hoursAgo(30),
       relevance: "WordPress implementation checklist",
     },

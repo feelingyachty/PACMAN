@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "pacman-docs-bot"
           git config user.email "payments@feelingyachty.com"
-          git add docs/wordpress/official docs/elementor/official docs/ghl/official docs/ops/CHANGELOG_UPDATES.md || true
+          git add docs/wordpress/official docs/elementor/official docs/ghl/official docs/ops/CHANGELOG_UPDATES.md data/learning || true
           if git diff --staged --quiet; then
             echo "No documentation changes."
           else

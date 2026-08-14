@@ -3,6 +3,7 @@ import path from "path";
 import { randomUUID } from "crypto";
 import { seedStore } from "./seed";
 import { knowledgeDocs } from "./knowledge";
+import { ensureLearningWeek } from "./learning";
 import { defaultMandate, defaultPlaybook, roleNeedsApproval } from "./playbooks";
 import type {
   ActivityEvent,
@@ -41,6 +42,19 @@ function mergeKnowledge(existing: StoreData["knowledge"] = []) {
   return Array.from(byId.values());
 }
 
+function mergeIntel(existing: StoreData["intel"] = []) {
+  const byId = new Map(existing.map((item) => [item.id, item]));
+  for (const item of seedStore.intel) {
+    const prev = byId.get(item.id);
+    if (!prev) {
+      byId.set(item.id, item);
+      continue;
+    }
+    if (!prev.url && item.url) prev.url = item.url;
+  }
+  return Array.from(byId.values());
+}
+
 function isCurrentStore(parsed: unknown): parsed is StoreData {
   if (!parsed || typeof parsed !== "object") return false;
   const data = parsed as StoreData;
@@ -63,6 +77,7 @@ async function ensureStore(): Promise<StoreData> {
       return fresh;
     }
     parsed.knowledge = mergeKnowledge(parsed.knowledge);
+    parsed.intel = mergeIntel(parsed.intel);
     return parsed;
   } catch {
     const initial = initialStore();
@@ -245,6 +260,7 @@ export async function addAgent(input: {
 
   recalcAgentStats(data);
   await writeStore(data);
+  await ensureLearningWeek([agent.id]).catch(() => undefined);
   return agent;
 }
 

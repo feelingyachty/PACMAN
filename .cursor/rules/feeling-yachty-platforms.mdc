@@ -3,4 +3,4 @@ description: Feeling Yachty GHL, WordPress, Elementor, n8n platform knowledge
 alwaysApply: true
 ---
 
-Before changing GHL bots, WordPress/Elementor sites, or n8n workflows, read `AGENTS.md` and `docs/ghl/SYSTEM_OVERVIEW.md`. Live workflow IDs live in `docs/n8n/WORKFLOW_INVENTORY.md`. Official WordPress/Elementor/GHL mirrors are under `docs/*/official/` and refresh Mondays via `scripts/weekly-docs-update.sh`. Prefer n8n-api MCP for workflow edits. Never commit secrets.
+Before changing GHL bots, WordPress/Elementor sites, or n8n workflows, read `AGENTS.md` and `docs/ghl/SYSTEM_OVERVIEW.md`. Live workflow IDs live in `docs/n8n/WORKFLOW_INVENTORY.md`. Official WordPress/Elementor/GHL mirrors are under `docs/*/official/` and refresh Mondays via `scripts/weekly-docs-update.sh`. Prefer n8n-api MCP for workflow edits. Never commit secrets. After platform research, log it to `data/learning/` so it shows on `/learning`.

@@ -7,6 +7,7 @@ import { useCommand } from "@/components/useCommand";
 import { KanbanBoard } from "@/components/KanbanBoard";
 import { TaskDetailModal } from "@/components/TaskDetailModal";
 import { AssignModal } from "@/components/AssignModal";
+import type { LearningPayload } from "@/lib/learning-types";
 
 export function DashboardBoard() {
   const searchParams = useSearchParams();
@@ -16,6 +17,20 @@ export function DashboardBoard() {
     agentParam ?? "all",
   );
   const [assignOpen, setAssignOpen] = useState(false);
+  const [learning, setLearning] = useState<LearningPayload | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetch("/api/learning?meta=1", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: LearningPayload | null) => {
+        if (!cancelled && data) setLearning(data);
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (agentParam) setAgentFilter(agentParam);
@@ -110,6 +125,23 @@ export function DashboardBoard() {
             See what Pacman, Corey, and every future employee read this week —
             plus history saved in the repo so you can study the same material.
           </p>
+          {learning && (
+            <p className="mt-2 text-sm text-[var(--ink)]">
+              <span className="display text-2xl font-extrabold text-[var(--brand)]">
+                {learning.stats.thisWeek}
+              </span>{" "}
+              reads this week
+              {Object.entries(learning.stats.byAgent).length > 0 && (
+                <span className="text-[var(--muted)]">
+                  {" "}
+                  ·{" "}
+                  {Object.entries(learning.stats.byAgent)
+                    .map(([id, n]) => `${id} ${n}`)
+                    .join(" · ")}
+                </span>
+              )}
+            </p>
+          )}
         </div>
         <Link
           href="/learning"

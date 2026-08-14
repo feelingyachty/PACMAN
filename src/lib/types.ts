@@ -106,7 +106,7 @@ export interface WorkLog {
 export interface KnowledgeDoc {
   id: string;
   title: string;
-  domain: "seo" | "v8r" | "wordpress" | "elementor" | "news" | "ops";
+  domain: "seo" | "v8r" | "wordpress" | "elementor" | "ghl" | "news" | "ops";
   summary: string;
   content: string;
   source?: string;

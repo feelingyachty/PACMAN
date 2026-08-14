@@ -14,12 +14,15 @@ Pacman is the head of the MDI agent fleet. This is the command center: Trello-st
 
 ## Learning tab
 
-`/learning` shows every employee’s reading for the current week, with takeaways and one-click “Open source,” plus week history.
+`/learning` shows every employee’s reading for the current week, with takeaways and one-click “Open source,” plus week history. Use **Log a read** on that page (or `POST /api/learning`) so Fernando can reopen the same sources.
 
 Repo archive (git-backed forever):
 
 - `data/learning/index.json` — structured entries
 - `data/learning/digests/{agentId}/{weekOf}.md` — easy-read weekly digests for Fernando
+- `data/learning/README.md` — field contract + Monday cadence
+- `scripts/log-learning.sh` — CLI writer
+- `scripts/ensure-learning-week.mjs` — Monday stubs (runs with the docs refresh)
 
 ## Standing order
 
@@ -55,7 +58,8 @@ Open http://localhost:3000 · Learning at http://localhost:3000/learning
 | GET/POST | `/api/tasks` | List / assign |
 | PATCH | `/api/tasks/:id` | `approve`, `reject`, `submit_verification`, `verify`, `status` |
 | GET/POST | `/api/logs` | Work log |
-| GET | `/api/learning` | Learning index + digests (`?digest=1&agentId=&weekOf=`) |
+| GET | `/api/learning` | Learning index + digests (`?digest=1&agentId=&weekOf=`, `?meta=1` skips markdown) |
+| POST | `/api/learning` | Log a read (`agentId`, `title`, `topic`, `summary`, `whyItMatters`, optional `takeaways`, `url`, `source`, `repoPath`, `weekOf`) |
 
 Runtime board state: `data/store.json` (gitignored, reseeded when store version changes).  
 Learning archive: `data/learning/**` (**committed**).

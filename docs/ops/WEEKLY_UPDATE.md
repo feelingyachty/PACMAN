@@ -4,7 +4,7 @@
 
 ## Goal
 
-Keep PACMAN mirrors of WordPress, Elementor, and GoHighLevel documentation current so agents always have fresh official guidance alongside Feeling Yachty’s live GHL/n8n architecture docs.
+Keep PACMAN mirrors of WordPress, Elementor, and GoHighLevel documentation current so agents always have fresh official guidance alongside Feeling Yachty’s live GHL/n8n architecture docs. Also stub the new Learning week so employees log what they studied.
 
 ## What gets refreshed
 
@@ -15,6 +15,7 @@ Keep PACMAN mirrors of WordPress, Elementor, and GoHighLevel documentation curre
 | GoHighLevel API | `marketplace.gohighlevel.com/docs`, `highlevel.stoplight.io/docs/integrations` | `docs/ghl/official/` |
 | GoHighLevel Help / Blog / Ideas | `help.gohighlevel.com`, `gohighlevel.com/blog`, `ideas.gohighlevel.com` | `docs/ghl/official/` |
 | Live n8n inventory | `n8n-api` MCP / instance | `docs/n8n/WORKFLOW_INVENTORY.md` (manual/agent refresh) |
+| Learning week stub | rostered agent ids | `data/learning/digests/{agentId}/{Monday}.md` |
 
 ## How it runs
 
@@ -30,6 +31,8 @@ Keep PACMAN mirrors of WordPress, Elementor, and GoHighLevel documentation curre
 - [ ] Skim `docs/ops/CHANGELOG_UPDATES.md` for meaningful diffs
 - [ ] Re-list n8n workflows if bots were changed this week
 - [ ] Note any breaking GHL API or Elementor/WordPress changes that affect FY workflows
+- [ ] Confirm Learning week stub exists under `data/learning/digests/`
+- [ ] Log at least one real SEO + one real dev/platform read on `/learning`
 - [ ] Commit + push updates on a `cursor/docs-refresh-…` branch if not auto-committed
 
 ## Firecrawl monitors (after API key)

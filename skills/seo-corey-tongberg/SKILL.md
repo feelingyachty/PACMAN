@@ -155,6 +155,18 @@ Details: `BEYOND_KORAY.md`.
 
 ---
 
+## Log it or it did not happen
+
+After any SEO research session (map work, SERP clustering, Koray reread, 2026 trend scan):
+
+1. Add an entry via **POST `/api/learning`**, the Learning tab **Log a read** form, or `scripts/log-learning.sh`
+2. Fields: `agentId` (usually `corey` or `pacman`), `topic: seo`, title, summary, whyItMatters, takeaways, source URL, `repoPath` if a mirror exists under `docs/seo/`
+3. weekOf is Monday America/Bogota — leave blank to use the current week
+
+Fernando studies the same sources from `/learning`. Chat-only notes do not count.
+
+---
+
 ## Anti-patterns
 
 - Publishing clusters without a map

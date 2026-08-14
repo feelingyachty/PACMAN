@@ -106,5 +106,8 @@ scrape_batch docs/ghl/official \
   echo ""
 } >> "$LOG"
 
+node "$ROOT/scripts/ensure-learning-week.mjs"
+
 echo "Refresh complete at ${STAMP}"
 echo "Review git diff and commit meaningful updates."
+echo "Then log this week's study: scripts/log-learning.sh --agent pacman --topic seo ..."

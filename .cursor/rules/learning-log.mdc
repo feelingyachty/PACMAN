@@ -1,0 +1,12 @@
+---
+description: Log study sessions to the PACMAN Learning archive
+alwaysApply: true
+---
+
+If you researched SEO, WordPress, Elementor, GHL, n8n, or development for Feeling Yachty, log it the same day:
+
+- UI: `/learning` → Log a read
+- API: `POST /api/learning`
+- CLI: `scripts/log-learning.sh`
+
+Write both `data/learning/index.json` and that week’s digest. weekOf is Monday in America/Bogota. If it is not in `data/learning/`, it did not happen.

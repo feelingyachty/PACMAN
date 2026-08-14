@@ -291,4 +291,75 @@ Approve → Implementing → Pacman Review → Done.
 - The owner asks
 `,
   },
+  {
+    id: "kb-learning",
+    title: "Learning log — continuous study",
+    domain: "ops",
+    summary:
+      "If you studied it, log it. Weekly reads live in git under data/learning/ and on the Learning tab.",
+    source: "PACMAN operating doctrine",
+    updatedAt: ts,
+    tags: ["learning", "seo", "dev", "monday"],
+    content: `# Learning log — continuous study
+
+Fernando reads what every employee studied. Chat does not count.
+
+## Where it lives
+
+- Dashboard: \`/learning\`
+- Index: \`data/learning/index.json\`
+- Digests: \`data/learning/digests/{agentId}/{weekOf}.md\`
+- API: \`GET/POST /api/learning\`
+
+## Cadence
+
+- Monday with the docs refresh: stub the new week, then log real reads
+- After any deep research session: add the entry the same day
+- weekOf = Monday in America/Bogota
+
+## Required fields
+
+Title, topic, summary, why it matters, takeaways. URL and repo path when they exist.
+
+## Rule
+
+If it is not in \`data/learning/\`, it did not happen.
+`,
+  },
+  {
+    id: "kb-ghl-n8n",
+    title: "GHL + n8n — Feeling Yachty live stack",
+    domain: "ghl",
+    summary:
+      "GHL is the CRM hub. n8n is the automation brain. Phones E.164. Viator/Bokun use activityBookings.",
+    source: "docs/ghl + docs/n8n",
+    updatedAt: ts,
+    tags: ["ghl", "n8n", "bokun", "viator"],
+    content: `# GHL + n8n — Feeling Yachty live stack
+
+Read \`docs/ghl/SYSTEM_OVERVIEW.md\`, \`docs/ghl/BOTS.md\`, and \`docs/n8n/WORKFLOW_INVENTORY.md\` before touching bots.
+
+## Hard rules
+
+- Never commit secrets
+- Phone numbers into GHL must be **E.164**
+- Real Viator/Bokun payloads use **activityBookings** (not only productBookings)
+- Prefer n8n-api MCP for workflow edits
+
+## Core bots
+
+- AI Sales SMS \`4XzFaUrhStHu8TwB\`
+- Omni Router \`0niqJuwwVeYjim3i\`
+- Support Receptionist \`fbg3vzibqAMnda6Y\`
+- Mom Bot \`7cY6co0FV7PDEaz3\`
+- Viator Section Bot \`mIQiRjAwyPZLJV1X\`
+
+## Intake
+
+- Bokun new booking \`TkLWlpBVSa287X5E\`
+- Bokun change/cancel \`Mmj0jlpswUuXA4GG\`
+- Woo paid router \`vokMW7sXUJCuncxc\`
+- WP → GHL Sync \`t5qCvpFPAZra3mtU\`
+`,
+  },
 ];

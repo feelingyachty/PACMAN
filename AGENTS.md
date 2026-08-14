@@ -18,7 +18,7 @@ Pacman (and every employee) must stay current on **SEO** and **development** tre
 - Cadence: at least weekly (Mondays with docs refresh); also after any deep research session
 - Rule: if you studied it, **log it** so Fernando can open the same sources and learn
 
-When adding a learning entry, update both the JSON index and that week’s markdown digest.
+When adding a learning entry, update both the JSON index and that week’s markdown digest — or use `POST /api/learning`, the Learning tab form, or `scripts/log-learning.sh`.
 
 
 
@@ -72,4 +72,4 @@ Full detail: `docs/ghl/SYSTEM_OVERVIEW.md`, `docs/ghl/BOTS.md`, `docs/ghl/INTEGR
 
 ## Monday docs refresh
 
-Run `scripts/weekly-docs-update.sh` (also scheduled via GitHub Actions). After refresh, summarize changelog deltas in `docs/ops/CHANGELOG_UPDATES.md`.
+Run `scripts/weekly-docs-update.sh` (also scheduled via GitHub Actions). After refresh, summarize changelog deltas in `docs/ops/CHANGELOG_UPDATES.md`, confirm the Learning week stub, and log that week’s study.
