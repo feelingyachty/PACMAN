@@ -77,7 +77,7 @@ export default function N8nPage() {
                 : "Unreachable"}
           </div>
           <p className="mt-2 break-all text-xs text-[var(--muted)]">
-            {data.mcp.serverName} · {data.mcp.toolCount} tools
+            n8n-mcp · {data.mcp.serverName} · {data.mcp.toolCount} tools
           </p>
           <p className="mt-1 text-xs text-[var(--ink-dim)]">{data.mcp.detail}</p>
         </div>
