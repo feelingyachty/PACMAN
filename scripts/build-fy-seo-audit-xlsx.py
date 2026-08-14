@@ -120,24 +120,24 @@ def classify(url: str) -> dict:
 
     if p in ("/",):
         page_type, cluster, role, owner, priority = (
-            "homepage",
-            "brand + miami-head (conflict)",
-            "Needs-rewrite",
+            "homepage-miami-ranker",
+            "miami-head (homepage owns it)",
+            "Owner",
             OWNER["brand"],
-            "P0-Critical",
+            "P3-Low",
         )
-        suggested = "Rewrite as brand roof (Miami + Panama). Move Miami H1 to /miami-yacht-rental/."
-        flags.append("homepage-is-miami-money")
+        suggested = "KEEP. Operator call 14 Aug 2026: homepage is the Miami ranker on purpose. Do not rewrite away from Miami Yacht Rental."
+        flags.append("operator-keep-miami-home")
     elif p == "/es/" or p == "/es":
         page_type, cluster, role, owner, priority = (
             "homepage-es",
-            "brand + miami-head (conflict)",
+            "miami-head (homepage owns it)",
             "ES-twin",
             OWNER["brand"],
-            "P1-High",
+            "P3-Low",
         )
-        suggested = "After EN homepage rewrite, match Spanish roof. Do not keep 'Alquiler de yates en Miami' as corporate H1 unless approved."
-        flags.append("es-homepage-miami-only")
+        suggested = "KEEP as Miami ES twin of the homepage ranker. Not a Panama roof."
+        flags.append("operator-keep-miami-home")
     elif any(x in work for x in ("/cart", "/checkout", "/confirmed", "/login")) or top in {
         "cart",
         "checkout",
@@ -180,35 +180,39 @@ def classify(url: str) -> dict:
     elif top in {"contact-feeling-yachty", "connect"}:
         page_type, cluster, role, owner, priority = (
             "identity-contact",
-            "brand-nap",
-            "Needs-rewrite",
+            "brand-contact",
+            "Keep-as-is",
             OWNER["contact"],
-            "P0-Critical",
+            "P3-Low",
         )
-        suggested = "Reconcile Panama phone 202-1729 vs 202-1279 and US 954/754/786 before any other identity work."
-        flags.append("nap-conflict")
+        suggested = "KEEP. Operator call: Miami numbers vs Panama numbers are intentional. Do not 'fix' city-specific phones."
+        flags.append("operator-phones-ok")
     elif top in {"feeling-yachty-crew", "yacht-safety-protocols"}:
         page_type, cluster, role, owner, priority = (
             "identity-trust",
             "brand-trust",
-            "Needs-rewrite",
+            "Keep-as-is",
             OWNER["crew"],
-            "P1-High",
+            "P2-Medium",
         )
-        suggested = "One review integer. One inclusions rule. Crew SMS 754 must not fight 954."
-        flags.append("trust-integer-conflict")
+        suggested = "KEEP. Review integers will move to shortcodes (operator). Do not block on phone or inclusions copy."
+        flags.append("operator-reviews-shortcode")
     elif top in {"feeling-yachty-reviews", "reviews"}:
         page_type, cluster, role, owner, priority = (
             "identity-reviews",
             "brand-reviews",
-            "Duplicate" if top == "reviews" else "Needs-rewrite",
-            OWNER["reviews"],
-            "P1-High",
+            "Needs-rewrite" if top == "feeling-yachty-reviews" else "Owner",
+            url if not es else OWNER["reviews"],
+            "P1-High" if top == "feeling-yachty-reviews" else "P2-Medium",
         )
         suggested = (
-            "Merge /reviews/ into /feeling-yachty-reviews/. Remove jet-ski H1 on reviews URL. One review count."
+            "Wire review counts to the new shortcode. On /feeling-yachty-reviews/: remove the Jet Ski H1 so this URL can rank as reviews, not jet skis."
+            if top == "feeling-yachty-reviews"
+            else "KEEP as its own reviews URL if you want it ranking. Wire the shortcode here too."
         )
-        flags.append("reviews-split")
+        if top == "feeling-yachty-reviews":
+            flags.append("wrong-h1-jetski")
+        flags.append("operator-reviews-shortcode")
     elif top == "book":
         page_type, cluster, role, owner, priority = (
             "account-login",
@@ -217,18 +221,28 @@ def classify(url: str) -> dict:
             OWNER["book"],
             "P1-High",
         )
-        suggested = "Live scrape is the account/login hub. noindex if it is not meant to rank. Do not use as a money clone."
+        suggested = "Live scrape is the account/login hub. noindex if it is not meant to rank."
         flags.append("book-is-login")
     elif top == "miami-yacht-rental":
         page_type, cluster, role, owner, priority = (
             "money-hub",
-            "miami-head",
+            "miami-rental",
             "Owner",
             OWNER["miami_head"],
-            "P0-Critical",
+            "P3-Low",
         )
-        suggested = "KEEP as Miami owner. Absorb /miami-yacht-charters/ and other head clones after approval."
-        flags.append("proposed-miami-owner")
+        suggested = "KEEP. Ranks as its own page. Homepage is the other Miami ranker — that is intentional."
+        flags.append("operator-own-page")
+    elif top == "miami-yacht-rentals":
+        page_type, cluster, role, owner, priority = (
+            "alias-collapse",
+            "miami-rental",
+            "Needs-rewrite",
+            OWNER["miami_head"],
+            "P1-High",
+        )
+        suggested = "Live URL resolves to /miami-yacht-rental/. If this slug should rank on its own, give it unique H1/content. If not, leave it as the alias."
+        flags.append("url-collapses-to-rental")
     elif top in {
         "miami-yacht-charters",
         "miami-yacht-rentals-directory",
@@ -238,47 +252,51 @@ def classify(url: str) -> dict:
         "miami-superyacht-rentals",
     } or "feeling-yachty-2" in work:
         page_type, cluster, role, owner, priority = (
-            "money-hub-duplicate",
-            "miami-head",
-            "Duplicate",
-            OWNER["miami_head"],
-            "P0-Critical",
+            "money-hub-own-query",
+            f"miami-{top}",
+            "Owner",
+            f"https://feelingyachty.com/{top}/" if top and "feeling-yachty-2" not in work else url,
+            "P2-Medium",
         )
-        suggested = "301 (or canonical+noindex if 301 unsafe) to /miami-yacht-rental/ after owner Approve."
-        flags.append("miami-head-cannibal")
+        suggested = "KEEP as its own ranking URL (operator: every page/city ranks on its own). Make H1/first passage unique to this query — do not 301 into the homepage."
+        flags.append("operator-own-page")
     elif top in {
         "cheap-yacht-rentals-miami",
         "affordable-yachts-rentals-miami",
         "yacht-specials",
         "miami-yacht-deals",
     }:
+        collapsed = top in {"yacht-specials", "miami-yacht-deals"}
         page_type, cluster, role, owner, priority = (
-            "money-hub-budget",
-            "miami-budget",
-            "Duplicate" if top != "cheap-yacht-rentals-miami" else "Needs-rewrite",
-            "https://feelingyachty.com/cheap-yacht-rentals-miami/",
-            "P0-Critical",
+            "money-hub-own-query",
+            f"miami-{top}",
+            "Needs-rewrite" if collapsed else "Owner",
+            f"https://feelingyachty.com/{top}/",
+            "P1-High" if collapsed else "P3-Low",
         )
         suggested = (
-            "Keep ONE budget URL (recommend /cheap-yacht-rentals-miami/) or fold into owner as a filter. "
-            "Fix 'all fees included' vs 'crew and fuel additional' on the same template."
+            "This URL currently resolves to the cheap-page template, so it is not ranking on its own. Give it unique H1/content for its query, or accept it as an alias."
+            if collapsed
+            else "KEEP as its own ranking URL. Hub/widget pricing is out of scope (operator)."
         )
-        flags.append("budget-cannibal")
-        flags.append("inclusions-contradiction")
+        if collapsed:
+            flags.append("url-collapses-to-cheap")
+        else:
+            flags.append("operator-own-page")
     elif top == "panama-yacht-rentals":
         page_type, cluster, role, owner, priority = (
             "money-hub",
             "panama-head",
             "Owner" if work.rstrip("/") == "/panama-yacht-rentals" else "Support",
             OWNER["panama_head"],
-            "P1-High" if work.rstrip("/") == "/panama-yacht-rentals" else "P2-Medium",
+            "P3-Low" if work.rstrip("/") == "/panama-yacht-rentals" else "P2-Medium",
         )
         suggested = (
-            "KEEP hub. Vessel children support it. Do not clone Miami hub sprawl."
+            "KEEP. Operator: this URL already ranks in Panama. Do not merge into the homepage."
             if work.rstrip("/") == "/panama-yacht-rentals"
-            else "Support listing under Panama owner. Confirm facts are Panama, not Miami."
+            else "Panama child. Keep city facts on Panama — not Miami paste."
         )
-        flags.append("panama-keep")
+        flags.append("operator-panama-ranks")
     elif top == "panama-yacht-sales":
         page_type, cluster, role, owner, priority = (
             "wrong-entity",
@@ -336,20 +354,23 @@ def classify(url: str) -> dict:
         "50-person-yacht-rental-miami",
         "l00-person-yacht-rentals",
     }:
+        typo = top.startswith("l00")
         page_type, cluster, role, owner, priority = (
             "capacity-modifier",
             "miami-capacity",
-            "Needs-rewrite",
-            OWNER["miami_head"],
-            "P1-High",
+            "Needs-rewrite" if typo else "Owner",
+            f"https://feelingyachty.com/{top}/",
+            "P1-High" if typo else "P3-Low",
         )
         suggested = (
-            "Fix slug /l00-person-yacht-rentals/ → 100-person. Prefer one capacity guide + filters over a page per integer."
-            if top.startswith("l00")
-            else "Candidate to merge into one capacity guide. Do not grow 40/60/80 clones."
+            "Fix slug /l00-person-yacht-rentals/ → 100-person so this URL can rank for 100-person groups."
+            if typo
+            else "KEEP as its own ranking URL (operator: every page ranks on its own). H1/first passage must stay on this party size."
         )
-        if top.startswith("l00"):
+        if typo:
             flags.append("typo-slug")
+        else:
+            flags.append("operator-own-page")
     elif top in {"miami-yacht-tips", "miami-sailing-tips", "miami-yacht-rental-tips"}:
         page_type, cluster, role, owner, priority = (
             "outer-tip",
@@ -413,15 +434,20 @@ def classify(url: str) -> dict:
         "miami-super-yacht-rentals",
         "msy_rentals",
     } or top.startswith("miami-super"):
+        is_hub = len(folder) == 1
         page_type, cluster, role, owner, priority = (
             "class-hub-or-listing",
             "miami-superyacht",
-            "Duplicate",
-            OWNER["miami_head"],
-            "P1-High",
+            "Owner" if is_hub else "Support",
+            f"https://feelingyachty.com/{top}/",
+            "P3-Low" if is_hub else "P2-Medium",
         )
-        suggested = "Overlaps mega/super/luxury. One class hub, listings under /fleet/."
-        flags.append("class-folder-overlap")
+        suggested = (
+            "KEEP as its own class/query URL. Do not 301 into the Miami rental hub."
+            if is_hub
+            else "Listing under a class folder. Keep if this URL is meant to rank; 301 only if it is a thin copy of the same boat on /fleet/."
+        )
+        flags.append("operator-own-page" if is_hub else "listing-needs-one-canonical")
     elif top in {"miami-yacht-location", "miami-yacht-venue", "miami-yacht-services", "miami-water-sports", "miami-menus", "miami-sailboat", "miami-fishing-boats", "miami-breakfast", "miami-catering"}:
         page_type, cluster, role, owner, priority = (
             "attribute-or-addon",
@@ -591,6 +617,14 @@ def add_dv(ws, formula, cells):
 
 def main():
     inventory = parse_sitemaps()
+    existing = {r["url"].rstrip("/") for r in inventory}
+    for loc, sm in (
+        ("https://feelingyachty.com/yacht-specials/", "live-alias-not-in-sitemap"),
+        ("https://feelingyachty.com/miami-yacht-deals/", "live-alias-not-in-sitemap"),
+        ("https://feelingyachty.com/miami-yacht-rentals/", "live-alias-not-in-sitemap"),
+    ):
+        if loc.rstrip("/") not in existing:
+            inventory.append({"url": loc, "lastmod": "", "sitemap": sm})
     sitemap_urls = {r["url"] for r in inventory}
     # also slash variants
     sitemap_loose = set(sitemap_urls)
@@ -632,46 +666,38 @@ def main():
             }
         )
 
-    # sitewide issues (once)
+    # Operator-accepted items are logged once so they are not re-litigated.
     add_issue(
         "https://feelingyachty.com/",
-        "Critical",
-        "Source context",
-        "Homepage H1 is Miami Yacht Rental. Panama is a founder footnote. Brand is not the roof.",
-        "Rewrite / as brand + two destinations. Miami H1 lives on /miami-yacht-rental/.",
-        "CHG-001",
+        "Info",
+        "Operator accepted",
+        "Homepage H1 is Miami Yacht Rental because that URL is the main Miami ranker. Panama is a separate ranking URL.",
+        "Do not rewrite the homepage away from Miami.",
+        "OP-001",
+    )
+    add_issue(
+        "https://feelingyachty.com/panama-yacht-rentals/",
+        "Info",
+        "Operator accepted",
+        "Panama yacht rentals already ranks in Panama. It stays its own city page.",
+        "Do not merge Panama into the homepage.",
+        "OP-001",
     )
     add_issue(
         "SITEWIDE",
-        "Critical",
-        "Contradiction / NAP",
-        "US phones 954-246-3636 (site) vs 754-325-3827 (crew SMS) vs 786-352-8857 (Yelp/Facebook snapshot). Panama 202-1729 vs 202-1279.",
-        "One US number, one Panama number, align GBP/Yelp/FB/schema.",
-        "CHG-002",
+        "Info",
+        "Operator accepted",
+        "Miami vs Panama phone numbers are intentional. Hub/widget pricing is out of scope.",
+        "Leave city phones and hub pricing alone.",
+        "OP-002",
     )
     add_issue(
         "SITEWIDE",
-        "Critical",
-        "Contradiction / reviews",
-        "On-site integers: 1,300+ / 1,700+ / 2,100+ / 2,300+ / 2,400+ / 2,500+ / 2,700+ across FTL, reviews, party, pink, cheap, home, crew.",
-        "One audited sentence. No competing integers.",
-        "CHG-002",
-    )
-    add_issue(
-        "SITEWIDE",
-        "Critical",
-        "Contradiction / inclusions",
-        "Cheap/affordable/FTL/sail say all fees or fuel included. Shared inventory widget says crew and fuel are additional.",
-        "One inclusions block. Widget and H2 must match.",
-        "CHG-002",
-    )
-    add_issue(
-        "https://feelingyachty.com/fleet/miami/26ft-bayliner-fendi/",
-        "Critical",
-        "Contradiction / listing",
-        "Hub card $800/4h max 13 vs listing $500 due today and passenger selector to 40.",
-        "Lock price and legal capacity to ops truth. Selector max = real max.",
-        "CHG-003",
+        "Medium",
+        "Reviews shortcode",
+        "Review integers differ across templates because they were hard-coded while the brand grew. Operator will replace with shortcodes.",
+        "Implement one review shortcode and drop it on every template that shows a count.",
+        "CHG-011",
     )
 
     page_rows = []
@@ -714,18 +740,18 @@ def main():
                 add_issue(url, "Critical", "Indexed junk", "Test/leftover URL is in the sitemap.", cls["suggested"], "CHG-004")
             if "utility-indexed" in extra_flags:
                 add_issue(url, "Critical", "Indexed junk", "Cart/checkout/account URL is in the sitemap.", cls["suggested"], "CHG-004")
-            if "miami-head-cannibal" in extra_flags:
-                add_issue(url, "Critical", "Cannibalization", "Competes with proposed Miami owner /miami-yacht-rental/.", cls["suggested"], "CHG-005")
-            if "budget-cannibal" in extra_flags:
-                add_issue(url, "Critical", "Cannibalization", "Budget/deals/specials cluster is overlapping.", cls["suggested"], "CHG-005")
+            if "url-collapses-to-cheap" in extra_flags or "url-collapses-to-rental" in extra_flags:
+                add_issue(url, "High", "Not ranking on its own", "URL resolves to another template, so it cannot rank as its own page/city query.", cls["suggested"], "CHG-012")
+            if "wrong-h1-jetski" in extra_flags:
+                add_issue(url, "High", "Wrong entity", "Reviews URL carries a Jet Ski H1.", cls["suggested"], "CHG-007")
             if "slug-content-mismatch" in extra_flags:
-                add_issue(url, "Critical", "Wrong entity", "Slug and live H1/job do not match.", cls["suggested"], "CHG-007")
+                add_issue(url, "Critical", "Wrong entity", "Slug and live H1/job do not match — this URL cannot rank for the query on the slug.", cls["suggested"], "CHG-007")
             if "city-identity-conflict" in extra_flags and cls["page_type"] == "money-hub-ftl":
-                add_issue(url, "Critical", "Wrong city", "Fort Lauderdale URL talks North Miami.", cls["suggested"], "CHG-007")
+                add_issue(url, "High", "Wrong city", "Fort Lauderdale URL talks North Miami. If FTL is meant to rank as its own city, the H1/body must stay FTL.", cls["suggested"], "CHG-007")
             if "wrong-folder" in extra_flags:
                 add_issue(url, "High", "IA / folder", "Panama asset under Miami catering folder.", cls["suggested"], "CHG-006")
             if "typo-slug" in extra_flags:
-                add_issue(url, "High", "Slug typo", "l00-person should be 100-person.", cls["suggested"], "CHG-007")
+                add_issue(url, "High", "Slug typo", "l00-person should be 100-person if this page is meant to rank for 100-person groups.", cls["suggested"], "CHG-007")
 
         needs_change = "Yes" if cls["role"] not in {"Keep-as-is", "Owner"} or extra_flags else "Review"
         if cls["role"] == "Owner":
@@ -813,16 +839,16 @@ def main():
         add_issue(dest, "High" if kind == "Redirect/alias" else "Medium", f"Link / {kind}", f"Linked from {src}. {detail}", "Point anchors to the approved owner URL. 301 alias if it must exist.", "CHG-008")
 
     changes = [
-        ["CHG-001", "P0-Critical", "Rewrite", OWNER["brand"], "Rewrite homepage as brand roof (Miami + Panama). Remove Miami-only H1. ES twin follows.", "Source context", "Pending", ""],
-        ["CHG-002", "P0-Critical", "Fact lock", "SITEWIDE", "Lock NAP, review integer, inclusions/fuel rule. Update contact, crew, cheap/affordable, FTL, schema, GBP.", "Trust / Brand SERP", "Pending", ""],
-        ["CHG-003", "P0-Critical", "Listing truth", "https://feelingyachty.com/fleet/miami/26ft-bayliner-fendi/", "Reconcile Fendi price and max guests. Audit selector max on all Woo listings.", "Safety + EAV", "Pending", ""],
-        ["CHG-004", "P0-Critical", "noindex/prune", "test, cart, checkout, elementor leftovers", "noindex + drop from sitemap: /test/, /test-page/, CPT tests, /cart/, /checkout/, /confirmed/, /elementor-52093/, /12-2/.", "Cost of retrieval", "Pending", ""],
-        ["CHG-005", "P0-Critical", "301 / merge hubs", OWNER["miami_head"], "Approve /miami-yacht-rental/ as Miami owner. 301 charters, luxury, directory, deals, specials, affordable (or keep one budget URL only).", "Cannibalization", "Pending", ""],
-        ["CHG-006", "P1-High", "301 listings", "/fleet/miami/{slug}/", "One canonical per vessel. 301 cheapest/mega/super copies. Move Panama boats out of /fleet/miami-catering/.", "IA", "Pending", ""],
-        ["CHG-007", "P0-Critical", "Rewrite wrong slugs", "FTL, destinations, panama-sales, l00-person", "Fix city/entity mismatches and typo slug.", "Entity identity", "Pending", ""],
-        ["CHG-008", "P1-High", "Internal links", "SITEWIDE", "Replace alias anchors (/miami-yacht-rentals/, /yacht-specials/, /reviews/) with approved owners.", "Bridges", "Pending", ""],
-        ["CHG-009", "P1-High", "Freeze auto-blog", "n8n gKezuNipPn2PjqTV + tip CPTs", "No net-new tips until map + ownership approved. Prune thin/automation posts. Keep birthday itinerary class.", "Map discipline", "Pending", ""],
-        ["CHG-010", "P1-High", "ES inherit", "/es/*", "When an EN 301/noindex/rewrite is approved, do the Spanish twin in the same ticket.", "hreflang", "Pending", ""],
+        ["OP-001", "Accepted", "Keep", "Homepage + Panama hub", "Homepage stays the Miami ranker. /panama-yacht-rentals/ stays the Panama ranker. Every city/page is allowed to rank on its own — do not 301 hubs together.", "Operator call 14 Aug 2026", "Accepted", ""],
+        ["OP-002", "Accepted", "Out of scope", "Phones + hub pricing", "City-specific phones are intentional. Hub/widget pricing is not part of this audit.", "Operator call 14 Aug 2026", "Accepted", ""],
+        ["CHG-011", "P1-High", "Shortcode", "Review counts sitewide", "Replace hard-coded review integers with one shortcode so you can update every template as you grow.", "Operator request", "Pending", ""],
+        ["CHG-004", "P0-Critical", "noindex/prune", "test, cart, checkout, leftovers", "noindex + drop from sitemap: /test/, /test-page/, CPT tests, /cart/, /checkout/, /confirmed/, /elementor-52093/, /12-2/.", "Indexed junk", "Pending", ""],
+        ["CHG-007", "P0-Critical", "Rewrite slug/H1", "Wrong-entity URLs", "If a page is meant to rank for its own query/city, the live H1 must match: FTL≠North Miami, /miami-yacht-destinations/≠list-your-boat, /panama-yacht-sales/≠Miami rental, reviews≠jet ski, /l00-person/ typo.", "Each page ranks on its own", "Pending", ""],
+        ["CHG-012", "P1-High", "Un-collapse", "/yacht-specials/ + /miami-yacht-deals/ + /miami-yacht-rentals/", "These currently resolve to another template, so they are not ranking as their own pages. Unique content or accept as aliases.", "Each page ranks on its own", "Pending", ""],
+        ["CHG-006", "P2-Medium", "Folder fix", "Panama boats under /fleet/miami-catering/", "Move Panama vessels out of the Miami catering folder so the URL matches the city.", "Each city on its own", "Pending", ""],
+        ["CHG-008", "P2-Medium", "Internal links", "Orphan /miami-yacht-rental/{boat}/ links", "Many listing links are not in the sitemap (possible 404s). Fix or 301 so each vessel page that should rank actually exists.", "Broken/orphan URLs", "Pending", ""],
+        ["CHG-009", "P2-Medium", "Tips quality", "miami/panama yacht tips", "Keep tips that help a city/page rank (birthday itinerary class). Prune TEST and thin automation posts.", "Cost of retrieval", "Pending", ""],
+        ["CHG-010", "P1-High", "ES inherit", "/es/*", "Spanish twin follows the English page it translates. Do not merge ES Panama into ES Miami home.", "hreflang", "Pending", ""],
     ]
 
     # workbook
@@ -839,29 +865,40 @@ def main():
         "",
         f"Generated {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} by PACMAN / Megaman.",
         "Source: live sitemap_index.xml (every <loc>) + live scrapes of money/identity/problem URLs.",
-        "Framework: Koray / Corey Tongberg Holistic SEO as operationalized in skills/seo-corey-tongberg.",
+        "Framework: Koray / Corey Tongberg, adjusted by Fernando's operator lock of 14 Aug 2026.",
         "No traffic, rankings, or revenue numbers are invented.",
+        "",
+        "OPERATOR LOCK — DO NOT REOPEN",
+        "- Homepage H1 Miami Yacht Rental stays. Home is the Miami ranker.",
+        "- /panama-yacht-rentals/ already ranks in Panama. It stays its own city page.",
+        "- Goal: every page and every city ranks on its own. Do not 301 Miami hubs together.",
+        "- Review counts: operator will add shortcodes (CHG-011) so one edit updates every template.",
+        "- Phone numbers: Miami vs Panama lines are intentional. Do not unify.",
+        "- Hub / listing price mismatches: out of scope. Do not ticket.",
         "",
         "HOW YOU APPROVE",
         "1. Read DASHBOARD for the pile sizes.",
-        "2. Work CHANGE_QUEUE first (10 tickets). Set Approve_? to Approve or Reject. That is the gate.",
-        "3. Use ALL_PAGES (filter Needs_change, Priority, Role) to see every URL the ticket touches.",
-        "4. Use ISSUES as the evidence list (one problem per row). You can Approve/Reject a single issue if you want to split a ticket.",
-        "5. BROKEN_OR_ALIASES is the link graph: internal targets that are aliases or missing from the sitemap.",
-        "6. After you Approve a CHANGE_QUEUE row, Corey/Pacman may implement only that ticket.",
+        "2. Work CHANGE_QUEUE first (10 tickets). OP-001 and OP-002 are already Accepted.",
+        "3. Set Approve_? to Approve or Reject on the remaining tickets. That is the gate.",
+        "4. Use ALL_PAGES (filter Needs_change, Priority, Role) to see every URL the ticket touches.",
+        "5. Use ISSUES as the evidence list (one problem per row). You can Approve/Reject a single issue if you want to split a ticket.",
+        "6. BROKEN_OR_ALIASES is the link graph: internal targets that are aliases or missing from the sitemap.",
+        "7. After you Approve a CHANGE_QUEUE row, Corey/Pacman may implement only that ticket.",
         "",
         "WHAT 'EVERY PAGE' MEANS",
-        f"ALL_PAGES has {len(page_rows)} rows — every unique URL in the sitemap. Each row is classified (type, cluster, role, owner, suggested change).",
-        "Deep live-scrape notes exist on the money/identity set (see SCRAPED_EVIDENCE). Remaining URLs are audited from URL/IA/sitemap signals plus inherited issues (NAP, cannibalization pattern, auto-blog folder).",
+        f"ALL_PAGES has {len(page_rows)} rows — every unique URL in the sitemap, plus live aliases that collapse to another template.",
+        "A URL that collapses to another template is not ranking on its own — that is CHG-012.",
+        "A URL whose H1 is a different city/entity cannot rank for its own slug — that is CHG-007.",
         "Spanish /es/ rows inherit the English decision on purpose so you do not approve 860 twins one-by-one.",
         "",
         "STATUS VALUES",
-        "Pending = waiting on you. Approve = do it. Reject = do not. Hold = need ops fact. Done = shipped and Pacman-verified.",
+        "Pending = waiting on you. Approve = do it. Reject = do not. Hold = need a WP/GSC check. Done = shipped and Pacman-verified.",
+        "Accepted = operator already locked this. Do not reopen.",
     ]
     for i, line in enumerate(lines, 3):
         ws[f"A{i}"] = line
         ws[f"A{i}"].font = Font(name="Calibri", size=12, bold=line.startswith("HOW") or line.startswith("WHAT") or line.startswith("STATUS") or line.startswith("Generated") is False and line.isupper())
-        if line.startswith("HOW") or line.startswith("WHAT") or line.startswith("STATUS"):
+        if line.startswith("HOW") or line.startswith("WHAT") or line.startswith("STATUS") or line.startswith("OPERATOR"):
             ws[f"A{i}"].font = Font(name="Calibri", size=14, bold=True, color="C49200")
         else:
             ws[f"A{i}"].font = Font(name="Calibri", size=11)
@@ -981,19 +1018,22 @@ def main():
     style_header(ap)
     for i, r in enumerate(sorted(page_rows, key=lambda x: (x["priority"], x["language"], x["url"])), 1):
         chg = []
-        if "homepage-is-miami-money" in r["flags"] or r["page_type"] == "homepage":
-            chg.append("CHG-001")
-        if any(x in r["flags"] for x in ("nap-conflict", "trust-integer-conflict", "inclusions-contradiction", "reviews-split")):
-            chg.append("CHG-002")
-        if "listing-needs-one-canonical" in r["flags"] or r["url"].endswith("26ft-bayliner-fendi/"):
-            chg.append("CHG-003")
+        if any(
+            x in r["flags"]
+            for x in ("operator-keep-miami-home", "operator-panama-ranks", "operator-own-page")
+        ):
+            chg.append("OP-001")
+        if "operator-phones-ok" in r["flags"]:
+            chg.append("OP-002")
+        if "operator-reviews-shortcode" in r["flags"]:
+            chg.append("CHG-011")
         if r["role"] in {"Prune-noindex", "Utility-noindex"}:
             chg.append("CHG-004")
-        if any(x in r["flags"] for x in ("miami-head-cannibal", "budget-cannibal", "proposed-miami-owner")):
-            chg.append("CHG-005")
+        if any(x in r["flags"] for x in ("url-collapses-to-cheap", "url-collapses-to-rental")):
+            chg.append("CHG-012")
         if any(x in r["flags"] for x in ("listing-duplicate-folder", "multi-url-vessel", "wrong-folder", "class-folder-overlap")):
             chg.append("CHG-006")
-        if any(x in r["flags"] for x in ("slug-content-mismatch", "city-identity-conflict", "typo-slug")):
+        if any(x in r["flags"] for x in ("slug-content-mismatch", "city-identity-conflict", "typo-slug", "wrong-h1-jetski")):
             chg.append("CHG-007")
         if r["role"] == "ES-twin":
             chg.append("CHG-010")
@@ -1143,27 +1183,27 @@ def main():
     sc.append(["Live_URL", "H1_or_title", "Outbound_internal_links", "Notes"])
     style_header(sc)
     evidence_notes = {
-        "https://feelingyachty.com/": "H1 Miami Yacht Rental. Inventory 27 of 178. Tips labeled automation. Founder line 2,400+ and Panama mention late.",
-        "https://feelingyachty.com/miami-yacht-rental/": "Proposed owner. Same widget family as home/charters. Card counts 27 of 49 vs 400+ copy.",
-        "https://feelingyachty.com/miami-yacht-charters/": "Near-clone of rental hub. 27 of 178.",
-        "https://feelingyachty.com/panama-yacht-rentals/": "Best money page. Route-based EAV. Phone 202-1729.",
-        "https://feelingyachty.com/cheap-yacht-rentals-miami/": "All fees included vs widget fuel extra.",
-        "https://feelingyachty.com/affordable-yachts-rentals-miami/": "Clone of cheap. Includes captain/fuel then widget contradicts.",
+        "https://feelingyachty.com/": "H1 Miami Yacht Rental — operator-kept Miami ranker. Inventory widget. Panama in founder line. Tips labeled automation.",
+        "https://feelingyachty.com/miami-yacht-rental/": "Own ranking URL (operator). Same widget family as home/charters is allowed. Hub pricing out of scope.",
+        "https://feelingyachty.com/miami-yacht-charters/": "Own ranking URL (operator). Do not 301 into rental or home.",
+        "https://feelingyachty.com/panama-yacht-rentals/": "Already ranks in Panama. Route-based prices. Stays its own city page.",
+        "https://feelingyachty.com/cheap-yacht-rentals-miami/": "Own ranking URL (operator). Hub/widget pricing out of scope.",
+        "https://feelingyachty.com/affordable-yachts-rentals-miami/": "Own ranking URL (operator). Do not merge into cheap.",
         "https://feelingyachty.com/fort-lauderdale-yacht-rentals/": "H1 FTL then Best North Miami. ONLY company free hour.",
         "https://feelingyachty.com/test/": "H1 TEST + 227-yacht clone. Indexed.",
         "https://feelingyachty.com/book/": "Is login/account, not a booking money page.",
-        "https://feelingyachty.com/feeling-yachty-reviews/": "1,700+ then Jet Ski Rentals H1.",
-        "https://feelingyachty.com/reviews/": "2,500+ reviews hub. Split from feeling-yachty-reviews.",
-        "https://feelingyachty.com/miami-yacht-destinations/": "Slug destinations, content is List your boat.",
-        "https://feelingyachty.com/panama-yacht-sales/": "Slug Panama sales, content Miami rentals.",
-        "https://feelingyachty.com/yacht-specials/": "Resolves to cheap page content.",
-        "https://feelingyachty.com/miami-yacht-deals/": "Resolves to cheap page content.",
-        "https://feelingyachty.com/miami-yacht-rentals/": "Resolves to /miami-yacht-rental/ (alias).",
+        "https://feelingyachty.com/feeling-yachty-reviews/": "Review integer will move to shortcode. Live H1 is Jet Ski — this URL cannot rank as reviews until that H1 is fixed.",
+        "https://feelingyachty.com/reviews/": "Separate reviews URL. Wire the same shortcode here.",
+        "https://feelingyachty.com/miami-yacht-destinations/": "Slug destinations, content is List your boat — cannot rank for destinations.",
+        "https://feelingyachty.com/panama-yacht-sales/": "Slug Panama sales, content Miami rentals — cannot rank as Panama sales.",
+        "https://feelingyachty.com/yacht-specials/": "Resolves to cheap page content, so it is not ranking on its own.",
+        "https://feelingyachty.com/miami-yacht-deals/": "Resolves to cheap page content, so it is not ranking on its own.",
+        "https://feelingyachty.com/miami-yacht-rentals/": "Resolves to /miami-yacht-rental/ (alias), so it is not ranking on its own.",
         "https://feelingyachty.com/l00-person-yacht-rentals/": "Typo slug; live page is 100+ group charters.",
-        "https://feelingyachty.com/fleet/miami/26ft-bayliner-fendi/": "Price/capacity mismatch vs hub card.",
-        "https://feelingyachty.com/contact-feeling-yachty/": "Panama 202-1279 vs money page 202-1729. Multiple Miami GBPs.",
-        "https://feelingyachty.com/feeling-yachty-crew/": "2,700+ reviews. SMS 754. All-in pricing claim.",
-        "https://feelingyachty.com/es/": "Spanish Miami homepage, not brand roof.",
+        "https://feelingyachty.com/fleet/miami/26ft-bayliner-fendi/": "Hub vs listing price noted; operator said hub/pricing is out of scope.",
+        "https://feelingyachty.com/contact-feeling-yachty/": "City-specific phones are intentional (operator). Do not unify Miami and Panama numbers.",
+        "https://feelingyachty.com/feeling-yachty-crew/": "Review integer will move to shortcode. SMS is a Miami line — leave phones.",
+        "https://feelingyachty.com/es/": "Spanish twin of the Miami homepage ranker. Correct under the operator lock.",
     }
     r_i = 2
     for page in sorted(set(list(titles) + list(evidence_notes))):
@@ -1189,10 +1229,11 @@ def main():
         [
             "Corey proposes. You Approve. Only then implement. Pacman verifies live.",
             "Approve CHANGE_QUEUE rows, not random ALL_PAGES cells, unless you are splitting a ticket.",
-            "Reject means do not implement — leave a note (e.g. 'keep /luxury-yacht-rentals/ as a real class hub').",
-            "Hold means ops must answer Appendix facts (phones, inclusions, legal capacity, FTL product).",
-            "ES twins: approving CHG-010 means every later EN 301 includes /es/ in the same deploy.",
-            "Do not invent prices or fleet counts in copy while CHG-002/003 are open.",
+            "OP-001 and OP-002 are already Accepted. Do not reopen homepage-as-Miami, Panama-as-own-city, phones, or hub pricing.",
+            "Reject if a ticket would merge Miami hubs, rewrite the homepage off Miami, or unify Miami/Panama phones.",
+            "Hold only if you need a live GSC screenshot or a WP admin check — not for phones or prices.",
+            "ES twins: approving CHG-010 means every later EN change includes /es/ in the same deploy.",
+            "CHG-011 is the review shortcode. Do not invent a review integer in copy; wire the shortcode so one edit updates every template.",
             "After Approve, implementation should be a WP/Elementor + redirect ticket, then Pacman spot-checks the live URL.",
         ],
         3,

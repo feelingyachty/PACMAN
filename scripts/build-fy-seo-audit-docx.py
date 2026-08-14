@@ -155,41 +155,93 @@ def main():
         space_after=16,
     )
 
-    heading(doc, "1. Verdict", 1)
+    heading(doc, "0. Operator lock (Fernando, 14 August 2026)", 1)
     add_p(
         doc,
-        "The site is a strong commercial catalog that is a weak semantic content network. "
-        "Feeling Yachty already has the hard parts of charter SEO: real inventory, visible prices, "
-        "WhatsApp and GHL booking paths, reviews, and two real destinations. The Koray / Tongberg "
-        "framework would fail the site on the next test: one source context, one owner URL per "
-        "query cluster, consistent facts, and a map that does not drown money pages in near-duplicates.",
+        "This lock supersedes the first-pass “merge the Miami hubs / rewrite the homepage as a "
+        "brand roof / unify phones” reading. The Excel CHANGE_QUEUE is the working system. "
+        "Do not reopen the items below.",
+        bold=True,
+    )
+    bullet(
+        doc,
+        " Homepage H1 “Miami Yacht Rental” stays. The homepage is what ranks most for Miami. "
+        "Do not move Miami off /.",
+        bold_lead="Miami home.",
+    )
+    bullet(
+        doc,
+        " /panama-yacht-rentals/ already ranks in Panama. It stays its own city money page. "
+        "Do not merge Panama into the homepage.",
+        bold_lead="Panama hub.",
+    )
+    bullet(
+        doc,
+        " Every page and every city is allowed to rank on its own. Do not 301 Miami hubs "
+        "together (charters, cheap, affordable, luxury, directory, capacity pages).",
+        bold_lead="Own-page ranking.",
+    )
+    bullet(
+        doc,
+        " Review integers are stale because the brand grew. Operator will add shortcodes so "
+        "one edit updates every template (Excel CHG-011).",
+        bold_lead="Reviews.",
+    )
+    bullet(
+        doc,
+        " Some numbers are for Panama pages and some are for Miami pages. That is intentional. "
+        "Do not unify NAP.",
+        bold_lead="Phones.",
+    )
+    bullet(
+        doc,
+        " Inventory widget vs listing prices, inclusions copy, Fendi hub-vs-listing — out of "
+        "scope. Do not ticket.",
+        bold_lead="Hub / pricing.",
     )
     add_p(
         doc,
-        "In plain language: Google (and a guest) has to work too hard to decide which URL is "
-        "“the” Miami yacht charter page, which phone is real, whether fuel is included, and "
-        "whether this brand is Miami-only or Miami + Panama. That is cost of retrieval. That is "
-        "the opposite of topical authority.",
+        "What remains a ticket: indexed junk; a URL whose live H1 is a different city or entity "
+        "than the slug; a URL that collapses to another template (so it is not ranking on its "
+        "own); orphan/404 listing links; Panama assets in a Miami folder; thin TEST tips.",
+    )
+
+    heading(doc, "1. Verdict", 1)
+    add_p(
+        doc,
+        "The site is a strong commercial catalog. Feeling Yachty already has the hard parts of "
+        "charter SEO: real inventory, visible prices, WhatsApp and GHL booking paths, reviews, "
+        "and two real destinations that each have a ranking URL. Under the operator lock, the "
+        "next test is not “one owner per cluster.” It is: can every page and every city rank on "
+        "its own, with an H1 that matches the slug, and without junk or collapsed aliases in the way."
+    )
+    add_p(
+        doc,
+        "In plain language under the operator lock: home is the Miami ranker, Panama is its own "
+        "ranker, and every other city/page is allowed to rank too. Cost of retrieval now is a URL "
+        "that cannot rank for itself — wrong-city H1, collapsed alias, or indexed junk — not "
+        "“too many Miami hubs.”",
     )
 
     add_table(
         doc,
         ["Lens", "Score", "What I saw"],
         [
-            score_row("Source context", 2, "Homepage H1 is Miami Yacht Rental. Panama is a footnote. Brand is not the roof."),
+            score_row("Source context", 4, "Operator lock: homepage is the Miami ranker. Panama is its own ranking URL. That is the intended two-city map."),
             score_row("EAV completeness (listings)", 4, "Cards and Panama routes expose size, capacity, hours, price. Strong."),
-            score_row("EAV completeness (money hubs)", 2, "Hubs repeat the same inventory widget instead of owning one job."),
+            score_row("EAV completeness (money hubs)", 3, "Hubs share a widget (out of scope). Remaining issue is unique H1/first passage per query."),
             score_row("Intent / format match", 3, "Catalog + filters match DO intent. KNOW answers are late or duplicated."),
             score_row("Information gain", 3, "Birthday itinerary tip is excellent. Most hubs do not add unique facts."),
-            score_row("Internal bridges", 2, "Many folders, same boats, weak ownership. Tips often loop to the same hub."),
-            score_row("Cannibalization safety", 1, "Home, /miami-yacht-rental/, /miami-yacht-charters/, cheap, affordable, luxury…"),
-            score_row("Trust / identity / NAP", 1, "Phones, review counts, inclusions, and city labels contradict each other."),
+            score_row("Internal bridges", 2, "Many folders, same boats. Orphan /miami-yacht-rental/{boat}/ links are still a ticket."),
+            score_row("Own-page ranking", 2, "Specials/deals/rentals-plural collapse to another template. FTL/destinations/sales/reviews H1s are the wrong entity."),
+            score_row("Trust / identity", 3, "City phones intentional. Review integers move to shortcodes. Hub pricing out of scope."),
         ],
     )
     add_p(
         doc,
-        "Overall: 2.3 / 5 against the PACMAN Koray bar. Fix contradictions and ownership before "
-        "publishing more tips. More nodes will make this worse.",
+        "Overall (operator-adjusted): strategy is locked. Remaining work is subtraction of junk, "
+        "un-collapsing aliases, and making each slug’s live H1 match the city/query it is supposed "
+        "to rank for. Do not merge hubs. Do not rewrite the homepage off Miami.",
         bold=True,
     )
 
@@ -225,32 +277,26 @@ def main():
         italic=True,
     )
 
-    heading(doc, "3. Source context — the first failure", 1)
+    heading(doc, "3. Source context — operator-locked map", 1)
     add_p(
         doc,
-        "Koray’s first rule: lock source context. Feeling Yachty’s operating truth (from your own "
-        "stack and the founder line on the homepage) is: a private yacht charter / experience brand "
-        "serving Miami and Panama, monetizing bookings and qualified leads.",
+        "Koray’s first rule is still lock source context. Feeling Yachty’s operating truth is a "
+        "private yacht charter / experience brand serving Miami and Panama. The operator lock "
+        "says how that map is expressed in URLs:",
     )
     add_p(
         doc,
-        "The live homepage does not say that. The H1 is “Miami Yacht Rental.” The first screen is "
-        "Biscayne Bay, birthdays, pink yachts, and a Miami inventory widget (“Showing 27 of 178 yachts”). "
-        "Panama appears much later, in a founder bio: Fernando Yemail, licensed Florida yacht broker, "
-        "“serving both Miami and Panama.” A crawler that only reads the top of / will classify this "
-        "site as a Miami rental marketplace, not a two-city charter operator.",
+        "The live homepage H1 is “Miami Yacht Rental.” That is intentional. Home is the URL that "
+        "ranks most for Miami. Panama is not a homepage footnote problem — /panama-yacht-rentals/ "
+        "already ranks in Panama and stays its own city page. Spanish /es/ is the Miami homepage "
+        "twin, which is correct under this lock. hreflang (en-US, es-CO, en, es) is fine.",
     )
-    add_p(
-        doc,
-        "Spanish /es/ is a Miami homepage translation (“Alquiler de yates en Miami”), not a "
-        "Panama-aware brand roof. hreflang is implemented (en-US, es-CO, en, es) — that part is fine. "
-        "The problem is you mirrored the wrong roof.",
-    )
-    heading(doc, "What “good” looks like", 2)
-    bullet(doc, "Homepage owns brand + two destinations + how booking works. It does not compete with the Miami money URL.")
-    bullet(doc, "/miami-yacht-rental/ (or one chosen slug) owns Miami commercial charter.")
-    bullet(doc, "/panama-yacht-rentals/ owns Panama commercial charter — this page is already the closest to the bar.")
-    bullet(doc, "Fort Lauderdale is either a real third money node or a Miami-area location page. It cannot be both.")
+    heading(doc, "What “good” looks like under the lock", 2)
+    bullet(doc, "Homepage keeps the Miami H1 and remains the Miami ranker.")
+    bullet(doc, "/miami-yacht-rental/, /miami-yacht-charters/, cheap, affordable, luxury, directory, and capacity pages each rank for their own query. Do not 301 them together.")
+    bullet(doc, "/panama-yacht-rentals/ stays the Panama ranker. Do not merge it into home.")
+    bullet(doc, "Fort Lauderdale can rank as its own city only if the live H1/body stay FTL (today the next H1 is North Miami).")
+    bullet(doc, "A URL that collapses to another template is not ranking on its own — un-collapse it or accept it as an alias.")
 
     heading(doc, "4. Sitemap inventory (facts)", 1)
     add_p(doc, "Child sitemaps in the index (Yoast-style WordPress + custom post types + WooCommerce):")
@@ -309,69 +355,70 @@ def main():
         "(Ocean Phoenix, Parker Monaco) are folder-level identity errors.",
     )
 
-    heading(doc, "5. Cannibalization registry", 1)
+    heading(doc, "5. Own-page registry (operator-adjusted)", 1)
     add_p(
         doc,
-        "Playbook A requires one owner URL per query cluster. Today several clusters have three to "
-        "six plausible owners. I am assigning owners as a recommendation, not as a claim about current rankings.",
+        "Operator lock: every page and every city ranks on its own. The table below is not a merge "
+        "list. It is which URL is allowed to rank for which query, and what still blocks that URL "
+        "from ranking for itself.",
     )
     add_table(
         doc,
-        ["Query cluster", "Recommended owner", "Current competitors (live)", "Decision"],
+        ["Query / page", "Ranking URL (keep)", "What still blocks own-page ranking", "Decision"],
         [
             [
-                "Brand / Feeling Yachty",
-                "https://feelingyachty.com/  (rewritten)",
-                "Home currently targets Miami rental. Reviews, crew, contact also speak for the brand.",
-                "Rewrite home. Do not keep Miami H1 on /.",
+                "Miami yacht rental (home)",
+                "https://feelingyachty.com/",
+                "Nothing strategic. H1 Miami Yacht Rental is the point.",
+                "KEEP. Do not rewrite off Miami.",
             ],
             [
-                "Miami yacht rental / charter (head)",
+                "Miami yacht rental (hub)",
                 "/miami-yacht-rental/",
-                "/ , /miami-yacht-charters/, /miami-yacht-rentals-directory/, emoji slug …feeling-yachty-2/, /luxury-yacht-rentals/, /miami-yachts-booking/",
-                "Pick one. 301 or noindex the rest of the hubs.",
+                "Plural /miami-yacht-rentals/ collapses here, so the plural slug is not ranking on its own.",
+                "KEEP hub. Un-collapse or accept the alias (CHG-012).",
             ],
             [
-                "Cheap / budget Miami charter",
-                "/cheap-yacht-rentals-miami/  OR merge into owner with a filter",
-                "/affordable-yachts-rentals-miami/ is a near-clone (same “all fees included” pitch + same widget).",
-                "Keep one modifier page or none. Do not keep both.",
+                "Miami yacht charters",
+                "/miami-yacht-charters/",
+                "Shared widget is out of scope. Needs a unique H1/first passage for “charters.”",
+                "KEEP as its own ranker. Do not 301.",
+            ],
+            [
+                "Cheap / affordable Miami",
+                "Both URLs keep their own slug",
+                "/yacht-specials/ and /miami-yacht-deals/ resolve to the cheap template.",
+                "KEEP cheap and affordable. Un-collapse specials/deals or accept as aliases.",
             ],
             [
                 "Pink yacht Miami",
                 "/miami-pink-yacht-rentals/",
-                "Home filters, party CPT, individual pink listings, cheapest-folder copies.",
-                "Hub + listings. Hub must not repeat the full 400-yacht grid.",
+                "Listings support it. Fine.",
+                "KEEP.",
             ],
             [
-                "Occasion: birthday Miami",
-                "/miami-yacht-party/birthday-yacht-rentals/  or the tip if you make the tip the KNOW owner",
-                "Party CPT + /miami-yacht-tips/birthday-yacht-itinerary-miami/ + 20/30/50-person pages.",
-                "One DO hub, one KNOW guide. Cross-link. Different H1s.",
-            ],
-            [
-                "Capacity modifiers (20 / 30 / 50 / 100 person)",
-                "One capacity guide + filtered inventory",
-                "/20-person-yacht-rental-miami/, /30-person-…, /50-person-…, /l00-person-yacht-rentals/ (typo).",
-                "Fix typo. Do not grow a page per integer.",
+                "Capacity (20 / 30 / 50 / 100)",
+                "Each capacity URL",
+                "/l00-person-yacht-rentals/ is a typo, so it cannot rank for 100-person.",
+                "KEEP 20/30/50. Fix the 100-person slug.",
             ],
             [
                 "Fort Lauderdale charter",
                 "/fort-lauderdale-yacht-rentals/",
-                "Page H1 says Fort Lauderdale, next H1 says “Best North Miami Yacht Rentals.” Location CPT + events CPT.",
-                "Rewrite or it will rank for the wrong city — or neither.",
+                "Next H1 is “Best North Miami Yacht Rentals.”",
+                "Rewrite body to stay FTL if this city is meant to rank on its own.",
             ],
             [
                 "Panama yacht rental",
                 "/panama-yacht-rentals/",
-                "Directory, party, sales, maintenance, tours, 97 tips. Cleaner than Miami.",
-                "Keep. Do not clone Miami’s hub sprawl.",
+                "Already ranks. Sales slug is Miami copy.",
+                "KEEP hub. Fix /panama-yacht-sales/ if that page should rank.",
             ],
             [
-                "Single vessel (example: 26ft Bayliner Fendi)",
+                "Single vessel (example: Fendi)",
                 "/fleet/miami/26ft-bayliner-fendi/",
-                "Also in cheapest-yacht-rentals/miami/26ft-pink-bayliner-… and inventory cards on 5+ hubs.",
-                "One canonical listing. Others 301.",
+                "Hub vs listing price noted; operator said hub/pricing is out of scope.",
+                "Leave pricing. 301 only a thin second URL for the same boat.",
             ],
         ],
     )
@@ -380,25 +427,25 @@ def main():
     heading(doc, "6.1 Homepage  ·  feelingyachty.com/", 2)
     add_p(
         doc,
-        "Central entity claimed: Miami yacht rental — not Feeling Yachty the brand. "
-        "Same pricing widget and FAQ pattern as the Miami hubs. Tips module is tagged "
-        "“automation” in the HTML/text scrape (bachelor cost, bachelorette decorations). "
-        "That is the n8n auto-blog leaking onto the money roof.",
+        "Central entity claimed: Miami yacht rental. That matches the operator lock — home is the "
+        "Miami ranker. Same pricing widget as other Miami hubs (out of scope). Tips module is tagged "
+        "“automation” in the scrape (bachelor cost, bachelorette decorations). That is the n8n "
+        "auto-blog leaking onto the Miami ranker; prune thin tips, do not change the H1.",
     )
     add_table(
         doc,
         ["Dimension", "Score", "Note"],
         [
-            score_row("Source context", 1, "Miami H1. Panama buried."),
-            score_row("EAV", 3, "Widget has size/price/capacity. Brand EAV is thin."),
-            score_row("Intent / format", 3, "Good DO catalog. Wrong URL for that job."),
-            score_row("Information gain", 2, "Trust badges + founder line. No unique brand definition up top."),
-            score_row("Bridges", 2, "Tips all point at /miami-yacht-tips/. Weak Panama bridge."),
-            score_row("Cannibalization safety", 1, "Competes with /miami-yacht-rental/ and /miami-yacht-charters/."),
-            score_row("Trust", 2, "2,500+ on the hero vs 2,400+ in the founder paragraph on the same page."),
+            score_row("Source context", 4, "Miami H1 on purpose. Panama has its own ranking URL."),
+            score_row("EAV", 3, "Widget has size/price/capacity. Hub pricing out of scope."),
+            score_row("Intent / format", 4, "DO catalog on the URL that already ranks for Miami."),
+            score_row("Information gain", 2, "Trust badges + founder line. Tips labeled automation."),
+            score_row("Bridges", 2, "Tips all point at /miami-yacht-tips/. Panama is a separate city page."),
+            score_row("Own-page ranking", 4, "This is the Miami ranker. Do not move Miami off /."),
+            score_row("Trust", 3, "Review integers move to the shortcode. Phones stay city-specific."),
         ],
     )
-    add_p(doc, "Decision: rewrite. Keep /. Change the job.", bold=True)
+    add_p(doc, "Decision: KEEP. Homepage stays the Miami ranker.", bold=True)
 
     heading(doc, "6.2 Miami money pair  ·  /miami-yacht-rental/  and  /miami-yacht-charters/", 2)
     add_p(
@@ -409,7 +456,7 @@ def main():
         "hub “27 of 178 yachts”; homepage “27 of 178.” If those numbers are filters, the copy still "
         "says 400+ everywhere. That is an information-gap and a trust gap.",
     )
-    add_p(doc, "Decision: one owner. 301 the loser. Do not “differentiate” with synonyms.", bold=True)
+    add_p(doc, "Decision: KEEP both. Each ranks for its own query. Unique H1/first passage — do not 301.", bold=True)
 
     heading(doc, "6.3 Cheap vs affordable", 2)
     add_p(
@@ -420,7 +467,7 @@ def main():
         "Affordable adds “Every Charter Includes: Captain, Crew, Fuel…” and then the shared widget says "
         "“Crew and fuel are additional.” That is a contradiction on the same URL.",
     )
-    add_p(doc, "Decision: merge. One budget page, or a filter on the owner hub. Never both.", bold=True)
+    add_p(doc, "Decision: KEEP both as own rankers. Hub/widget pricing is out of scope. Specials/deals that collapse here are CHG-012.", bold=True)
 
     heading(doc, "6.4 Panama  ·  /panama-yacht-rentals/", 2)
     add_p(
@@ -440,10 +487,10 @@ def main():
             score_row("Information gain", 3, "Route pricing is the unique gain. Deepen inclusions/exclusions."),
             score_row("Bridges", 3, "Needs tighter links from tips and tours back to this owner."),
             score_row("Cannibalization safety", 3, "Directory / party / sales exist but are not clones of this hub."),
-            score_row("Trust", 3, "Phone disagrees with the contact page (see §8)."),
+            score_row("Trust", 4, "City phone on this page is intentional (operator)."),
         ],
     )
-    add_p(doc, "Decision: keep and reinforce. This is the template for Miami after the merge.", bold=True)
+    add_p(doc, "Decision: KEEP. Already ranks in Panama. Do not merge into the homepage.", bold=True)
 
     heading(doc, "6.5 Fort Lauderdale  ·  /fort-lauderdale-yacht-rentals/", 2)
     add_p(
@@ -453,7 +500,7 @@ def main():
         "“We are the ONLY company in Miami that gives away A FREE HOUR.” Superlative + wrong city "
         "on a Fort Lauderdale slug. Typos (“Avaliable”). Older template than the Miami neon inventory.",
     )
-    add_p(doc, "Decision: rewrite as a true FTL/Haulover location page, or 301 into Miami location architecture.", bold=True)
+    add_p(doc, "Decision: rewrite so this URL can rank as Fort Lauderdale. If the next H1 stays North Miami, FTL cannot rank on its own.", bold=True)
 
     heading(doc, "6.6 Vessel listing  ·  /fleet/miami/26ft-bayliner-fendi/", 2)
     add_p(
@@ -464,7 +511,7 @@ def main():
         "cap, a 40-person selector is a safety and trust defect, not an SEO nit. "
         "A cheapest-folder twin also exists. One vessel, one URL.",
     )
-    add_p(doc, "Decision: keep /fleet/miami/{slug}/ as the listing pattern. 301 folder copies. Lock capacity to the real max.", bold=True)
+    add_p(doc, "Decision: hub/listing price is out of scope (operator). 301 only a thin second URL for the same boat.", bold=True)
 
     heading(doc, "6.7 Outer node that works  ·  /miami-yacht-tips/birthday-yacht-itinerary-miami/", 2)
     add_p(
@@ -492,11 +539,11 @@ def main():
     heading(doc, "7. Brand identity and Brand SERP", 1)
     add_p(
         doc,
-        "Playbook E: the brand query should resolve to a yacht charter operator with one NAP and "
-        "one story. Snapshot for “Feeling Yachty” (Firecrawl search, 14 August 2026): official site, "
+        "Playbook E: the brand query should resolve to a yacht charter operator with a stable story. "
+        "Snapshot for “Feeling Yachty” (Firecrawl search, 14 August 2026): official site, "
         "Instagram @feeling.yachty, Yelp, Tripadvisor, Trustpilot, Facebook. Panama is an emoji on "
-        "Instagram, not a second Brand SERP estate. That is acceptable if Miami is the demand center. "
-        "It is not acceptable if phones and addresses disagree.",
+        "Instagram, not a second Brand SERP estate. Operator lock: Miami vs Panama phone numbers "
+        "are intentional. Do not unify them."
     )
     add_table(
         doc,
@@ -514,9 +561,9 @@ def main():
     )
     add_p(
         doc,
-        "Jason Barnard’s Brand SERP point (as Koray cites it): corroboration. Right now third-party "
-        "profiles and on-site pages are teaching the entity different phone numbers. Fix the sources. "
-        "Do not add more neighborhood GBPs until NAP is one row.",
+        "Jason Barnard’s Brand SERP point (as Koray cites it): corroboration. Third-party profiles "
+        "may still show older Miami numbers. That is a listings-cleanup item if you want it later — "
+        "not a reason to change the city-specific numbers on the site. Review integers go to the shortcode."
     )
     add_p(
         doc,
@@ -534,25 +581,24 @@ def main():
         "Use Taboga / Contadora / San Blas facts you can stand behind — do not copy Miami sandbar copy.",
     )
 
-    heading(doc, "8. Contradiction hunt (must fix before new content)", 1)
+    heading(doc, "8. What still blocks a URL from ranking on its own", 1)
     add_p(
         doc,
-        "Koray: historical data compounds when facts stay stable. PACMAN upgrade: hunt contradictions "
-        "before publish. These are live today.",
+        "Operator lock: phones and hub/pricing are out of scope. Review integers move to shortcodes. "
+        "These rows are the remaining own-page blockers.",
     )
     add_table(
         doc,
-        ["Fact", "Version A", "Version B", "Risk"],
+        ["Fact", "Version A", "Version B", "Disposition"],
         [
-            ["Inclusions", "Cheap/affordable/FTL: all fees / captain / fuel included", "Shared widget: “Crew and fuel are additional.”", "Guest + crawler distrust. Possible ads issue."],
-            ["Deposit", "Only $1,400+ pays 20%", "Fendi listing: “Due today $500” plus 20% rule for $1,400+", "Needs one ruleset in writing."],
-            ["Fendi price", "Hub card: $800 / 4 hours", "Listing: $500 due today", "Same entity, two prices."],
-            ["Fendi capacity", "Hub: max 13", "Listing selector: 1–40", "Safety + legal. Fix even if SEO were perfect."],
-            ["Reviews", "1,300+ / 2,400+ / 2,500+ / 2,700+", "Tripadvisor badge 2025 cited", "Pick one audited number or say “reviews across platforms” with no integer."],
-            ["Panama phone", "202-1729", "202-1279", "Leads go to the wrong line."],
-            ["US phones", "954 / 754 / 786", "Three public numbers", "Brand SERP fragmentation."],
-            ["City", "FTL slug", "North Miami H1", "Wrong entity on the URL."],
-            ["Superlative", "“ONLY company in Miami that gives away a free hour”", "Unverified on-page", "Remove or prove."],
+            ["Reviews", "1,300+ / 2,400+ / 2,500+ / 2,700+", "Hard-coded while the brand grew", "CHG-011 shortcode. Operator will add."],
+            ["City", "FTL slug", "North Miami H1", "CHG-007. FTL cannot rank as FTL until the body stays FTL."],
+            ["Destinations slug", "/miami-yacht-destinations/", "Live content is List your boat", "CHG-007. Cannot rank for destinations."],
+            ["Panama sales slug", "/panama-yacht-sales/", "Live content is Miami rental", "CHG-007. Cannot rank as Panama sales."],
+            ["Reviews slug", "/feeling-yachty-reviews/", "Jet Ski H1", "CHG-007. Cannot rank as reviews."],
+            ["Collapsed URLs", "/yacht-specials/, /miami-yacht-deals/, /miami-yacht-rentals/", "Resolve to another template", "CHG-012. Not ranking on their own."],
+            ["Indexed junk", "/test/, cart, checkout, Elementor leftovers", "In the sitemap", "CHG-004. noindex / drop."],
+            ["Inclusions / Fendi price / phones", "Seen on scrape", "Operator lock", "Out of scope. Do not ticket."],
         ],
     )
 
@@ -595,91 +641,83 @@ def main():
     add_p(
         doc,
         "Almost 1:1 EN/ES URL count (861 / 860) means you cloned the graph, including the problems. "
-        "hreflang tags on the page sitemap are present. Good. Do not translate junk. When you 301 a "
-        "duplicate EN hub, 301 its /es/ twin in the same change. Spanish home should follow the new "
-        "brand roof, not “Alquiler de yates en Miami” as the corporate H1 unless Spanish demand is "
-        "Miami-only — and even then the brand still needs a roof.",
+        "hreflang tags on the page sitemap are present. Good. Do not translate junk. Spanish home "
+        "is the Miami homepage twin (“Alquiler de yates en Miami”) — that is correct under the "
+        "operator lock. When you change an English URL, apply the same action to its /es/ twin "
+        "in the same deploy. Do not merge ES Panama into ES Miami home."
     )
 
     heading(doc, "12. What is already working (do not break)", 1)
     bullet(doc, "Commercial machinery: WhatsApp deep links, click-to-call, GHL scheduling widget (LeadConnector).")
     bullet(doc, "Listing cards with duration × price tables. Panama route × price tables.")
-    bullet(doc, "Filters (size, pink, free hour, budget) — these are attributes. Keep them on ONE hub.")
-    bullet(doc, "Founder attribution and Tripadvisor / review surfaces — after the numbers are reconciled.")
+    bullet(doc, "Filters (size, pink, free hour, budget) — keep them; do not use filters as a reason to 301 hubs.")
+    bullet(doc, "Founder attribution and Tripadvisor / review surfaces — wire counts to the shortcode.")
     bullet(doc, "hreflang scaffolding.")
     bullet(doc, "The birthday itinerary tip as a model outer node.")
-    bullet(doc, "Panama money page structure — copy this discipline to Miami after the merge.")
+    bullet(doc, "Panama money page structure — keep it; do not fold it into the homepage.")
 
-    heading(doc, "13. Priority queue (no calendar theater)", 1)
-    add_p(doc, "Tier 0 — trust. Ship before any new blog node.", bold=True)
-    bullet(doc, "One US phone, one Panama phone, one address set. Align site, GBP, Yelp, Facebook, schema.")
-    bullet(doc, "One review sentence. Either an audited integer or no integer.")
-    bullet(doc, "One inclusions rule. The widget and the H2 cannot disagree.")
-    bullet(doc, "Noindex tests, cart, checkout, Elementor leftovers, /l00-person…")
-    bullet(doc, "Lock listing capacity and price to ops truth (Fendi is the exhibit).")
-    add_p(doc, "Tier 1 — ownership.", bold=True)
-    bullet(doc, "Write the query → URL table. Approve it. Then 301.")
-    bullet(doc, "Homepage becomes brand + Miami + Panama. Miami H1 moves off /.")
-    bullet(doc, "Merge /miami-yacht-charters/ into /miami-yacht-rental/ (or the reverse — pick one slug and stop).")
-    bullet(doc, "Merge cheap/affordable. Rewrite Fort Lauderdale or demote it.")
-    bullet(doc, "One canonical per vessel. Kill cheapest-folder and CPT copies.")
+    heading(doc, "13. Priority queue (operator-adjusted)", 1)
+    add_p(doc, "Tier 0 — junk and shortcodes. Ship before any new blog node.", bold=True)
+    bullet(doc, "Noindex tests, cart, checkout, Elementor leftovers (Excel CHG-004).")
+    bullet(doc, "Review shortcode so one edit updates every template (Excel CHG-011). Operator is adding this.")
+    bullet(doc, "Leave city phones and hub/listing prices alone.")
+    add_p(doc, "Tier 1 — each page/city ranks on its own.", bold=True)
+    bullet(doc, "Homepage stays the Miami ranker. Panama hub stays the Panama ranker.")
+    bullet(doc, "Do not 301 Miami hubs together. Give each URL a unique H1/first passage for its query.")
+    bullet(doc, "Un-collapse /yacht-specials/, /miami-yacht-deals/, /miami-yacht-rentals/ or accept them as aliases (CHG-012).")
+    bullet(doc, "Fix wrong-entity slugs so they can rank for themselves: FTL≠North Miami, destinations≠list-your-boat, panama-sales≠Miami rental, reviews≠jet ski, /l00-person/ typo (CHG-007).")
     add_p(doc, "Tier 2 — map and outer.", bold=True)
-    bullet(doc, "Freeze auto-blog until topics are on the map.")
-    bullet(doc, "Keep/upgrade tips that pass the birthday-itinerary bar. Prune the rest.")
-    bullet(doc, "Occasion hubs with different H1s than the Miami head term.")
+    bullet(doc, "Keep/upgrade tips that help a city/page rank (birthday-itinerary bar). Prune TEST and thin automation posts.")
+    bullet(doc, "Move Panama vessels out of /fleet/miami-catering/.")
+    bullet(doc, "Fix orphan /miami-yacht-rental/{boat}/ links that are not in the sitemap.")
     add_p(doc, "Tier 3 — reinforcement.", bold=True)
-    bullet(doc, "Only after ownership is clean: deepen Miami EAV (inclusions matrix, departure marinas, occasion FAQs) on the single owner.")
-    bullet(doc, "Mirror Panama’s route-style clarity onto Miami itineraries (sandbar vs skyline vs Key Biscayne) as attributes, not new money URLs.")
+    bullet(doc, "Deepen unique facts on each ranking URL (not a single merged owner).")
+    bullet(doc, "Spanish twin follows the English page it translates. Do not merge ES Panama into ES Miami home.")
 
     heading(doc, "14. Open facts needed from ops (do not invent)", 1)
-    bullet(doc, "Canonical US and Panama phone + WhatsApp + booking hours.")
-    bullet(doc, "Legal passenger caps per vessel; who may exceed 13 and on which boats.")
-    bullet(doc, "What “included” means: captain, crew, fuel, ice, dock fees, gratuity.")
-    bullet(doc, "How many unique bookable vessels exist this week in Miami vs Panama — not “400+” until defined.")
-    bullet(doc, "Which review integer you will stand behind, and which platforms it includes.")
-    bullet(doc, "Whether Fort Lauderdale / Haulover is a real departure product or a Miami-area alias.")
-    bullet(doc, "Whether Panama yacht maintenance / sales / horseback are real sold lines.")
+    bullet(doc, "Which review integer the shortcode should print, and which platforms it includes.")
+    bullet(doc, "Whether Fort Lauderdale / Haulover is meant to rank as its own city (if yes, the H1/body must stay FTL).")
+    bullet(doc, "Whether Panama yacht sales is a real sold line (live page is Miami rental copy).")
+    bullet(doc, "Whether /yacht-specials/ and /miami-yacht-deals/ should become unique rankers or stay aliases.")
     bullet(doc, "Whether every /es/ URL is a true translation or a stub.")
 
     heading(doc, "15. Megaman’s read", 1)
     add_p(
         doc,
-        "Cori’s framework is the right judge for this site, and the site is currently using the "
-        "wrong half of it. You have coverage. You do not have borders. You have entities (boats, "
-        "cities, occasions). You do not have one document per entity type. You have historical "
-        "publishing (tips updated today). You do not have historical consistency (phones, prices, "
-        "review counts).",
+        "Got it. Home is the Miami ranker. Panama already has its own ranking URL. The job is "
+        "not to merge hubs — it is to make every page and every city able to rank on its own. "
+        "Phones stay city-specific. Review counts move to shortcodes as you grow. Hub pricing "
+        "is out of scope.",
     )
     add_p(
         doc,
-        "If we apply the framework honestly, the next month of SEO work is subtraction and "
-        "alignment, not another 40 posts. Corey should not get a “write more Miami tips” brief "
-        "until the ownership table is approved. Pacman should verify the 301s and the NAP pass "
-        "the way he verifies a meta change: live, not by word count.",
+        "The remaining work is subtraction of junk, un-collapsing aliases, and fixing slugs "
+        "whose live H1 is a different city or entity. Corey stays approval-gated on the Excel "
+        "CHANGE_QUEUE. Pacman verifies live.",
     )
     add_p(
         doc,
-        "I can turn §13 into a Corey proposal (map + 301 list + homepage brief) when you want "
-        "that gated. This document is the audit, not the implementation.",
+        "This document is the audit. Approve tickets in the Excel. I will not reopen OP-001 or OP-002.",
         italic=True,
     )
 
-    heading(doc, "Appendix A — Recommended owner URLs (draft)", 1)
+    heading(doc, "Appendix A — Ranking URLs (operator lock)", 1)
     add_table(
         doc,
-        ["Cluster", "Owner URL"],
+        ["Cluster", "Ranking URL"],
         [
-            ["Brand", "https://feelingyachty.com/"],
-            ["Miami charter (head)", "https://feelingyachty.com/miami-yacht-rental/"],
-            ["Panama charter (head)", "https://feelingyachty.com/panama-yacht-rentals/"],
-            ["Contact / NAP", "https://feelingyachty.com/contact-feeling-yachty/"],
+            ["Miami (homepage ranker)", "https://feelingyachty.com/"],
+            ["Miami rental (own page)", "https://feelingyachty.com/miami-yacht-rental/"],
+            ["Miami charters (own page)", "https://feelingyachty.com/miami-yacht-charters/"],
+            ["Panama (already ranks)", "https://feelingyachty.com/panama-yacht-rentals/"],
+            ["Contact (city phones OK)", "https://feelingyachty.com/contact-feeling-yachty/"],
             ["Safety / crew", "https://feelingyachty.com/feeling-yachty-crew/"],
-            ["Reviews", "https://feelingyachty.com/feeling-yachty-reviews/"],
+            ["Reviews (fix Jet Ski H1)", "https://feelingyachty.com/feeling-yachty-reviews/"],
             ["Pink Miami", "https://feelingyachty.com/miami-pink-yacht-rentals/"],
             ["Party / occasion Miami", "https://feelingyachty.com/miami-yacht-party/"],
             ["Birthday KNOW", "https://feelingyachty.com/miami-yacht-tips/birthday-yacht-itinerary-miami/"],
             ["Vessel pattern", "https://feelingyachty.com/fleet/miami/{vessel-slug}/"],
-            ["Book / convert", "https://feelingyachty.com/book/  (or GHL only — do not let it rank as a money clone)"],
+            ["Book / convert", "https://feelingyachty.com/book/  (login — do not let it rank as a money clone)"],
         ],
     )
 
