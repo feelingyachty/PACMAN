@@ -6,7 +6,8 @@ Persona: **Koray** — SEO lead trained on Koray SEO Semantics (public Holistic 
 
 | Date | Primary idea | Technique | Status |
 |------|--------------|-----------|--------|
-| [2026-08-21](./2026-08-21.md) | Cut cost of retrieval: noindex indexed junk + fix wrong-entity H1s | T04 + T05 | Delivered |
+| [2026-08-21](./2026-08-21.md) (kickoff) | Cut cost of retrieval: noindex indexed junk + fix wrong-entity H1s | T04 + T05 | Delivered |
+| [2026-08-21](./2026-08-21.md#800-am-et--scheduled-brief-lock-query-cluster-ownership-no-hub-merges) (8am ET) | Lock query-cluster ownership; resolve collapsed aliases (CHG-012) | T03 + T12 | Delivered |
 
 ## Rules
 
