@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "name": "Koray SEO Semantics — Technique Database",
+    "agent_persona": "Koray (Feeling Yachty SEO lead)",
+    "source_author": "Koray Tuğberk GÜBÜR (Holistic SEO & Digital)",
+    "user_alias": "Corey Tongberg",
+    "scope": "Public white papers + theoretical guides only; not paywalled course videos",
+    "site": "feelingyachty.com",
+    "source_context_lock": "Feeling Yachty is a private yacht charter / experiences brand (Miami, Panama, and served destinations) — not a generic travel magazine.",
+    "operator_locks": [
+      "Homepage H1 Miami Yacht Rental stays; home is the Miami ranker",
+      "/panama-yacht-rentals/ stays its own city page",
+      "Every page and every city ranks on its own — do not 301 Miami hubs together",
+      "Review counts → shortcodes (CHG-011)",
+      "Miami vs Panama phones intentional — do not unify",
+      "Hub / listing pricing out of scope"
+    ],
+    "sources_index": "docs/seo/koray-framework/INDEX.md",
+    "skill_pack": "skills/seo-corey-tongberg/",
+    "updated": "2026-08-21"
+  },
+  "pillars": [
+    {
+      "id": "topical-authority",
+      "name": "Topical Authority",
+      "formula_public": "((Historical Data × Topical Coverage) ÷ Cost of Retrieval) × Right Visual Annotations",
+      "summary": "Positive ranking state when a source covers connected queries/intents with accurate, unique, expert information — not when it merely has a blog.",
+      "fy_use": "Earn authority for private yacht charter in Miami/Panama by completing the topical map, not by random tip posts."
+    },
+    {
+      "id": "source-context",
+      "name": "Source Context",
+      "summary": "Website perspective + monetization purpose that defines how every entity is framed.",
+      "fy_use": "Every page must answer as a charter operator (bookings, inclusions, routes, capacity) — not as a travel magazine."
+    },
+    {
+      "id": "brand-identity",
+      "name": "Brand Identity (Semantic)",
+      "summary": "Purpose + attributes (founder, NAP, expertise, 3rd-party definitions) that must cohere with source context.",
+      "fy_use": "Consistent Feeling Yachty NAP, review counts, Miami vs Panama identity, Brand SERP ownership."
+    },
+    {
+      "id": "contextual-bridges",
+      "name": "Contextual Bridges",
+      "summary": "Phrase/concept links between side-topics that keep internal links inside compatible query templates.",
+      "fy_use": "Tips → money pages; occasions → vessel classes; Panama routes → Panama hub — never orphaned posts."
+    },
+    {
+      "id": "topical-map",
+      "name": "Topical Map / Semantic Content Network",
+      "summary": "Planned graph of documents from query–document–intent templates with core vs outer vs reject layers.",
+      "fy_use": "Core = charter money + yacht types + occasions; Outer = planning guides with bridges; Reject = thin AI / wrong city / test junk."
+    },
+    {
+      "id": "eav",
+      "name": "Entity–Attribute–Value (EAV)",
+      "summary": "Make entities, attributes, and values explicit so neural matching can map incomplete queries to documents.",
+      "fy_use": "Yacht: capacity, length, amenities, departure, duration, inclusions. Destination: marina, route, landmarks, season."
+    },
+    {
+      "id": "cost-of-retrieval",
+      "name": "Cost of Retrieval",
+      "summary": "Cost to crawl, render, evaluate, index, and serve a document relative to its value.",
+      "fy_use": "noindex test/cart/checkout; prune thin tips; one owner per query cluster; fix broken/orphan vessel links."
+    },
+    {
+      "id": "historical-data",
+      "name": "Historical Data",
+      "summary": "Accumulated satisfaction, consistency, and crawl/behavior evidence over time.",
+      "fy_use": "Steady map completion + updates beat bursty off-map publishing."
+    },
+    {
+      "id": "algorithmic-authorship",
+      "name": "Algorithmic Authorship",
+      "summary": "Rule-based writing: one macro context, question headings, extractive answers, short dependency trees, SERP-matched formats.",
+      "fy_use": "H2 as user questions; ~40-word direct answers; tables/lists for capacity/pricing process; no repeated facts."
+    }
+  ],
+  "techniques": [
+    {
+      "id": "T01",
+      "name": "Lock source context before writing",
+      "pillar": "source-context",
+      "steps": [
+        "Write one paragraph defining monetization + purpose",
+        "Reject topics that conflict with primary focus",
+        "Frame every entity definition from the charter-operator angle"
+      ],
+      "fy_application": "All briefs open with: private yacht charter / experiences brand for served cities.",
+      "priority": "foundation",
+      "related_playbook": "A"
+    },
+    {
+      "id": "T02",
+      "name": "Build topical map (core / outer / reject)",
+      "pillar": "topical-map",
+      "steps": [
+        "Inventory entity types (destinations, yacht classes, occasions, durations, amenities)",
+        "Draft attributes per entity type",
+        "Assign query templates → planned URLs",
+        "Mark core vs outer vs reject",
+        "List centroids, gaps, and bridges",
+        "Publish priority queue"
+      ],
+      "fy_application": "Miami + Panama maps with separate city ownership; no merging hubs.",
+      "priority": "foundation",
+      "related_playbook": "A"
+    },
+    {
+      "id": "T03",
+      "name": "Query-cluster ownership registry",
+      "pillar": "cost-of-retrieval",
+      "steps": [
+        "Cluster queries by intent (not single keywords)",
+        "Assign one owner URL per cluster",
+        "List supporting URLs with bridge roles",
+        "Stop new pages that compete with the owner",
+        "Point internal links to the owner"
+      ],
+      "fy_application": "Use audits OWNERSHIP sheet (miami-vessel 134 competitors, etc.). Approve owners without 301-merging hubs.",
+      "priority": "P0",
+      "related_playbook": "A",
+      "audit_refs": ["OWNERSHIP", "CHG-012"]
+    },
+    {
+      "id": "T04",
+      "name": "Prune indexed junk (lower cost of retrieval)",
+      "pillar": "cost-of-retrieval",
+      "steps": [
+        "Find test, cart, checkout, Elementor leftovers in sitemap",
+        "noindex + remove from sitemap",
+        "Draft/trash in WordPress"
+      ],
+      "fy_application": "CHG-004: /test/, /cart/, /checkout/, /confirmed/, /12-2/, Elementor leftovers.",
+      "priority": "P0",
+      "related_playbook": "C",
+      "audit_refs": ["CHG-004"]
+    },
+    {
+      "id": "T05",
+      "name": "Wrong-entity H1/slug alignment",
+      "pillar": "eav",
+      "steps": [
+        "Scrape H1 vs URL vs body entities",
+        "Rewrite H1/slug so the page’s primary entity matches its ranking job",
+        "Keep each city page ranking for its own city"
+      ],
+      "fy_application": "CHG-007: FTL≠North Miami, destinations≠list-your-boat, panama-sales≠Miami rental, typo slugs.",
+      "priority": "P0",
+      "related_playbook": "C",
+      "audit_refs": ["CHG-007"]
+    },
+    {
+      "id": "T06",
+      "name": "EAV completeness on money + vessel pages",
+      "pillar": "eav",
+      "steps": [
+        "List key attributes for the entity set",
+        "Ensure each attribute has an explicit value in prose/table",
+        "Order attributes by prominence to charter shopping",
+        "Make triples question-ready"
+      ],
+      "fy_application": "Vessel pages: capacity, length band, crew, amenities, ideal occasions, departure options, inclusions/exclusions.",
+      "priority": "P1",
+      "related_playbook": "B"
+    },
+    {
+      "id": "T07",
+      "name": "Heading vectors + extractive answers",
+      "pillar": "algorithmic-authorship",
+      "steps": [
+        "H1 = primary commercial/macro intent",
+        "H2s as distinct user questions",
+        "First ~40 words under H2 = direct answer",
+        "No repeated facts across sections",
+        "Match format to SERP (list/table/definition/FAQ)"
+      ],
+      "fy_application": "Homepage FAQ already question-shaped — tighten extractive answers; replicate on occasion hubs.",
+      "priority": "P1",
+      "related_playbook": "B"
+    },
+    {
+      "id": "T08",
+      "name": "Contextual bridge internal linking",
+      "pillar": "contextual-bridges",
+      "steps": [
+        "Write bridge sentence sharing entities/predicates",
+        "Max ~1 contextual link per heading section",
+        "Anchor text must appear on target page",
+        "Prefer I-node in-content links over footer spam",
+        "Side-topic links from supplementary content only"
+      ],
+      "fy_application": "Bachelor tips → miami-yacht-party; capacity guides → vessel owner; Panama tips → /panama-yacht-rentals/.",
+      "priority": "P1",
+      "related_playbook": "B",
+      "audit_refs": ["CHG-008", "BROKEN_OR_ALIASES"]
+    },
+    {
+      "id": "T09",
+      "name": "Expand map via entities/attributes/depth/gaps",
+      "pillar": "topical-map",
+      "steps": [
+        "More entities of same type (yacht classes / served destinations only)",
+        "More attributes of existing entities",
+        "Deepen context with consistent definitions",
+        "Close gaps between centroids with bridges — not random posts"
+      ],
+      "fy_application": "Fill corporate/ash-scattering/route depth where money pages already signal demand; do not invent cities FY does not serve.",
+      "priority": "P2",
+      "related_playbook": "A"
+    },
+    {
+      "id": "T10",
+      "name": "Tips quality gate (source-context filter)",
+      "pillar": "source-context",
+      "steps": [
+        "Keep tips that help a city/page rank with charter predicates",
+        "Prune TEST and thin automation posts",
+        "Deduplicate near-identical cost/theme posts into one owner + supports"
+      ],
+      "fy_application": "CHG-009 + bachelorette cost URL duplicates under /miami-yacht-tips/.",
+      "priority": "P2",
+      "related_playbook": "C",
+      "audit_refs": ["CHG-009"]
+    },
+    {
+      "id": "T11",
+      "name": "Brand SERP + entity identity hardening",
+      "pillar": "brand-identity",
+      "steps": [
+        "Consistent NAP + about facts across site/GBP",
+        "Single review-count source of truth",
+        "Corroborate on 3rd-party platforms",
+        "Suppress contradictory definitions"
+      ],
+      "fy_application": "CHG-011 review shortcode; keep city phones separate per OP-002.",
+      "priority": "P1",
+      "related_playbook": "D",
+      "audit_refs": ["CHG-011", "OP-002"]
+    },
+    {
+      "id": "T12",
+      "name": "Un-collapse aliased money URLs",
+      "pillar": "cost-of-retrieval",
+      "steps": [
+        "Detect URLs that resolve to another template",
+        "Either unique content for own ranking job or accept as alias and stop linking as owners"
+      ],
+      "fy_application": "CHG-012: /yacht-specials/, /miami-yacht-deals/, /miami-yacht-rentals/ currently collapse.",
+      "priority": "P1",
+      "related_playbook": "C",
+      "audit_refs": ["CHG-012"]
+    },
+    {
+      "id": "T13",
+      "name": "Folder/path city integrity",
+      "pillar": "source-context",
+      "steps": [
+        "URL path city must match page entity city",
+        "Move misfiled vessels/services"
+      ],
+      "fy_application": "CHG-006: Panama boats under /fleet/miami-catering/.",
+      "priority": "P2",
+      "audit_refs": ["CHG-006"]
+    },
+    {
+      "id": "T14",
+      "name": "ES twin inherits EN owner",
+      "pillar": "topical-map",
+      "steps": [
+        "Spanish URL follows English query-cluster owner",
+        "Do not merge ES Panama into ES Miami home",
+        "Maintain hreflang pairs"
+      ],
+      "fy_application": "CHG-010 across /es/* (860 ES-twin pages).",
+      "priority": "P1",
+      "audit_refs": ["CHG-010"]
+    },
+    {
+      "id": "T15",
+      "name": "Unique information gain",
+      "pillar": "topical-authority",
+      "steps": [
+        "Answer questions competitors miss",
+        "Use real ops knowledge only",
+        "Mark [FACT NEEDED] instead of inventing prices/fleet"
+      ],
+      "fy_application": "Real itineraries, inclusions transparency, marina logistics, capacity guidance.",
+      "priority": "P1",
+      "related_playbook": "B"
+    },
+    {
+      "id": "T16",
+      "name": "Historical data cadence",
+      "pillar": "historical-data",
+      "steps": [
+        "Publish/update on map schedule",
+        "Measure post-publish (impressions, query ownership, CTR)",
+        "Revise networks after initial ranking"
+      ],
+      "fy_application": "Daily Koray briefs + weekly Learning log; no off-map AI spam bursts.",
+      "priority": "P2",
+      "related_playbook": "E"
+    }
+  ],
+  "fy_entity_types_core": [
+    "destination_zone",
+    "yacht_class",
+    "vessel_listing",
+    "occasion",
+    "duration_package",
+    "add_on_service",
+    "booking_process",
+    "safety_policy"
+  ],
+  "fy_query_templates": [
+    "{yacht type} charter {city}",
+    "private yacht charter {city}",
+    "{occasion} yacht {city}",
+    "yacht charter price {city}",
+    "best yacht charter {city}",
+    "{landmark} by yacht",
+    "what's included yacht charter",
+    "Feeling Yachty {city}"
+  ],
+  "daily_update_policy": {
+    "cadence": "Every day at 08:00 America/New_York",
+    "persona": "Koray",
+    "format": [
+      "One primary idea (technique id + FY action)",
+      "Koray rationale (1 short paragraph)",
+      "Concrete steps (checklist)",
+      "Approval gate if CHANGE_QUEUE ticket",
+      "Tomorrow preview (optional)"
+    ],
+    "path": "docs/seo/daily-updates/YYYY-MM-DD.md",
+    "respect_operator_locks": true,
+    "never_invent_facts": true
+  }
+}

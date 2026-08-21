@@ -1,0 +1,7 @@
+---
+description: Use Koray/Corey Tongberg Holistic SEO skill for organic SEO work
+globs:
+alwaysApply: false
+---
+
+When the user asks about SEO, topical authority, semantic SEO, content strategy, charter landing pages, blogs for ranking, or "Corey Tongberg" / Koray — read and follow `skills/seo-corey-tongberg/SKILL.md` before producing content or IA changes. Prefer topical maps and briefs over one-off blog posts. Never invent fleet facts or traffic metrics. After research, log the sources to `data/learning/` (POST `/api/learning` or `scripts/log-learning.sh`) so Fernando can reopen them on the Learning tab.
