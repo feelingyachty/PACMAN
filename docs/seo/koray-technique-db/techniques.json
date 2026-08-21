@@ -1,18 +1,18 @@
 {
   "meta": {
-    "name": "Koray SEO Semantics — Technique Database",
+    "name": "Koray SEO Semantics \u2014 Technique Database",
     "agent_persona": "Koray (Feeling Yachty SEO lead)",
-    "source_author": "Koray Tuğberk GÜBÜR (Holistic SEO & Digital)",
+    "source_author": "Koray Tu\u011fberk G\u00dcB\u00dcR (Holistic SEO & Digital)",
     "user_alias": "Corey Tongberg",
     "scope": "Public white papers + theoretical guides only; not paywalled course videos",
     "site": "feelingyachty.com",
-    "source_context_lock": "Feeling Yachty is a private yacht charter / experiences brand (Miami, Panama, and served destinations) — not a generic travel magazine.",
+    "source_context_lock": "Feeling Yachty is a private yacht charter / experiences brand (Miami, Panama, and served destinations) \u2014 not a generic travel magazine.",
     "operator_locks": [
       "Homepage H1 Miami Yacht Rental stays; home is the Miami ranker",
       "/panama-yacht-rentals/ stays its own city page",
-      "Every page and every city ranks on its own — do not 301 Miami hubs together",
-      "Review counts → shortcodes (CHG-011)",
-      "Miami vs Panama phones intentional — do not unify",
+      "Every page and every city ranks on its own \u2014 do not 301 Miami hubs together",
+      "Review counts \u2192 shortcodes (CHG-011)",
+      "Miami vs Panama phones intentional \u2014 do not unify",
       "Hub / listing pricing out of scope"
     ],
     "sources_index": "docs/seo/koray-framework/INDEX.md",
@@ -23,15 +23,15 @@
     {
       "id": "topical-authority",
       "name": "Topical Authority",
-      "formula_public": "((Historical Data × Topical Coverage) ÷ Cost of Retrieval) × Right Visual Annotations",
-      "summary": "Positive ranking state when a source covers connected queries/intents with accurate, unique, expert information — not when it merely has a blog.",
+      "formula_public": "((Historical Data \u00d7 Topical Coverage) \u00f7 Cost of Retrieval) \u00d7 Right Visual Annotations",
+      "summary": "Positive ranking state when a source covers connected queries/intents with accurate, unique, expert information \u2014 not when it merely has a blog.",
       "fy_use": "Earn authority for private yacht charter in Miami/Panama by completing the topical map, not by random tip posts."
     },
     {
       "id": "source-context",
       "name": "Source Context",
       "summary": "Website perspective + monetization purpose that defines how every entity is framed.",
-      "fy_use": "Every page must answer as a charter operator (bookings, inclusions, routes, capacity) — not as a travel magazine."
+      "fy_use": "Every page must answer as a charter operator (bookings, inclusions, routes, capacity) \u2014 not as a travel magazine."
     },
     {
       "id": "brand-identity",
@@ -43,17 +43,17 @@
       "id": "contextual-bridges",
       "name": "Contextual Bridges",
       "summary": "Phrase/concept links between side-topics that keep internal links inside compatible query templates.",
-      "fy_use": "Tips → money pages; occasions → vessel classes; Panama routes → Panama hub — never orphaned posts."
+      "fy_use": "Tips \u2192 money pages; occasions \u2192 vessel classes; Panama routes \u2192 Panama hub \u2014 never orphaned posts."
     },
     {
       "id": "topical-map",
       "name": "Topical Map / Semantic Content Network",
-      "summary": "Planned graph of documents from query–document–intent templates with core vs outer vs reject layers.",
+      "summary": "Planned graph of documents from query\u2013document\u2013intent templates with core vs outer vs reject layers.",
       "fy_use": "Core = charter money + yacht types + occasions; Outer = planning guides with bridges; Reject = thin AI / wrong city / test junk."
     },
     {
       "id": "eav",
-      "name": "Entity–Attribute–Value (EAV)",
+      "name": "Entity\u2013Attribute\u2013Value (EAV)",
       "summary": "Make entities, attributes, and values explicit so neural matching can map incomplete queries to documents.",
       "fy_use": "Yacht: capacity, length, amenities, departure, duration, inclusions. Destination: marina, route, landmarks, season."
     },
@@ -97,7 +97,7 @@
       "steps": [
         "Inventory entity types (destinations, yacht classes, occasions, durations, amenities)",
         "Draft attributes per entity type",
-        "Assign query templates → planned URLs",
+        "Assign query templates \u2192 planned URLs",
         "Mark core vs outer vs reject",
         "List centroids, gaps, and bridges",
         "Publish priority queue"
@@ -120,7 +120,10 @@
       "fy_application": "Use audits OWNERSHIP sheet (miami-vessel 134 competitors, etc.). Approve owners without 301-merging hubs.",
       "priority": "P0",
       "related_playbook": "A",
-      "audit_refs": ["OWNERSHIP", "CHG-012"]
+      "audit_refs": [
+        "OWNERSHIP",
+        "CHG-012"
+      ]
     },
     {
       "id": "T04",
@@ -134,7 +137,9 @@
       "fy_application": "CHG-004: /test/, /cart/, /checkout/, /confirmed/, /12-2/, Elementor leftovers.",
       "priority": "P0",
       "related_playbook": "C",
-      "audit_refs": ["CHG-004"]
+      "audit_refs": [
+        "CHG-004"
+      ]
     },
     {
       "id": "T05",
@@ -142,13 +147,15 @@
       "pillar": "eav",
       "steps": [
         "Scrape H1 vs URL vs body entities",
-        "Rewrite H1/slug so the page’s primary entity matches its ranking job",
+        "Rewrite H1/slug so the page\u2019s primary entity matches its ranking job",
         "Keep each city page ranking for its own city"
       ],
-      "fy_application": "CHG-007: FTL≠North Miami, destinations≠list-your-boat, panama-sales≠Miami rental, typo slugs.",
+      "fy_application": "CHG-007: FTL\u2260North Miami, destinations\u2260list-your-boat, panama-sales\u2260Miami rental, typo slugs.",
       "priority": "P0",
       "related_playbook": "C",
-      "audit_refs": ["CHG-007"]
+      "audit_refs": [
+        "CHG-007"
+      ]
     },
     {
       "id": "T06",
@@ -175,7 +182,7 @@
         "No repeated facts across sections",
         "Match format to SERP (list/table/definition/FAQ)"
       ],
-      "fy_application": "Homepage FAQ already question-shaped — tighten extractive answers; replicate on occasion hubs.",
+      "fy_application": "Homepage FAQ already question-shaped \u2014 tighten extractive answers; replicate on occasion hubs.",
       "priority": "P1",
       "related_playbook": "B"
     },
@@ -190,10 +197,13 @@
         "Prefer I-node in-content links over footer spam",
         "Side-topic links from supplementary content only"
       ],
-      "fy_application": "Bachelor tips → miami-yacht-party; capacity guides → vessel owner; Panama tips → /panama-yacht-rentals/.",
+      "fy_application": "Bachelor tips \u2192 miami-yacht-party; capacity guides \u2192 vessel owner; Panama tips \u2192 /panama-yacht-rentals/.",
       "priority": "P1",
       "related_playbook": "B",
-      "audit_refs": ["CHG-008", "BROKEN_OR_ALIASES"]
+      "audit_refs": [
+        "CHG-008",
+        "BROKEN_OR_ALIASES"
+      ]
     },
     {
       "id": "T09",
@@ -203,7 +213,7 @@
         "More entities of same type (yacht classes / served destinations only)",
         "More attributes of existing entities",
         "Deepen context with consistent definitions",
-        "Close gaps between centroids with bridges — not random posts"
+        "Close gaps between centroids with bridges \u2014 not random posts"
       ],
       "fy_application": "Fill corporate/ash-scattering/route depth where money pages already signal demand; do not invent cities FY does not serve.",
       "priority": "P2",
@@ -221,7 +231,9 @@
       "fy_application": "CHG-009 + bachelorette cost URL duplicates under /miami-yacht-tips/.",
       "priority": "P2",
       "related_playbook": "C",
-      "audit_refs": ["CHG-009"]
+      "audit_refs": [
+        "CHG-009"
+      ]
     },
     {
       "id": "T11",
@@ -236,7 +248,10 @@
       "fy_application": "CHG-011 review shortcode; keep city phones separate per OP-002.",
       "priority": "P1",
       "related_playbook": "D",
-      "audit_refs": ["CHG-011", "OP-002"]
+      "audit_refs": [
+        "CHG-011",
+        "OP-002"
+      ]
     },
     {
       "id": "T12",
@@ -249,7 +264,9 @@
       "fy_application": "CHG-012: /yacht-specials/, /miami-yacht-deals/, /miami-yacht-rentals/ currently collapse.",
       "priority": "P1",
       "related_playbook": "C",
-      "audit_refs": ["CHG-012"]
+      "audit_refs": [
+        "CHG-012"
+      ]
     },
     {
       "id": "T13",
@@ -261,7 +278,9 @@
       ],
       "fy_application": "CHG-006: Panama boats under /fleet/miami-catering/.",
       "priority": "P2",
-      "audit_refs": ["CHG-006"]
+      "audit_refs": [
+        "CHG-006"
+      ]
     },
     {
       "id": "T14",
@@ -274,7 +293,9 @@
       ],
       "fy_application": "CHG-010 across /es/* (860 ES-twin pages).",
       "priority": "P1",
-      "audit_refs": ["CHG-010"]
+      "audit_refs": [
+        "CHG-010"
+      ]
     },
     {
       "id": "T15",
@@ -327,14 +348,17 @@
     "cadence": "Every day at 08:00 America/New_York",
     "persona": "Koray",
     "format": [
-      "One primary idea (technique id + FY action)",
-      "Koray rationale (1 short paragraph)",
-      "Concrete steps (checklist)",
-      "Approval gate if CHANGE_QUEUE ticket",
-      "Tomorrow preview (optional)"
+      "One big idea in plain words",
+      "Why it helps (simple story/example)",
+      "Do-this checklist",
+      "Do-not-do list (operator locks)",
+      "Tomorrow preview in plain words",
+      "Ticket IDs for the team (CHG-xxx) kept at the end of lines or in a small label"
     ],
     "path": "docs/seo/daily-updates/YYYY-MM-DD.md",
     "respect_operator_locks": true,
-    "never_invent_facts": true
+    "never_invent_facts": true,
+    "reading_level": "4th grade",
+    "writing_rule": "Always explain at a 4th-grade reading level: short sentences, easy words, plain examples. Explain any needed SEO word in simple language."
   }
 }

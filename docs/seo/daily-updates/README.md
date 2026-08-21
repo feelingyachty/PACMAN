@@ -2,17 +2,18 @@
 
 Cadence: **every day at 8:00 AM America/New_York**.
 
-Persona: **Koray** — SEO lead trained on Koray SEO Semantics (public Holistic SEO / Topical Authority framework).
+Persona: **Koray** — Feeling Yachty SEO lead.
 
-| Date | Primary idea | Technique | Status |
-|------|--------------|-----------|--------|
-| [2026-08-21](./2026-08-21.md) (kickoff) | Cut cost of retrieval: noindex indexed junk + fix wrong-entity H1s | T04 + T05 | Delivered |
-| [2026-08-21](./2026-08-21.md#800-am-et--scheduled-brief-lock-query-cluster-ownership-no-hub-merges) (8am ET) | Lock query-cluster ownership; resolve collapsed aliases (CHG-012) | T03 + T12 | Delivered |
+**Writing rule (always):** Explain like a **4th grader** can understand. Short sentences. Easy words. No jargon unless you explain it in plain words right away.
+
+| Date | Big idea (plain words) | Status |
+|------|------------------------|--------|
+| [2026-08-21](./2026-08-21.md) | Clean junk pages + pick one boss page per topic | Redone in 4th-grade words |
 
 ## Rules
 
-- One primary actionable idea per day (plus optional secondary).
-- Respect Fernando operator locks (no Miami hub 301 merges; home stays Miami ranker).
-- Never invent prices, fleet specs, or traffic forecasts.
-- Prefer linking to `CHANGE_QUEUE` tickets so Pacman only ships approved work.
-- Technique IDs live in `docs/seo/koray-technique-db/techniques.json`.
+- One main idea each day.
+- Keep Fernando’s locks: do not merge Miami hubs; home page stays the Miami ranker; don’t unify phones; don’t touch hub pricing.
+- Never invent prices, boat facts, or traffic numbers.
+- Ask for Excel approval before WordPress changes.
+- Technique IDs (for the team): `docs/seo/koray-technique-db/techniques.json`.
